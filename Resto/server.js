@@ -94,4 +94,5 @@ const baseURL = "https://localhost:4000";
 */
 const server = app.listen(4000, function () {
     console.log("serveur fonctionne sur 4000... ! ");
+    console.log("http://localhost:4000/");
 });
