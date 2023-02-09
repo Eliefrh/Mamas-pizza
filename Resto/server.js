@@ -74,7 +74,7 @@ app.get('/', function (req, res) {
 
     con.query("SELECT * FROM e_events ORDER BY e_start_date DESC", function (
         err, result) {
-        res.render('pages/index', {
+        res.render('static/menu', {
             siteTitle: siteTitle,
             pageTitle: "Event list",
             items: result
