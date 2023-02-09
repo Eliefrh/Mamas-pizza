@@ -32,7 +32,7 @@ app.get('/', function (req, res) {
     /*
     get the event list with select from table
     */
-    res.render("pages/index", {titrePage: "Mamma's Pizza's"});
+    res.render("pages/index", { titrePage: "Mamma's Pizza's" });
 });
 
 app.use((req, res, next) => {
