@@ -8,12 +8,32 @@ const { Module } = require('module');
 import("dateformat");
 const now = new Date();
 
+module.exports = app;
 
+app.set('views', './views');
+app.set('view engine', 'ejs');
 /*connect to server */
 
 // const server = app.listen(4000, function () {
 //     console.log("serveur fonctionne sur 4000 ... !");
 // });
+
+/****
+ * 
+ * 
+ * importe all related JavaScript and CSS files to inject in our app
+ */
+app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
+app.use('/js', express.static(__dirname + '/node_modules + tether/dist/js'));
+app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'));
+app.use('/css/', express.static(__dirname + '/node_modules/bootstrap/dist/css'))
+
+app.get('/', function (req, res) {
+    /*
+    get the event list with select from table
+    */
+    res.render("pages/index", {titrePage: "Mamma's Pizza's"});
+});
 
 app.use((req, res, next) => {
     console.log('Requete recue! ');
@@ -29,28 +49,10 @@ app.use((req, res, next) => {
     console.log('Reponse envoyee avec succes !');
 });
 
-module.exports = app;
-
 /*
 * parse all form data
 */
 app.use(bodyParser.urlencoded({ extended: true }));
-module.exports = app;
-
-
-app.set('view engine', 'ejs');
-
-/****
- * 
- * 
- * importe all related JavaScript and CSS files to inject in our app
- */
-
-
-app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
-app.use('/js', express.static(__dirname + '/node_modules + tether/dist/js'));
-app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'));
-app.use('/css/', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 
 /*
 connection a la bd
@@ -67,20 +69,7 @@ const con = mysql.createConnection({
 /*
 get the event list
 */
-app.get('/', function (req, res) {
-    /*
-    get the event list with select from table
-    */
 
-    con.query("SELECT * FROM e_events ORDER BY e_start_date DESC", function (
-        err, result) {
-        res.render('pages/index', {
-            siteTitle: siteTitle,
-            pageTitle: "Event list",
-            items: result
-        });
-    });
-});
 
 /**
 * Titre global du site et url de base
