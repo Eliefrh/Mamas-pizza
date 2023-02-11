@@ -1,0 +1,12 @@
+#front-header {
+    background-color: grey;
+}
+
+.front-header-div {
+    height: 500px;
+    text-align: center;
+}
+
+#front-header-title {
+    font-size: 50px;
+}
