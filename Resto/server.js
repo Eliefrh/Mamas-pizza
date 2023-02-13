@@ -26,14 +26,38 @@ app.set('view engine', 'ejs');
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
 app.use('/js', express.static(__dirname + '/node_modules + tether/dist/js'));
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'));
-app.use('/css/', express.static(__dirname + '/node_modules/bootstrap/dist/css'))
+app.use('/css/', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
+app.use('/css/', express.static(__dirname + '/partials/css/style.css'));
 
 app.get('/', function (req, res) {
-    /*
-    get the event list with select from table
-    */
     res.render("pages/index", { titrePage: "Mamma's Pizza's" });
 });
+
+app.get('/login', function (req, res) {
+    res.render("pages/login", { titrePage: "Login" });
+});
+
+app.get('/signup', function (req, res) {
+    res.render("pages/signup", { titrePage: "Sign Up" });
+});
+
+app.get('/menu', function (req, res) {
+    res.render("pages/menu", { titrePage: "Menu" });
+});
+
+app.get('/panier', function (req, res) {
+    res.render("pages/panier", { titrePage: "Panier" });
+});
+
+app.get('/produitlist', function (req, res) {
+    res.render("pages/produit_list", { titrePage: "Produit List" });
+});
+
+app.get('/reservation', function (req, res) {
+    res.render("pages/reservation", { titrePage: "Reservation" });
+});
+
+
 
 app.use((req, res, next) => {
     console.log('Requete recue! ');

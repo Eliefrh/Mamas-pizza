@@ -2,14 +2,267 @@
 <html lang="en">
 <head>
   <%- include('../partials/head.ejs')%>
+  
+<style type="text/css">
+    .front-header {
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+      background-color: rgb(194, 105, 105);
+      height: 500px;
+  }
+  
+  #front-header-div {
+      text-align: center;
+      width: 50%;
+      float: left;
+  }
+
+  #front-header-text {
+    padding-top: 150px;
+  }
+
+  #front-header-small-text {
+    font-size: 20px;
+    color: white;
+    font-family: Arial;
+    font-style: italic;
+    font-weight: lighter;
+  }
+
+  #front-header-title {
+    font-size: 65px;
+    color: white;
+    font-family: cursive;
+  }
+
+  #front-header-img {
+    padding-top: 25px;
+    padding-left: 2.5%;
+  }
+
+  .nos-special-section {
+    margin: 5pc;
+    height: 400px;
+    background-color: rgb(185, 181, 181,0.8);
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  #nos-special-div {
+    width: 50%;
+    float: left;
+  }
+
+  #nos-special-txt {
+    padding-top: 20px;
+    padding-left: 20px;
+  }
+
+  #nos-special-title {
+    font-size: 40px;
+    font-family: cursive;
+    text-decoration: underline;
+    font-weight: lighter;
+    font-style: oblique;
+    color: white;
+  }
+
+  #nos-special-paragraphe {
+    font-size: 20px;
+    padding: 6pc;
+    text-align: justify;
+    color: white;
+    font-family: Arial;
+    font-style: italic;
+  }
+
+  .menu-section {
+    margin: 5pc;
+    border-radius: 10px;
+    height: 200px;
+    background-color: rgb(194, 105, 105);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  #menu-div {
+    width: 50%;
+    float: left;
+  }
+
+  #menu-paragraphe {
+    font-size: 20px;
+    padding: 2.5pc;
+    text-align: justify;
+    color: white;
+    font-family: Arial;
+    font-style: italic;
+  }
+
+  #menu-button {
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    border-color: white ;
+    background-color: transparent;
+    border-radius: 10px;
+    margin-top: 50px;
+    margin-left: 20%;
+    height: 100px;
+    width: 60%;
+    font-size: 35px;
+    color: white;
+    font-family: cursive;
+    text-decoration: underline;
+    font-weight: lighter;
+    font-style: oblique;
+  }
+
+  .sign-up-section {
+    height: 200px;
+    background-color: rgba(0, 0, 0, 0.8);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    margin: 5pc;
+    border-radius: 10px;
+  }
+
+  #sign-up-div {
+    width: 50%;
+    float: left;
+  }
+
+  #sign-up-button {
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    border-color: white ;
+    background-color: transparent;
+    border-radius: 10px;
+    margin-top: 50px;
+    margin-left: 20%;
+    height: 100px;
+    width: 60%;
+    font-size: 35px;
+    color: white;
+    font-family: cursive;
+    text-decoration: underline;
+    font-weight: lighter;
+    font-style: oblique;
+  }
+
+  #sign-up-paragraphe {
+    font-size: 20px;
+    padding: 2.5pc;
+    text-align: justify;
+    color: white;
+    font-family: Arial;
+    font-style: italic;
+  }
+
+  .a-propos-nous-section {
+    height: 600px;
+    background-color: rgb(185, 181, 181,0.8);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    margin: 5pc;
+    border-radius: 10px;
+  }
+
+  #a-propos-nous-div {
+    width: 50%;
+    float: left;
+  }
+
+  #a-propos-nous-titre {
+    font-weight: bold;
+    text-decoration: underline;
+    font-family: cursive;
+  }
+
+  #a-propos-nous-paragraphe {
+    font-size: 20px;
+    padding: 2pc;
+    text-align: justify;
+    color: white;
+    font-family: Arial;
+    font-style: italic;
+  }
+
+  #maps {
+    padding-left: 5%;
+    height: 350px;
+    width: 90%;
+    border-radius: 10px;
+  }
+</style>
+
 </head>
 <body>
   <%- include('../partials/navbar.ejs')%>
   
-  <section id="front-header">
+  <section class="front-header">
     <div id="front-header-div">
-      <span id="front-header-title">Mamma's Pizza's</span><br>
-      <span id="front-header-small-text">Savourez chaque tranche à la pizzeria Mama - La maison du meilleur croûton en ville!</span>
+      <div id="front-header-text">
+        <span id="front-header-title">Mamma's Pizza's</span><br>
+        <span id="front-header-small-text">Savourez chaque tranche à la pizzeria Mama <br> La maison du meilleur croûton en ville!</span>
+      </div>
+    </div>
+    <div id="front-header-div">
+      <div id="front-header-img">
+        <img src="/views/partials/img/PizLogo.png" height="450px" width="95%">
+      </div>
+    </div>
+  </section>
+
+  <section class="nos-special-section">
+    <div id="nos-special-div">
+      <div id="nos-special-txt">
+        <span id="nos-special-title">Nos Specials :</span>
+      </div>
+    </div>
+    <div id="nos-special-div">
+      <p id="nos-special-paragraphe">
+        Ces spéciaux ne sont disponibles que pour une période limitée, alors n'hésitez pas à les essayer pendant que vous le pouvez! Et comme toujours, notre menu propose une grande variété d'autres options délicieuses de pizza et de plats italiens à choisir.
+      </p>
+    </div>
+  </section>
+
+  <section class="menu-section">
+    <div id="menu-div">
+      <p id="menu-paragraphe">
+        Nous sommes fiers de notre nourriture et nous nous efforçons de fournir une expérience culinaire exceptionnelle à chacun de nos invités. Que vous cherchiez une tranche rapide ou un repas complet, nous avons quelque chose pour tout le monde à la pizzeria Mama's.
+      </p>
+    </div>
+    <div id="menu-div">
+      <button id="menu-button">Voir Notre Menu</button>
+    </div>
+  </section>
+
+  <section class="sign-up-section">
+    <div id="sign-up-div">
+      <button id="sign-up-button">
+        Inscrire Maintenant
+      </button>
+    </div>
+    <div id="sign-up-div">
+      <p id="sign-up-paragraphe">
+        Rejoignez Mama's Pizza pour bénéficier d'offres exclusives, de commandes prioritaires et de recommandations de menu personnalisées. Économisez du temps en commandant facilement en ligne.
+      </p>
+    </div>
+  </section>
+
+  <section class="a-propos-nous-section">
+    <div id="a-propos-nous-div">
+      <p id="a-propos-nous-paragraphe">
+        <span id="a-propos-nous-titre">À propos de nous:</span>
+        <br><br>
+        Chez Mama's Pizza, nous sommes passionnés par la livraison de délicieuses pizzas authentiques à nos clients. Nos pizzas sont préparées avec les ingrédients les plus frais, y compris de la pâte à pizza pétrie à la main, des sauces maison et un mélange de fromages de qualité supérieure. Notre menu propose une variété de pizzas classiques et spéciales, ainsi que des salades, des accompagnements et des desserts.
+        <br><br>
+        Nous croyons que la bonne nourriture ne représente que la moitié de l'équation. C'est pourquoi nous nous engageons à fournir un service à la clientèle exceptionnel et une atmosphère accueillante dans toutes nos locations. Que vous dîniez sur place, que vous emportiez ou que vous fassiez livrer votre repas, notre objectif est de rendre votre expérience chez Mama's Pizza inoubliable.
+        <br><br>
+        Merci d'avoir choisi Mama's Pizza. Nous avons hâte de vous servir bientôt!
+      </p>
+    </div>
+    <div id="a-propos-nous-div">
+      <p id="a-propos-nous-paragraphe">
+        Notre Contact : (514) 334 1579  <br><br>
+
+        Notre Location :
+      </p>
+      <iframe id="maps" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2795.3422804539528!2d-73.69314718444055!3d45.52331727910173!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cc918708cd360f5%3A0xa03ae9636f6ca80a!2sMamma&#39;s%20Restaurant%20Pizzeria!5e0!3m2!1sen!2sca!4v1676259568657!5m2!1sen!2sca" style="border:0;" allowfullscreen="false" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
   </section>
 
