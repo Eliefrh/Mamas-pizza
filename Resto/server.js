@@ -14,9 +14,6 @@ app.set('views', './views');
 app.set('view engine', 'ejs');
 /*connect to server */
 
-// const server = app.listen(4000, function () {
-//     console.log("serveur fonctionne sur 4000 ... !");
-// });
 
 /****
  * 
