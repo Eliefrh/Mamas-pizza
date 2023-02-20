@@ -96,8 +96,38 @@ get the event list
 * Titre global du site et url de base
 */
 
-const siteTitle = "Application simple";
-const baseURL = "https://localhost:4000";
+// const siteTitle = "Application simple";
+// const baseURL = "https://localhost:4000";
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Handle form submission
+app.post('/signup', (req, res) => {
+
+    const email = email;
+    const password = password;
+
+    // Insert data into the SQL table
+    connection.query(
+        'INSERT INTO client (email, password) VALUES (?, ?)',
+        [email, password],
+        (error, results) => {
+            if (error) {
+                console.error(error);
+                res.send('Error adding user to SQL table');
+            } else {
+                res.send('User added to SQL table');
+            }
+        }
+    );
+});
+
+
+
+
+
+
 
 /**
 * connection au serveur
@@ -106,3 +136,4 @@ const server = app.listen(4000, function () {
     console.log("serveur fonctionne sur 4000... ! ");
     console.log("http://localhost:4000/");
 });
+

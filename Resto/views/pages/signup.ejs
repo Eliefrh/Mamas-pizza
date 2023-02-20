@@ -1,85 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <%- include('../partials/head.ejs')%>
-  <style>
-    .sign-up-form-section {
-      height: auto;
-      background-color: whitesmoke;
-      margin-left: 5pc;
-      margin-bottom: 5pc;
-      margin-right: 5pc;
-      border-radius: 10px;
-      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-    }
+    <style>
+      .sign-up-form-section {
+        height: auto;
+        background-color: whitesmoke;
+        margin-left: 5pc;
+        margin-bottom: 5pc;
+        margin-right: 5pc;
+        border-radius: 10px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+      }
 
-    #sign-up-form-titre {
-      margin-left: 5pc;
-      margin-top: 5pc;
-      font-size: 30px;
-    }
+      #sign-up-form-titre {
+        margin-left: 5pc;
+        margin-top: 5pc;
+        font-size: 30px;
+      }
 
-    #sign-up-form-div {
-      padding: 2.5pc;
-    }
-  </style>
+      #sign-up-form-div {
+        padding: 2.5pc;
+      }
+    </style>
 </head>
+
 <body>
   <%- include('../partials/navbar.ejs')%>
-  <br>
-  <br>
-  <span id="sign-up-form-titre">Inscription : </span>
-  <section class="sign-up-form-section">
-    <div id="sign-up-form-div">
-      <form>
-        <div class="form-row">
-          <div class="col">
-            <label for="sign-up-form-prenom">Prénom :</label>
-            <input type="text" class="form-control" id="sign-up-form-prenom" name="sign-up-form-prenom" placeholder="Prénom">
-          </div>
-          <div class="col">
-            <label for="sign-up-form-nom">Nom :</label>
-            <input type="text" class="form-control" id="sign-up-form-nom" name="sign-up-form-nom" placeholder="Nom">
-          </div>
-        </div><br>
-        <div class="form-group">
-          <label for="sign-up-form-email">Address Courriel :</label>
-          <input type="email" class="form-control" id="sign-up-form-email" name="sign-up-form-email" placeholder="Address Courriel">
-        </div>
-        <div class="form-group">
-          <label for="sign-up-form-phone">Téléphone :</label>
-          <input type="email" class="form-control" id="sign-up-form-phone" name="sign-up-form-phone" placeholder="Téléphone">
-        </div>
-        <div class="form-row">
-          <div class="col-7">
-            <label for="sign-up-form-ville">Ville :</label>
-            <input type="text" class="form-control" name="sign-up-form-ville" id="sign-up-form-ville" placeholder="Ville">
-          </div>
-          <div class="col">
-            <label for="sign-up-form-province">Province :</label>
-            <input type="text" class="form-control" name="sign-up-form-province" id="sign-up-form-province" placeholder="Province">
-          </div>
-          <div class="col">
-            <label for="sign-up-form-zip">Code Postal :</label>
-            <input type="text" class="form-control" name="sign-up-form-zip" id="sign-up-form-zip" placeholder="Code Postal">
-          </div>
-        </div><br>
-        <div class="form-row">
-          <div class="col">
-            <label for="sign-up-form-password">Mots de Passe :</label>
-            <input type="text" class="form-control" id="sign-up-form-password" name="sign-up-form-password" placeholder="Mot de Passe">
-          </div>
-          <div class="col">
-            <label for="sign-up-form-repassword">Entrez à nouveau le mot de passe :</label>
-            <input type="text" class="form-control" id="sign-up-form-repassword" name="sign-up-form-repassword" placeholder="Mot de Passe">
-          </div>
-        </div><br>
-        <button type="submit" class="btn btn-secondary">Soumettre</button>
-      </form>
-    </div>
-  </section>
+    <br>
+    <br>
+    <span id="sign-up-form-titre">Inscription : </span>
+    <section class="sign-up-form-section">
+      <div id="sign-up-form-div">
+        <form action="http://localhost:4000/signup" method="post">
 
-  <%- include('../partials/bootstrap.ejs')%>
-  <%- include('../partials/footer.ejs')%>
+
+          <div class="form-row">
+            <div class="col">
+              <label for="sign-up-form-prenom">Prénom :</label>
+              <input type="text" class="form-control" id="sign-up-form-prenom" name="sign-up-form-prenom"
+                placeholder="Prénom">
+            </div>
+            <div class="col">
+              <label for="sign-up-form-nom">Nom :</label>
+              <input type="text" class="form-control" id="sign-up-form-nom" name="sign-up-form-nom" placeholder="Nom">
+            </div>
+          </div><br>
+          <div class="form-group">
+            <label for="sign-up-form-email">Address Courriel :</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Address Courriel">
+          </div>
+          <div class="form-group">
+            <label for="sign-up-form-phone">Téléphone :</label>
+            <input type="tel" class="form-control" id="phone" name="phone" placeholder="Téléphone">
+          </div>
+          <div class="form-row">
+            <div class="col-7">
+              <label for="sign-up-form-ville">Ville :</label>
+              <input type="text" class="form-control" name="sign-up-form-ville" id="sign-up-form-ville"
+                placeholder="Ville">
+            </div>
+            <div class="col">
+              <label for="sign-up-form-province">Province :</label>
+              <input type="text" class="form-control" name="sign-up-form-province" id="sign-up-form-province"
+                placeholder="Province">
+            </div>
+            <div class="col">
+              <label for="sign-up-form-zip">Code Postal :</label>
+              <input type="text" class="form-control" name="sign-up-form-zip" id="sign-up-form-zip"
+                placeholder="Code Postal">
+            </div>
+          </div><br>
+          <div class="form-row">
+            <div class="col">
+              <label for="sign-up-form-password">Mots de Passe :</label>
+              <input type="text" class="form-control" id="password" name="password" placeholder="Mot de Passe">
+            </div>
+            <div class="col">
+              <label for="sign-up-form-repassword">Entrez à nouveau le mot de passe :</label>
+              <input type="text" class="form-control" id="sign-up-form-repassword" name="sign-up-form-repassword"
+                placeholder="Mot de Passe">
+            </div>
+          </div><br>
+          <button type="submit" class="btn btn-secondary">Soumettre</button>
+        </form>
+      </div>
+    </section>
+
+    <%- include('../partials/bootstrap.ejs')%>
+      <%- include('../partials/footer.ejs')%>
 </body>
+
 </html>
