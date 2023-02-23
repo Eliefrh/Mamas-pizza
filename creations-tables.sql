@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Feb 23, 2023 at 07:58 PM
+-- Generation Time: Feb 23, 2023 at 10:20 PM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `client`;
 CREATE TABLE IF NOT EXISTS `client` (
-  `cl_id` int NOT NULL,
+  `cl_id` int NOT NULL AUTO_INCREMENT,
   `cl_nom` varchar(30) NOT NULL,
   `cl_prenom` varchar(30) NOT NULL,
   `cl_telephone` varchar(12) NOT NULL,
@@ -40,17 +40,21 @@ CREATE TABLE IF NOT EXISTS `client` (
   `resto_id` int NOT NULL,
   `reservation_id` int DEFAULT NULL,
   PRIMARY KEY (`cl_id`),
+  UNIQUE KEY `cl_id` (`cl_id`),
   UNIQUE KEY `reservation_id` (`reservation_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=64590 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `client`
 --
 
 INSERT INTO `client` (`cl_id`, `cl_nom`, `cl_prenom`, `cl_telephone`, `cl_courriel`, `cl_code_postal`, `cl_address`, `cl_password`, `resto_id`, `reservation_id`) VALUES
+(1, '', '', '', 'asdfg@vsdhjkbf.com', '', '', 'd', 0, NULL),
 (31569, 'singh', 'gaurav', '4384561324', '2215536@bdeb.qc.ca', 'h1ll1h', '10500 boul de l\'acadie, montreal', '1111', 2645, NULL),
 (56513, 'alfrieh', 'elie', '5144155145', '2067396@bdeb.qc.ca', 'h4nn4h', '10500 bois de boulogne , montreal', '0000', 2645, NULL),
-(64587, 'hua', 'anthony', '5144567894', '2183423@bdeb.qc.ca', 'h1zz1h', '1500 cote vertu, montreal', '2222', 2645, NULL);
+(64587, 'hua', 'anthony', '5144567894', '2183423@bdeb.qc.ca', 'h1zz1h', '1500 cote vertu, montreal', '2222', 2645, NULL),
+(64588, '', '', '', 'dgfhdershgf@ksdfgkjds.com', '', '', 'dgfshsfhgsgfh', 0, NULL),
+(64589, 'fhgvnfersgffd', '', '', 'dgfhdershgf@ksdfgkjds.com', '', '', 'dgfshsfhgsgfh', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -153,7 +157,6 @@ CREATE TABLE IF NOT EXISTS `review` (
 -- Constraints for table `commande`
 --
 ALTER TABLE `commande`
-  ADD CONSTRAINT `commande_ibfk_1` FOREIGN KEY (`cl_id`) REFERENCES `client` (`cl_id`),
   ADD CONSTRAINT `commande_ibfk_2` FOREIGN KEY (`it_id`) REFERENCES `items` (`it_id`);
 
 --
@@ -167,12 +170,6 @@ ALTER TABLE `items`
 --
 ALTER TABLE `reservation`
   ADD CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`reservation_id`) REFERENCES `client` (`reservation_id`);
-
---
--- Constraints for table `review`
---
-ALTER TABLE `review`
-  ADD CONSTRAINT `review_ibfk_1` FOREIGN KEY (`cl_id`) REFERENCES `client` (`cl_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -21,10 +21,13 @@ app.set('view engine', 'ejs');
  * importe all related JavaScript and CSS files to inject in our app
  */
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
-app.use('/js', express.static(__dirname + '/node_modules + tether/dist/js'));
+app.use('/js', express.static(__dirname + '/node_modules/tether/dist/js'));
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'));
-app.use('/css/', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
-app.use('/css/', express.static(__dirname + '/partials/css/style.css'));
+app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
+app.use('/css', express.static(__dirname + '/views/partials/css'));
+app.use('/jpg', express.static(__dirname + '/views/partials/img'));
+app.use('/jpg', express.static(__dirname + '/views/partials/img'));
+
 
 app.get('/', function (req, res) {
     res.render("pages/index", { titrePage: "Mamma's Pizza's" });
@@ -108,11 +111,12 @@ app.post("/signup", (req, res) => {
     const email = req.body['email'];
     console.log(email);
     const password = req.body['password'];
+    const nom = req.body['sign-up-form-nom'];
 
     // Insert data into the SQL table
     con.query(
-        'INSERT INTO client (email, password) VALUES (?, ?)',
-        [email, password],
+        'INSERT INTO client (cl_courriel, cl_password,cl_nom) VALUES (?, ?, ?)',
+        [email, password, nom],
         (error, results) => {
             if (error) {
                 console.error(error);
