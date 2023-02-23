@@ -61,14 +61,14 @@ app.use((req, res, next) => {
     next(); // passer au prochain middleware
 });
 
-app.use((req, res, next) => {
-    res.json({ message: 'votre requete a bien ete recue !' });
-    next();
-});
+// app.use((req, res, next) => {
+//     res.json({ message: 'votre requete a bien ete recue !' });
+//     next();
+// });
 
-app.use((req, res, next) => {
-    console.log('Reponse envoyee avec succes !');
-});
+// app.use((req, res, next) => {
+//     console.log('Reponse envoyee avec succes !');
+// });
 
 /*
 * parse all form data
@@ -103,13 +103,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Handle form submission
-app.post('/signup', (req, res) => {
+app.post("/signup", (req, res) => {
 
-    const email = email;
-    const password = password;
+    const email = req.body['email'];
+    console.log(email);
+    const password = req.body['password'];
 
     // Insert data into the SQL table
-    connection.query(
+    con.query(
         'INSERT INTO client (email, password) VALUES (?, ?)',
         [email, password],
         (error, results) => {
