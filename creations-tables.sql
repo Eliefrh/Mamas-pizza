@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Feb 23, 2023 at 10:20 PM
+-- Generation Time: Mar 01, 2023 at 06:23 PM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -169,7 +169,8 @@ ALTER TABLE `items`
 -- Constraints for table `reservation`
 --
 ALTER TABLE `reservation`
-  ADD CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`reservation_id`) REFERENCES `client` (`reservation_id`);
+  ADD CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`reservation_id`) REFERENCES `client` (`reservation_id`),
+  ADD CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`cl_id`) REFERENCES `client` (`cl_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
