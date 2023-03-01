@@ -4,6 +4,8 @@ const mysql = require('mysql');
 const app = express();
 const bodyParser = require("body-parser");
 const { Module } = require('module');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
 // const dateFormat = require("dateformat");
 import("dateformat");
 const now = new Date();
@@ -13,7 +15,6 @@ module.exports = app;
 app.set('views', './views');
 app.set('view engine', 'ejs');
 /*connect to server */
-
 
 /****
  * 
@@ -25,8 +26,7 @@ app.use('/js', express.static(__dirname + '/node_modules/tether/dist/js'));
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'));
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 app.use('/css', express.static(__dirname + '/views/partials/css'));
-app.use('/jpg', express.static(__dirname + '/views/partials/img'));
-app.use('/jpg', express.static(__dirname + '/views/partials/img'));
+app.use('/img', express.static(__dirname + '/views/partials/img', {extensions: ['jpg', 'png']}));
 
 
 app.get('/', function (req, res) {
@@ -57,11 +57,9 @@ app.get('/reservation', function (req, res) {
     res.render("pages/reservation", { titrePage: "Reservation" });
 });
 
-
-
 app.use((req, res, next) => {
     console.log('Requete recue! ');
-    next(); // passer au prochain middleware
+    next();
 });
 
 // app.use((req, res, next) => {
@@ -77,6 +75,14 @@ app.use((req, res, next) => {
 * parse all form data
 */
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(session({
+  secret: 'mysecretkey',
+  resave: true,
+  saveUninitialized: true
+}));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 /*
 connection a la bd
@@ -89,11 +95,9 @@ const con = mysql.createConnection({
     database: "resto_awt",
 });
 
-
 /*
 get the event list
 */
-
 
 /**
 * Titre global du site et url de base
@@ -102,37 +106,63 @@ get the event list
 // const siteTitle = "Application simple";
 // const baseURL = "https://localhost:4000";
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
 // Handle form submission
 app.post("/signup", (req, res) => {
 
-    const email = req.body['email'];
-    console.log(email);
-    const password = req.body['password'];
-    const nom = req.body['sign-up-form-nom'];
+    const password = req.body['sign-up-form-password'];
+    const repassword = req.body['sign-up-form-repassword'];
+    if (password == repassword) {
+        const nom = req.body['sign-up-form-nom'];
+        const prenom = req.body['sign-up-form-prenom'];
+        const email = req.body['sign-up-form-email'];
+        const tel = req.body['sign-up-form-tel'];
+        let ville = req.body['sign-up-form-ville'];
+        let province = req.body['sign-up-form-province'];
+        const address = ville + ' ' + province;
+        const zip = req.body['sign-up-form-zip'];
 
-    // Insert data into the SQL table
-    con.query(
-        'INSERT INTO client (cl_courriel, cl_password,cl_nom) VALUES (?, ?, ?)',
-        [email, password, nom],
-        (error, results) => {
-            if (error) {
-                console.error(error);
-                res.send('Error adding user to SQL table');
-            } else {
-                res.send('User added to SQL table');
+        // Insert data into the SQL table
+        con.query(
+            'INSERT INTO client ( cl_nom, cl_prenom, cl_telephone, cl_courriel, cl_code_postal, cl_address, cl_password) VALUES (?, ?, ?, ?, ?, ?, ?)',
+            [nom, prenom, tel, email, zip, address, password],
+            (error, results) => {
+                if (error) {
+                    res.writeHead(301, { Location: "http://localhost:4000/signup" });
+                    res.end();
+                } else {
+                    res.writeHead(301, { Location: "http://localhost:4000/login" });
+                    res.end();
+                }
             }
-        }
-    );
+        );
+    }
+    else {
+        res.writeHead(301, { Location: "http://localhost:4000/signup" });
+        res.end();
+    }
 });
 
-
-
-
-
-
+// Handle POST request for login
+app.post('/login', (req, res) => {
+    const email = req.body['login-email'];
+    const password = req.body['login-password'];
+    // Check if the email and password are valid
+    const sql = `SELECT * FROM client WHERE cl_courriel = '${email}' AND cl_password = '${password}'`;
+    con.query(sql, (err, results) => {
+      if (err) {
+        console.error('Error logging in: ', err);
+        res.send('An error occurred while logging in');
+      } else if (results.length > 0) {
+        // Store the user's email in a cookie
+        req.session.email = email;
+        res.writeHead(301, { Location: "http://localhost:4000" });
+        res.end();
+      } else {
+        res.writeHead(301, { Location: "http://localhost:4000/login" });
+        res.end();
+      }
+    });
+  });
 
 /**
 * connection au serveur

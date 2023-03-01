@@ -1,26 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <%- include('../partials/head.ejs')%>
-
-
 </head>
 
 <body>
   <%- include('../partials/navbar.ejs')%>
-
     <section class="front-header">
       <div id="front-header-div">
         <div id="front-header-text">
           <span id="front-header-title">Mamma's Pizza's</span><br>
-          <span id="front-header-small-text">Savourez chaque tranche à la pizzeria Mama <br> La maison du meilleur
-            croûton en ville!</span>
+          <span id="front-header-small-text">Savourez chaque tranche à la pizzeria Mama <br> La maison du meilleur croûton en ville!</span>
         </div>
       </div>
       <div id="front-header-div">
         <div id="front-header-img">
-          <img src="/views/partials/img/PizLogo.jpg" height="450px" width="95%">
+          <img src="img/IndexHeaderBanner.png" height="450px" width="95%">
         </div>
       </div>
     </section>
@@ -49,15 +44,17 @@
         </p>
       </div>
       <div id="menu-div">
-        <button id="menu-button">Voir Notre Menu</button>
+        <a href="/menu">
+          <button id="menu-button">Voir Notre Menu</button>
+        </a>
       </div>
     </section>
 
     <section class="sign-up-section">
       <div id="sign-up-div">
-        <button id="sign-up-button">
-          Inscrire Maintenant
-        </button>
+        <a href="/signup">
+          <button id="sign-up-button">Inscrire Maintenant</button>
+        </a>
       </div>
       <div id="sign-up-div">
         <p id="sign-up-paragraphe">
@@ -96,9 +93,7 @@
           style="border:0;" allowfullscreen="false" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
     </section>
-
-    <%- include('../partials/bootstrap.ejs')%>
+      <%- include('../partials/bootstrap.ejs')%>
       <%- include('../partials/footer.ejs')%>
 </body>
-
 </html>

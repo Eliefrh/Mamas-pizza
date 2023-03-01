@@ -1,3 +1,4 @@
+/* Index Page */
 .front-header {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     background-color: rgb(194, 105, 105);
@@ -181,3 +182,65 @@
     width: 90%;
     border-radius: 10px;
 }
+
+/* Login Page */
+.login-form {
+    height: auto;
+    background-color: whitesmoke;
+    margin-left: 5pc;
+    margin-bottom: 5pc;
+    margin-right: 5pc;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  #login-form-titre {
+    margin-left: 5pc;
+    margin-top: 5pc;
+    font-size: 30px;
+  }
+
+  #login-form-div {
+    padding: 2.5pc;
+  }
+
+  /* Signup Page */ 
+
+  .sign-up-form-section {
+    height: auto;
+    background-color: whitesmoke;
+    margin-left: 5pc;
+    margin-bottom: 5pc;
+    margin-right: 5pc;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  #sign-up-form-titre {
+    margin-left: 5pc;
+    margin-top: 5pc;
+    font-size: 30px;
+  }
+
+  #sign-up-form-div {
+    padding: 2.5pc;
+  }
+
+  /* Reservation Page */
+
+  .reservation-header-section {
+    height: 350px;
+    background-color: rgb(194, 105, 105);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  #reservation-header-div {
+    text-align: center;
+    padding-top: 100px;
+  }
+
+  #reservation-header-title {
+    font-size: 65px;
+    color: white;
+    font-family: cursive;
+  }

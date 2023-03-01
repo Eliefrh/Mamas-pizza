@@ -3,27 +3,6 @@
 
 <head>
   <%- include('../partials/head.ejs')%>
-    <style>
-      .sign-up-form-section {
-        height: auto;
-        background-color: whitesmoke;
-        margin-left: 5pc;
-        margin-bottom: 5pc;
-        margin-right: 5pc;
-        border-radius: 10px;
-        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-      }
-
-      #sign-up-form-titre {
-        margin-left: 5pc;
-        margin-top: 5pc;
-        font-size: 30px;
-      }
-
-      #sign-up-form-div {
-        padding: 2.5pc;
-      }
-    </style>
 </head>
 
 <body>
@@ -49,11 +28,11 @@
           </div><br>
           <div class="form-group">
             <label for="sign-up-form-email">Address Courriel :</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="Address Courriel">
+            <input type="email" class="form-control" id="sign-up-form-email" name="sign-up-form-email" placeholder="Address Courriel">
           </div>
           <div class="form-group">
             <label for="sign-up-form-phone">Téléphone :</label>
-            <input type="tel" class="form-control" id="phone" name="phone" placeholder="Téléphone">
+            <input type="tel" class="form-control" id="sign-up-form-tel" name="sign-up-form-tel" placeholder="Téléphone">
           </div>
           <div class="form-row">
             <div class="col-7">
@@ -75,7 +54,7 @@
           <div class="form-row">
             <div class="col">
               <label for="sign-up-form-password">Mots de Passe :</label>
-              <input type="text" class="form-control" id="password" name="password" placeholder="Mot de Passe">
+              <input type="text" class="form-control" id="sign-up-form-password" name="sign-up-form-password" placeholder="Mot de Passe">
             </div>
             <div class="col">
               <label for="sign-up-form-repassword">Entrez à nouveau le mot de passe :</label>

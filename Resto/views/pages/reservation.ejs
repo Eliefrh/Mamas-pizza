@@ -6,7 +6,23 @@
 <body>
   <%- include('../partials/navbar.ejs')%>
   
-  
+  <section class="reservation-header-section">
+    <div id="reservation-header-div">
+      <span id="reservation-header-title">
+        Faire une Reservation
+      </span>
+    </div>
+  </section>
+
+  <section class="reservation-form-section">
+    <div id="reservation-form-div">
+      <!-- <div class="md-form md-outline input-with-post-icon datepicker"> -->
+        <input placeholder="Select date" type="date" id="example" class="form-control">
+        <label for="example">Try me...</label>
+      <!-- </div> -->
+    </div>
+  </section>
+
   <%- include('../partials/bootstrap.ejs')%>
   <%- include('../partials/footer.ejs')%>
 </body>
