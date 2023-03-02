@@ -6,6 +6,8 @@ const bodyParser = require("body-parser");
 const { Module } = require('module');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const alert = require('node-notifier');
+
 // const dateFormat = require("dateformat");
 import("dateformat");
 const now = new Date();
@@ -26,7 +28,7 @@ app.use('/js', express.static(__dirname + '/node_modules/tether/dist/js'));
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'));
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 app.use('/css', express.static(__dirname + '/views/partials/css'));
-app.use('/img', express.static(__dirname + '/views/partials/img', {extensions: ['jpg', 'png']}));
+app.use('/img', express.static(__dirname + '/views/partials/img', { extensions: ['jpg', 'png'] }));
 
 
 app.get('/', function (req, res) {
@@ -77,9 +79,9 @@ app.use((req, res, next) => {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(session({
-  secret: 'mysecretkey',
-  resave: true,
-  saveUninitialized: true
+    secret: 'mysecretkey',
+    resave: true,
+    saveUninitialized: true
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -149,20 +151,24 @@ app.post('/login', (req, res) => {
     // Check if the email and password are valid
     const sql = `SELECT * FROM client WHERE cl_courriel = '${email}' AND cl_password = '${password}'`;
     con.query(sql, (err, results) => {
-      if (err) {
-        console.error('Error logging in: ', err);
-        res.send('An error occurred while logging in');
-      } else if (results.length > 0) {
-        // Store the user's email in a cookie
-        req.session.email = email;
-        res.writeHead(301, { Location: "http://localhost:4000" });
-        res.end();
-      } else {
-        res.writeHead(301, { Location: "http://localhost:4000/login" });
-        res.end();
-      }
+        if (err) {
+            console.error('Error logging in: ', err);
+            res.send('An error occurred while logging in');
+        } else if (results.length > 0) {
+            // Store the user's email in a cookie
+            req.session.email = email;
+            res.writeHead(301, { Location: "http://localhost:4000" });
+            res.end();
+        } else {
+            alert.notify({
+                title: 'erreur de login',
+                message: 'Mauvais utilisateur ou mot de passe '
+            });
+            res.writeHead(301, { Location: "http://localhost:4000/login" });
+            res.end();
+        }
     });
-  });
+});
 
 /**
 * connection au serveur
