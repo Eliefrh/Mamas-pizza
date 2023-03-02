@@ -244,3 +244,27 @@
     color: white;
     font-family: cursive;
   }
+
+  .reservation-form-section {
+    height: 450px;
+    width: 80%;
+    margin: 8%;
+    background-color: whitesmoke;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+  }
+
+  #reservation-form-div {
+    width: 50%;
+    float: left;
+    padding-left: 4%;
+    padding-right: 4%;
+    padding-top: 4%;
+  }
+
+  #resservation-form-titre {
+    margin-left: 4%;
+    margin-top: 10%;
+    font-size: 30px;
+  }
+  
