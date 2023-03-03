@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 03, 2023 at 07:14 PM
+-- Generation Time: Mar 03, 2023 at 07:29 PM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `client` (
   `cl_password` varchar(50) NOT NULL,
   `resto_id` int NOT NULL,
   PRIMARY KEY (`cl_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=64590 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=64591 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `client`
@@ -51,7 +51,8 @@ INSERT INTO `client` (`cl_id`, `cl_nom`, `cl_prenom`, `cl_telephone`, `cl_courri
 (56513, 'alfrieh', 'elie', '5144155145', '2067396@bdeb.qc.ca', 'h4nn4h', '10500 bois de boulogne , montreal', '0000', 2645),
 (64587, 'hua', 'anthony', '5144567894', '2183423@bdeb.qc.ca', 'h1zz1h', '1500 cote vertu, montreal', '2222', 2645),
 (64588, '', '', '', 'dgfhdershgf@ksdfgkjds.com', '', '', 'dgfshsfhgsgfh', 0),
-(64589, 'fhgvnfersgffd', '', '', 'dgfhdershgf@ksdfgkjds.com', '', '', 'dgfshsfhgsgfh', 0);
+(64589, 'fhgvnfersgffd', '', '', 'dgfhdershgf@ksdfgkjds.com', '', '', 'dgfshsfhgsgfh', 0),
+(64590, 'Bot', 'Test', '1111111111', 'TestBot@Testing.com', 'TEST12', 'Test Testing', '123456', 0);
 
 -- --------------------------------------------------------
 
@@ -67,8 +68,8 @@ CREATE TABLE IF NOT EXISTS `commande` (
   `date_commande` datetime NOT NULL,
   `it_id` int NOT NULL,
   PRIMARY KEY (`fac_id`),
-  UNIQUE KEY `cl_id` (`cl_id`),
-  UNIQUE KEY `it_id` (`it_id`)
+  UNIQUE KEY `it_id` (`it_id`),
+  KEY `cl_id` (`cl_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -83,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `items` (
   `prod_id` int NOT NULL,
   `it_quantite` int NOT NULL,
   PRIMARY KEY (`it_id`),
-  UNIQUE KEY `prod_id` (`prod_id`)
+  KEY `prod_id` (`prod_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -127,8 +128,16 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   `cl_id` int NOT NULL,
   `date_reservation` datetime NOT NULL,
   PRIMARY KEY (`reservation_id`),
-  UNIQUE KEY `cl_id` (`cl_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  KEY `cl_id` (`cl_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `reservation`
+--
+
+INSERT INTO `reservation` (`reservation_id`, `num_siege`, `cl_id`, `date_reservation`) VALUES
+(1, 4, 64590, '2023-03-10 17:00:00'),
+(3, 2, 56513, '2023-03-13 17:30:00');
 
 -- --------------------------------------------------------
 
@@ -143,7 +152,7 @@ CREATE TABLE IF NOT EXISTS `review` (
   `etoiles` int NOT NULL,
   `text` varchar(1000) NOT NULL,
   PRIMARY KEY (`review_id`),
-  UNIQUE KEY `cl_id` (`cl_id`)
+  UNIQUE KEY `cl_id` (`cl_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
