@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 03, 2023 at 06:29 PM
+-- Generation Time: Mar 03, 2023 at 07:14 PM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -38,8 +38,7 @@ CREATE TABLE IF NOT EXISTS `client` (
   `cl_address` varchar(200) NOT NULL,
   `cl_password` varchar(50) NOT NULL,
   `resto_id` int NOT NULL,
-  PRIMARY KEY (`cl_id`),
-  UNIQUE KEY `cl_id` (`cl_id`)
+  PRIMARY KEY (`cl_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=64590 DEFAULT CHARSET=latin1;
 
 --
