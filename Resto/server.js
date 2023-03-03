@@ -7,7 +7,6 @@ const { Module } = require('module');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const alert = require('node-notifier');
-
 // const dateFormat = require("dateformat");
 import ("dateformat");
 const now = new Date();
@@ -97,6 +96,15 @@ const con = mysql.createConnection({
     database: "resto_awt",
 });
 
+function requireAuth(req, res, next) {
+    if (req.session && req.session.email) {
+        return next();
+    } else {
+        res.writeHead(301, { Location: "http://localhost:4000/login" });
+        res.end();
+    }
+}
+
 /*
 get the event list
 */
@@ -166,6 +174,29 @@ app.post('/login', (req, res) => {
             res.end();
         }
     });
+});
+
+app.post('/reservation', requireAuth, (req, res) => {
+    const email = req.session.email;
+    const current_date = new Date();
+    const date = req.body['reservation-form-date'];
+    if (date >= current_date) {
+        const time = req.body['reservation-form-time'];
+        const datetime = `${date} ${time}`;
+        const num_siege = req.body['reservation-form-siege'];
+        const get_id = `SELECT cl_id FROM client WHERE cl_courriel = '${email}'`;
+        const sql = `INSERT INTO reservation (num_siege, cl_id, date_reservation) VALUES ('${num_siege}', '${get_id}', '${datetime}')`;
+        con.query(sql, (error, results) => {
+            if (error) {
+                res.writeHead(301, { Location: "http://localhost:4000/reservation" });
+                res.end();
+            } else {
+                res.writeHead(301, { Location: "http://localhost:4000" });
+                res.end();
+            }
+        }
+        );
+    }
 });
 
 /**
