@@ -252,3 +252,57 @@
 
 
 /* Menu Page */
+
+#menu {}
+
+#menu-front-header {
+    background-color: rgb(194, 105, 105);
+    height: 250px;
+    display: flex;
+    justify-content: center;
+}
+
+#menu-titre {
+    align-self: center;
+    font-size: 3em;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+}
+
+.menu-categorie {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+.menu-categorie-img {}
+
+.menu-categorie-titre {
+    font-size: 2em;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.menu-item {
+    border: solid 2px black;
+    border-radius: 10px;
+    width: 20%;
+    background-color: rgb(185, 181, 181, 0.8);
+}
+
+.menu-item-image {
+    width: 250px;
+    height: 250px;
+}
+
+.menu-item-nom {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.menu-item-description {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.menu-commander {}
