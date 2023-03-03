@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 01, 2023 at 06:23 PM
+-- Generation Time: Mar 03, 2023 at 06:29 PM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -38,23 +38,21 @@ CREATE TABLE IF NOT EXISTS `client` (
   `cl_address` varchar(200) NOT NULL,
   `cl_password` varchar(50) NOT NULL,
   `resto_id` int NOT NULL,
-  `reservation_id` int DEFAULT NULL,
   PRIMARY KEY (`cl_id`),
-  UNIQUE KEY `cl_id` (`cl_id`),
-  UNIQUE KEY `reservation_id` (`reservation_id`)
+  UNIQUE KEY `cl_id` (`cl_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=64590 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `client`
 --
 
-INSERT INTO `client` (`cl_id`, `cl_nom`, `cl_prenom`, `cl_telephone`, `cl_courriel`, `cl_code_postal`, `cl_address`, `cl_password`, `resto_id`, `reservation_id`) VALUES
-(1, '', '', '', 'asdfg@vsdhjkbf.com', '', '', 'd', 0, NULL),
-(31569, 'singh', 'gaurav', '4384561324', '2215536@bdeb.qc.ca', 'h1ll1h', '10500 boul de l\'acadie, montreal', '1111', 2645, NULL),
-(56513, 'alfrieh', 'elie', '5144155145', '2067396@bdeb.qc.ca', 'h4nn4h', '10500 bois de boulogne , montreal', '0000', 2645, NULL),
-(64587, 'hua', 'anthony', '5144567894', '2183423@bdeb.qc.ca', 'h1zz1h', '1500 cote vertu, montreal', '2222', 2645, NULL),
-(64588, '', '', '', 'dgfhdershgf@ksdfgkjds.com', '', '', 'dgfshsfhgsgfh', 0, NULL),
-(64589, 'fhgvnfersgffd', '', '', 'dgfhdershgf@ksdfgkjds.com', '', '', 'dgfshsfhgsgfh', 0, NULL);
+INSERT INTO `client` (`cl_id`, `cl_nom`, `cl_prenom`, `cl_telephone`, `cl_courriel`, `cl_code_postal`, `cl_address`, `cl_password`, `resto_id`) VALUES
+(1, '', '', '', 'asdfg@vsdhjkbf.com', '', '', 'd', 0),
+(31569, 'singh', 'gaurav', '4384561324', '2215536@bdeb.qc.ca', 'h1ll1h', '10500 boul de l\'acadie, montreal', '1111', 2645),
+(56513, 'alfrieh', 'elie', '5144155145', '2067396@bdeb.qc.ca', 'h4nn4h', '10500 bois de boulogne , montreal', '0000', 2645),
+(64587, 'hua', 'anthony', '5144567894', '2183423@bdeb.qc.ca', 'h1zz1h', '1500 cote vertu, montreal', '2222', 2645),
+(64588, '', '', '', 'dgfhdershgf@ksdfgkjds.com', '', '', 'dgfshsfhgsgfh', 0),
+(64589, 'fhgvnfersgffd', '', '', 'dgfhdershgf@ksdfgkjds.com', '', '', 'dgfshsfhgsgfh', 0);
 
 -- --------------------------------------------------------
 
@@ -64,7 +62,7 @@ INSERT INTO `client` (`cl_id`, `cl_nom`, `cl_prenom`, `cl_telephone`, `cl_courri
 
 DROP TABLE IF EXISTS `commande`;
 CREATE TABLE IF NOT EXISTS `commande` (
-  `fac_id` int NOT NULL,
+  `fac_id` int NOT NULL AUTO_INCREMENT,
   `fac_total` float NOT NULL,
   `cl_id` int NOT NULL,
   `date_commande` datetime NOT NULL,
@@ -82,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `commande` (
 
 DROP TABLE IF EXISTS `items`;
 CREATE TABLE IF NOT EXISTS `items` (
-  `it_id` int NOT NULL,
+  `it_id` int NOT NULL AUTO_INCREMENT,
   `prod_id` int NOT NULL,
   `it_quantite` int NOT NULL,
   PRIMARY KEY (`it_id`),
@@ -97,14 +95,14 @@ CREATE TABLE IF NOT EXISTS `items` (
 
 DROP TABLE IF EXISTS `produits`;
 CREATE TABLE IF NOT EXISTS `produits` (
-  `prod_id` int NOT NULL,
+  `prod_id` int NOT NULL AUTO_INCREMENT,
   `prod_nom` varchar(30) NOT NULL,
   `prod_ingredient` varchar(200) NOT NULL,
   `prod_prix` float NOT NULL,
   `prod_calories` int NOT NULL,
   `cat_nom` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`prod_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=85753 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `produits`
@@ -125,7 +123,7 @@ INSERT INTO `produits` (`prod_id`, `prod_nom`, `prod_ingredient`, `prod_prix`, `
 
 DROP TABLE IF EXISTS `reservation`;
 CREATE TABLE IF NOT EXISTS `reservation` (
-  `reservation_id` int NOT NULL,
+  `reservation_id` int NOT NULL AUTO_INCREMENT,
   `num_siege` int NOT NULL,
   `cl_id` int NOT NULL,
   `date_reservation` datetime NOT NULL,
@@ -142,7 +140,7 @@ CREATE TABLE IF NOT EXISTS `reservation` (
 DROP TABLE IF EXISTS `review`;
 CREATE TABLE IF NOT EXISTS `review` (
   `cl_id` int NOT NULL,
-  `review_id` int NOT NULL,
+  `review_id` int NOT NULL AUTO_INCREMENT,
   `etoiles` int NOT NULL,
   `text` varchar(1000) NOT NULL,
   PRIMARY KEY (`review_id`),
@@ -157,20 +155,26 @@ CREATE TABLE IF NOT EXISTS `review` (
 -- Constraints for table `commande`
 --
 ALTER TABLE `commande`
-  ADD CONSTRAINT `commande_ibfk_2` FOREIGN KEY (`it_id`) REFERENCES `items` (`it_id`);
+  ADD CONSTRAINT `commande_ibfk_3` FOREIGN KEY (`cl_id`) REFERENCES `client` (`cl_id`),
+  ADD CONSTRAINT `commande_ibfk_4` FOREIGN KEY (`it_id`) REFERENCES `items` (`it_id`);
 
 --
 -- Constraints for table `items`
 --
 ALTER TABLE `items`
-  ADD CONSTRAINT `items_ibfk_1` FOREIGN KEY (`prod_id`) REFERENCES `produits` (`prod_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `items_ibfk_1` FOREIGN KEY (`prod_id`) REFERENCES `produits` (`prod_id`);
 
 --
 -- Constraints for table `reservation`
 --
 ALTER TABLE `reservation`
-  ADD CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`reservation_id`) REFERENCES `client` (`reservation_id`),
   ADD CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`cl_id`) REFERENCES `client` (`cl_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Constraints for table `review`
+--
+ALTER TABLE `review`
+  ADD CONSTRAINT `review_ibfk_1` FOREIGN KEY (`cl_id`) REFERENCES `client` (`cl_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
