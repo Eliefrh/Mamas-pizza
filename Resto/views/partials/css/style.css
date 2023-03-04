@@ -248,18 +248,18 @@
     font-size: 65px;
     color: white;
     font-family: cursive;
-  }
+}
 
-  .reservation-form-section {
+.reservation-form-section {
     height: 450px;
     width: 80%;
     margin: 8%;
     background-color: whitesmoke;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
-  }
+}
 
-<<<<<<< HEAD
+
 /* Menu Page */
 
 #menu {}
@@ -315,19 +315,3 @@
 }
 
 .menu-commander {}
-=======
-  #reservation-form-div {
-    width: 50%;
-    float: left;
-    padding-left: 4%;
-    padding-right: 4%;
-    padding-top: 4%;
-  }
-
-  #resservation-form-titre {
-    margin-left: 4%;
-    margin-top: 10%;
-    font-size: 30px;
-  }
-  
->>>>>>> c26f5d2ef14f3d43a1bb256668612663076f9e61
