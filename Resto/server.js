@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const alert = require('node-notifier');
 // const dateFormat = require("dateformat");
-import("dateformat");
+import ("dateformat");
 const now = new Date();
 
 module.exports = app;
@@ -30,34 +30,34 @@ app.use('/css', express.static(__dirname + '/views/partials/css'));
 app.use('/img', express.static(__dirname + '/views/partials/img', { extensions: ['jpg', 'png'] }));
 
 
-app.get('/', function (req, res) {
+app.get('/', function(req, res) {
     res.render("pages/index", { titrePage: "Mamma's Pizza's" });
 });
 
-app.get('/login', function (req, res) {
+app.get('/login', function(req, res) {
     res.render("pages/login", { titrePage: "Login" });
 });
 
-app.get('/signup', function (req, res) {
+app.get('/signup', function(req, res) {
     res.render("pages/signup", { titrePage: "Sign Up" });
 });
 
-app.get('/menu', function (req, res) {
+app.get('/menu', function(req, res) {
     res.render("pages/menu", { titrePage: "Menu" });
 });
 
-app.get('/panier', function (req, res) {
+app.get('/panier', function(req, res) {
     res.render("pages/panier", { titrePage: "Panier" });
 });
 
-app.get('/produitlist', function (req, res) {
+app.get('/produitlist', function(req, res) {
     res.render("pages/produit_list", { titrePage: "Produit List" });
 });
 
-app.get('/reservation', function (req, res) {
+app.get('/reservation', function(req, res) {
     res.render("pages/reservation", { titrePage: "Reservation" });
 });
-app.get('/review', function (req, res) {
+app.get('/review', function(req, res) {
     res.render("pages/review", { titrePage: "Review" });
 });
 
@@ -190,13 +190,12 @@ app.post('/reservation', requireAuth, (req, res) => {
                 res.writeHead(301, { Location: "http://localhost:4000" });
                 res.end();
             }
-        }
-        );
+        });
     }
 });
 
 
-app.post('/review', function (req, res) {
+app.post('/review', function(req, res) {
     const titre = req.body.titre;
     const nom = req.body.nom;
     const review = req.body.review;
@@ -208,11 +207,18 @@ app.post('/review', function (req, res) {
 /**
  * connection au serveur
  */
-const server = app.listen(4000, function () {
+const server = app.listen(4000, function() {
     console.log("serveur fonctionne sur 4000... ! ");
     console.log("http://localhost:4000/");
 });
 
 /**
- * 
+ * Bouton personnaliser dans le menu
  */
+
+
+app.get('/menu/:item', (req, res) => {
+    const itemName = req.params.item;
+    const itemUrl = `/menu/${itemName}`;
+    res.redirect(itemUrl);
+});
