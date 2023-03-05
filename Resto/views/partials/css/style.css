@@ -273,6 +273,20 @@
     border-radius: 10px;
 }
 
+#reservation-form-div {
+    width: 50%;
+    float: left;
+    padding-left: 4%;
+    padding-right: 4%;
+    padding-top: 4%;
+  }
+
+  #resservation-form-titre {
+    margin-left: 4%;
+    margin-top: 10%;
+    font-size: 30px;
+  }
+
 
 /* Menu Page */
 
@@ -283,20 +297,23 @@
     height: 250px;
     display: flex;
     justify-content: center;
+    margin-bottom: 3%;
 }
 
 #menu-titre {
     align-self: center;
-    font-size: 3em;
+    font-size: 4em;
     color: white;
+    font-family: cursive;
 }
 
 .menu-categorie {
     display: flex;
     justify-content: center;
-    gap: 50px;
+    gap: 25px;
     flex-wrap: wrap;
     text-align: center;
+    margin-bottom: 2%;
 }
 
 .menu-categorie-img {}
@@ -304,14 +321,16 @@
 .menu-categorie-titre {
     font-size: 2em;
     text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-bottom: 1%;
 }
 
 .menu-item {
-    border: solid 2px black;
     border-radius: 10px;
     width: 20%;
-    background-color: rgb(185, 181, 181, 0.8);
-    padding: 20px;
+    background-color: whitesmoke;
+    padding-bottom: 2%;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
 
 .menu-item-image {
@@ -319,9 +338,15 @@
     height: 250px;
 }
 
-.menu-item-nom {}
+.menu-item-nom {
+    font-family: Arial, Helvetica, sans-serif;
+}
 
-.menu-item-description {}
+.menu-item-description {width: 90%;
+    padding-left: 5%;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-bottom: 2%;
+}
 
 .menu-commander {
     padding: 10px 50px 10px 50px;
