@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const alert = require('node-notifier');
 // const dateFormat = require("dateformat");
-import ("dateformat");
+import("dateformat");
 const now = new Date();
 
 module.exports = app;
@@ -31,35 +31,35 @@ app.use('/img', express.static(__dirname + '/views/partials/img', { extensions: 
 app.use('/js', express.static(__dirname + '/views/partials/js'));
 
 
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
     res.render("pages/index", { titrePage: "Mamma's Pizza's", Authentication: isLoggedIn });
 });
 
-app.get('/login', function(req, res) {
-    res.render("pages/login", { titrePage: "Login" , Authentication: isLoggedIn});
+app.get('/login', function (req, res) {
+    res.render("pages/login", { titrePage: "Login", Authentication: isLoggedIn });
 });
 
-app.get('/signup', function(req, res) {
+app.get('/signup', function (req, res) {
     res.render("pages/signup", { titrePage: "Sign Up", Authentication: isLoggedIn });
 });
 
-app.get('/menu', function(req, res) {
-    res.render("pages/menu", { titrePage: "Menu" , Authentication: isLoggedIn });
+app.get('/menu', function (req, res) {
+    res.render("pages/menu", { titrePage: "Menu", Authentication: isLoggedIn });
 });
 
-app.get('/panier', function(req, res) {
-    res.render("pages/panier", { titrePage: "Panier" , Authentication: isLoggedIn });
+app.get('/panier', function (req, res) {
+    res.render("pages/panier", { titrePage: "Panier", Authentication: isLoggedIn });
 });
 
-app.get('/produitlist', function(req, res) {
-    res.render("pages/produit_list", { titrePage: "Produit List" , Authentication: isLoggedIn });
+app.get('/produitlist', function (req, res) {
+    res.render("pages/produit_list", { titrePage: "Produit List", Authentication: isLoggedIn });
 });
 
-app.get('/reservation', function(req, res) {
-    res.render("pages/reservation", { titrePage: "Reservation" , Authentication: isLoggedIn });
+app.get('/reservation', function (req, res) {
+    res.render("pages/reservation", { titrePage: "Reservation", Authentication: isLoggedIn });
 });
-app.get('/review', function(req, res) {
-    res.render("pages/review", { titrePage: "Review" , Authentication: isLoggedIn });
+app.get('/review', function (req, res) {
+    res.render("pages/review", { titrePage: "Review", Authentication: isLoggedIn });
 });
 
 app.get('/logout', function (req, res) {
@@ -159,47 +159,47 @@ app.post('/login', (req, res) => {
     // Check if the email and password are valid
     const sql = `SELECT * FROM client WHERE cl_courriel = '${email}' AND cl_password = '${password}'`;
     con.query(sql, (err, results) => {
-      if (err) {
-        isLoggedIn = false;
-        alert.notify({
-            title: 'erreur de login',
-            message: 'Mauvais utilisateur ou mot de passe '
-        });
-        res.writeHead(301, { Location: "http://localhost:4000/login" });
-        res.end();
-      } else if (results.length > 0) {
-        // Store the user's email in a cookie
-        req.session.email = email;
-        isLoggedIn = true;
-        res.writeHead(301, { Location: "http://localhost:4000" });
-        res.end();
-      } else {
-        isLoggedIn = false;
-        alert.notify({
-            title: 'erreur de login',
-            message: 'Mauvais utilisateur ou mot de passe '
-        });
-        res.writeHead(301, { Location: "http://localhost:4000/login" });
-        res.end();
-      }
+        if (err) {
+            isLoggedIn = false;
+            alert.notify({
+                title: 'erreur de login',
+                message: 'Mauvais utilisateur ou mot de passe '
+            });
+            res.writeHead(301, { Location: "http://localhost:4000/login" });
+            res.end();
+        } else if (results.length > 0) {
+            // Store the user's email in a cookie
+            req.session.email = email;
+            isLoggedIn = true;
+            res.writeHead(301, { Location: "http://localhost:4000" });
+            res.end();
+        } else {
+            isLoggedIn = false;
+            alert.notify({
+                title: 'erreur de login',
+                message: 'Mauvais utilisateur ou mot de passe '
+            });
+            res.writeHead(301, { Location: "http://localhost:4000/login" });
+            res.end();
+        }
     });
 });
 
 
 app.post('/reservation', requireAuth, (req, res) => {
-    
+
     const email = req.session.email;
     let current_date = new Date();
     const date = req.body['reservation-form-date'];
-    
+
     if (Date.parse(date) >= current_date) {
-        
+
         const time = req.body['reservation-form-time'];
         const datetime = `${date} ${time}`;
         const num_siege = req.body['reservation-form-siege'];
-        
+
         const sql_get_id = `SELECT cl_id FROM client WHERE cl_courriel = '${email}'`;
-        con.query( sql_get_id, (error, results) => {
+        con.query(sql_get_id, (error, results) => {
             if (error) {
                 res.writeHead(301, { Location: "http://localhost:4000/reservation" });
                 res.end();
@@ -208,7 +208,7 @@ app.post('/reservation', requireAuth, (req, res) => {
                 const get_id = cl_id;
 
                 const sql = `INSERT INTO reservation (num_siege, cl_id, date_reservation) VALUES ('${num_siege}', '${get_id}', '${datetime}')`;
-                con.query( sql, (error, results) => {
+                con.query(sql, (error, results) => {
                     if (error) {
                         res.writeHead(301, { Location: "http://localhost:4000/reservation" });
                         res.end();
@@ -216,14 +216,14 @@ app.post('/reservation', requireAuth, (req, res) => {
                         res.writeHead(301, { Location: "http://localhost:4000" });
                         res.end();
                     }
-                });    
+                });
             }
         });
     }
 });
 
 
-app.post('/review', function(req, res) {
+app.post('/review', function (req, res) {
     const titre = req.body.titre;
     const nom = req.body.nom;
     const review = req.body.review;
@@ -235,7 +235,7 @@ app.post('/review', function(req, res) {
 /**
  * connection au serveur
  */
-const server = app.listen(4000, function() {
+const server = app.listen(4000, function () {
     console.log("serveur fonctionne sur 4000... ! ");
     console.log("http://localhost:4000/");
 });
