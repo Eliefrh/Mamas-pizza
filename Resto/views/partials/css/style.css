@@ -321,7 +321,6 @@
 .menu-categorie-titre {
     font-size: 2em;
     text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
     padding-bottom: 1%;
 }
 
@@ -339,12 +338,10 @@
 }
 
 .menu-item-nom {
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 .menu-item-description {width: 90%;
     padding-left: 5%;
-    font-family: Arial, Helvetica, sans-serif;
     padding-bottom: 2%;
 }
 
@@ -359,6 +356,70 @@
 }
 
 .menu-commander:hover {
+    color: black;
+    background-color: white;
+    transition: 0.3s;
+}
+
+/* Item Page */
+
+#item{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: whitesmoke;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+#item-titre{
+    font-size: 2.5em;
+    font-family: cursive;
+    margin: 2.5% 0 1% 0;
+}
+
+#item-image{
+    width: 250px;
+    height: 250px;
+}
+
+#item-description{
+    font-size: 1.5em;
+}
+
+#item-commander{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 15px;
+    margin:1% 0 1% 0;
+}
+
+.item-incrementation{
+
+}
+
+#item-quantite{
+
+}
+
+#item-prix{
+
+}
+
+#item-ajouter-panier{
+    padding: 10px 50px 10px 50px;
+    border: solid white 2px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    background-color: rgb(194, 105, 105);
+    color: white;
+    font-size: 20px;
+    margin-bottom: 5%;
+}
+
+#item-ajouter-panier:hover {
     color: black;
     background-color: white;
     transition: 0.3s;

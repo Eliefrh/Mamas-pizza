@@ -19,9 +19,7 @@ app.set('views', './views');
 app.set('view engine', 'ejs');
 /*connect to server */
 
-/****
- * 
- * 
+/*
  * importe all related JavaScript and CSS files to inject in our app
  */
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
@@ -30,6 +28,7 @@ app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'));
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 app.use('/css', express.static(__dirname + '/views/partials/css'));
 app.use('/img', express.static(__dirname + '/views/partials/img', { extensions: ['jpg', 'png'] }));
+app.use('/js', express.static(__dirname + '/views/partials/js'));
 
 
 app.get('/', function(req, res) {
@@ -249,4 +248,16 @@ app.get('/menu/:item', (req, res) => {
     const itemName = req.params.item;
     const itemUrl = `/menu/${itemName}`;
     res.redirect(itemUrl);
+});
+
+/* Bouton Ajouter au panier */
+
+
+app.get('/item', function(req, res) {
+    res.render("pages/item", { titrePage: "Item" , Authentication: isLoggedIn });
+});
+
+app.post('/item', function(req, res) {
+
+    res.send('Item submitted successfully!');
 });
