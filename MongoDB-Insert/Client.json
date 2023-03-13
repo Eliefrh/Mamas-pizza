@@ -1,0 +1,78 @@
+[{
+  "_id": {
+    "$oid": "640f7b2a8b33ff40ca78b268"
+  },
+  "cl_id": "1",
+  "cl_courriel": "asdfg@vsdhjkbf.com",
+  "cl_password": "d",
+  "resto_id": "0"
+},{
+  "_id": {
+    "$oid": "640f7b2a8b33ff40ca78b269"
+  },
+  "cl_id": "31569",
+  "cl_nom": "singh",
+  "cl_prenom": "gaurav",
+  "cl_telephone": "4384561324",
+  "cl_courriel": "2215536@bdeb.qc.ca",
+  "cl_code_postal": "h1ll1h",
+  "cl_address": "10500 boul de l'acadie, montreal",
+  "cl_password": "1111",
+  "resto_id": "2645"
+},{
+  "_id": {
+    "$oid": "640f7b2a8b33ff40ca78b26a"
+  },
+  "cl_id": "56513",
+  "cl_nom": "alfrieh",
+  "cl_prenom": "elie",
+  "cl_telephone": "5144155145",
+  "cl_courriel": "2067396@bdeb.qc.ca",
+  "cl_code_postal": "h4nn4h",
+  "cl_address": "10500 bois de boulogne , montreal",
+  "cl_password": "0000",
+  "resto_id": "2645"
+},{
+  "_id": {
+    "$oid": "640f7b2a8b33ff40ca78b26b"
+  },
+  "cl_id": "64587",
+  "cl_nom": "hua",
+  "cl_prenom": "anthony",
+  "cl_telephone": "5144567894",
+  "cl_courriel": "2183423@bdeb.qc.ca",
+  "cl_code_postal": "h1zz1h",
+  "cl_address": "1500 cote vertu, montreal",
+  "cl_password": "2222",
+  "resto_id": "2645"
+},{
+  "_id": {
+    "$oid": "640f7b2a8b33ff40ca78b26c"
+  },
+  "cl_id": "64588",
+  "cl_courriel": "dgfhdershgf@ksdfgkjds.com",
+  "cl_password": "dgfshsfhgsgfh",
+  "resto_id": "0"
+},{
+  "_id": {
+    "$oid": "640f7b2a8b33ff40ca78b26d"
+  },
+  "cl_id": "64589",
+  "cl_nom": "fhgvnfersgffd",
+  "cl_courriel": "dgfhdershgf@ksdfgkjds.com",
+  "cl_password": "dgfshsfhgsgfh",
+  "resto_id": "0"
+},{
+  "_id": {
+    "$oid": "640f7b2a8b33ff40ca78b26e"
+  },
+  "cl_id": "64590",
+  "cl_nom": "Bot",
+  "cl_prenom": "Test",
+  "cl_telephone": "1111111111",
+  "cl_courriel": "TestBot@Testing.com",
+  "cl_code_postal": "TEST12",
+  "cl_address": "Test Testing",
+  "cl_password": "123456",
+  "resto_id": "0"
+}]

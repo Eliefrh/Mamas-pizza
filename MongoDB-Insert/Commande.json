@@ -1,0 +1,37 @@
+[{
+  "_id": {
+    "$oid": "640f7fe28b33ff40ca78b279"
+  },
+  "fac_id": "143",
+  "fac_total": "56",
+  "cl_id": "56513",
+  "date_commande": "2023-03-13 19:49:22",
+  "it_id": "234"
+},{
+  "_id": {
+    "$oid": "640f7fe28b33ff40ca78b27a"
+  },
+  "fac_id": "144",
+  "fac_total": "24",
+  "cl_id": "56513",
+  "date_commande": "2023-03-13 19:49:22",
+  "it_id": "237"
+},{
+  "_id": {
+    "$oid": "640f7fe28b33ff40ca78b27b"
+  },
+  "fac_id": "146",
+  "fac_total": "150",
+  "cl_id": "64590",
+  "date_commande": "2023-03-13 19:53:23",
+  "it_id": "238"
+},{
+  "_id": {
+    "$oid": "640f7fe28b33ff40ca78b27c"
+  },
+  "fac_id": "147",
+  "fac_total": "58",
+  "cl_id": "31569",
+  "date_commande": "2023-03-13 19:53:23",
+  "it_id": "235"
+}]

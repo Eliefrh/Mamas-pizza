@@ -1,0 +1,51 @@
+[{
+  "_id": {
+    "$oid": "640f804c8b33ff40ca78b283"
+  },
+  "prod_id": "3156",
+  "prod_nom": "pizza fromage",
+  "prod_ingredient": "fromage",
+  "prod_prix": "15.75",
+  "prod_calories": "450",
+  "cat_nom": "pizza"
+},{
+  "_id": {
+    "$oid": "640f804c8b33ff40ca78b284"
+  },
+  "prod_id": "6512",
+  "prod_nom": "lava pizza",
+  "prod_ingredient": "Pizza toute garnie avec spaghetti et sauce à la viande",
+  "prod_prix": "18",
+  "prod_calories": "500",
+  "cat_nom": "pizza"
+},{
+  "_id": {
+    "$oid": "640f804c8b33ff40ca78b285"
+  },
+  "prod_id": "7413",
+  "prod_nom": "pizza poulet buffalo",
+  "prod_ingredient": "Poulet grillé, sauce buffalo, fromage mozzarella et dressing au fromage bleu",
+  "prod_prix": "19.25",
+  "prod_calories": "545",
+  "cat_nom": "pizza"
+},{
+  "_id": {
+    "$oid": "640f804c8b33ff40ca78b286"
+  },
+  "prod_id": "9456",
+  "prod_nom": "pizza aux champignons",
+  "prod_ingredient": "Champignons grillés, fromage mozzarella et sauce tomate",
+  "prod_prix": "16.75",
+  "prod_calories": "435",
+  "cat_nom": "pizza"
+},{
+  "_id": {
+    "$oid": "640f804c8b33ff40ca78b287"
+  },
+  "prod_id": "85752",
+  "prod_nom": "hawaiian pizza",
+  "prod_ingredient": "Jambon, ananas, fromage mozzarella et sauce tomate",
+  "prod_prix": "17.5",
+  "prod_calories": "550",
+  "cat_nom": "pizza"
+}]
