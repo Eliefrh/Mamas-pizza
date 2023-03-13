@@ -1,3 +1,5 @@
+/* Item Page */
+
 function decrementer(){
     const quantite = document.getElementById("item-quantite");
     const prixTotal = document.getElementById("item-prix");
@@ -46,3 +48,6 @@ function redirectToItemPage(itemName){
     }
     window.location.href = itemUrl;
 }
+
+/* Signup Page */
+

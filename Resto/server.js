@@ -12,7 +12,8 @@ import("dateformat");
 const now = new Date();
 
 module.exports = app;
-
+let alertValidation;
+let alertValidationtxt;
 let isLoggedIn;
 
 app.set('views', './views');
@@ -40,7 +41,7 @@ app.get('/login', function (req, res) {
 });
 
 app.get('/signup', function (req, res) {
-    res.render("pages/signup", { titrePage: "Sign Up", Authentication: isLoggedIn });
+    res.render("pages/signup", { titrePage: "Sign Up", Authentication: isLoggedIn, Alert: alertValidation, Alerttxt: alertValidationtxt });
 });
 
 app.get('/menu', function (req, res) {
@@ -118,11 +119,20 @@ get the event list
 // const siteTitle = "Application simple";
 // const baseURL = "https://localhost:4000";
 
+
 // Handle form submission
 app.post("/signup", (req, res) => {
-
     const password = req.body['sign-up-form-password'];
     const repassword = req.body['sign-up-form-repassword'];
+    if(password.length > 50 && repassword.length > 50){
+        alertValidation = false;
+        alertValidationtxt = "password trop grand, doit etre moins que 50 caractere";
+        /*alert.notify({
+            title: 'Erreur de password',
+            message: '50 caracteres et plus dans le password'
+        });*/
+        res.json({success: false});
+    }
     if (password == repassword) {
         const nom = req.body['sign-up-form-nom'];
         const prenom = req.body['sign-up-form-prenom'];
@@ -138,7 +148,7 @@ app.post("/signup", (req, res) => {
             'INSERT INTO client ( cl_nom, cl_prenom, cl_telephone, cl_courriel, cl_code_postal, cl_address, cl_password) VALUES (?, ?, ?, ?, ?, ?, ?)', [nom, prenom, tel, email, zip, address, password],
             (error, results) => {
                 if (error) {
-                    res.writeHead(301, { Location: "http://localhost:4000/signup" });
+                    //res.writeHead(301, { Location: "http://localhost:4000/signup" });
                     res.end();
                 } else {
                     res.writeHead(301, { Location: "http://localhost:4000/login" });
@@ -147,7 +157,7 @@ app.post("/signup", (req, res) => {
             }
         );
     } else {
-        res.writeHead(301, { Location: "http://localhost:4000/signup" });
+        //res.writeHead(301, { Location: "http://localhost:4000/signup" });
         res.end();
     }
 });

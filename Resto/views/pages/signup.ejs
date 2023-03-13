@@ -7,6 +7,13 @@
 
 <body>
   <%- include('../partials/navbar.ejs')%>
+  <% if(Alert){ %>
+  <div class="alert alert-danger" role="alert">
+   <%= Alerttxt %>
+  </div>
+  <% } else{ %>
+    
+  <% } %>
     <br>
     <br>
     <span id="sign-up-form-titre">Inscription : </span>
@@ -18,48 +25,43 @@
           <div class="form-row">
             <div class="col">
               <label for="sign-up-form-prenom">Prénom :</label>
-              <input type="text" class="form-control" id="sign-up-form-prenom" name="sign-up-form-prenom"
-                placeholder="Prénom">
+              <input type="text" class="form-control" id="sign-up-form-prenom" name="sign-up-form-prenom" placeholder="Prénom" required>
             </div>
             <div class="col">
               <label for="sign-up-form-nom">Nom :</label>
-              <input type="text" class="form-control" id="sign-up-form-nom" name="sign-up-form-nom" placeholder="Nom">
+              <input type="text" class="form-control" id="sign-up-form-nom" name="sign-up-form-nom" placeholder="Nom" required>
             </div>
           </div><br>
           <div class="form-group">
-            <label for="sign-up-form-email">Address Courriel :</label>
-            <input type="email" class="form-control" id="sign-up-form-email" name="sign-up-form-email" placeholder="Address Courriel">
+            <label for="sign-up-form-email">Addresse Courriel :</label>
+            <input type="email" class="form-control" id="sign-up-form-email" name="sign-up-form-email" placeholder="Addresse Courriel" required>
           </div>
           <div class="form-group">
             <label for="sign-up-form-phone">Téléphone :</label>
-            <input type="tel" class="form-control" id="sign-up-form-tel" name="sign-up-form-tel" placeholder="Téléphone">
+            <input type="tel" class="form-control" id="sign-up-form-tel" name="sign-up-form-tel" placeholder="Téléphone" required>
           </div>
           <div class="form-row">
             <div class="col-7">
               <label for="sign-up-form-ville">Ville :</label>
-              <input type="text" class="form-control" name="sign-up-form-ville" id="sign-up-form-ville"
-                placeholder="Ville">
+              <input type="text" class="form-control" name="sign-up-form-ville" id="sign-up-form-ville" placeholder="Ville" required>
             </div>
             <div class="col">
               <label for="sign-up-form-province">Province :</label>
-              <input type="text" class="form-control" name="sign-up-form-province" id="sign-up-form-province"
-                placeholder="Province">
+              <input type="text" class="form-control" name="sign-up-form-province" id="sign-up-form-province" placeholder="Province" required>
             </div>
             <div class="col">
               <label for="sign-up-form-zip">Code Postal :</label>
-              <input type="text" class="form-control" name="sign-up-form-zip" id="sign-up-form-zip"
-                placeholder="Code Postal">
+              <input type="text" class="form-control" name="sign-up-form-zip" id="sign-up-form-zip" placeholder="Code Postal" required>
             </div>
           </div><br>
           <div class="form-row">
             <div class="col">
-              <label for="sign-up-form-password">Mots de Passe :</label>
-              <input type="password" class="form-control" id="sign-up-form-password" name="sign-up-form-password" placeholder="Mot de Passe">
+              <label for="sign-up-form-password">Mot de Passe :</label>
+              <input type="password" class="form-control" id="sign-up-form-password" name="sign-up-form-password" placeholder="Mot de Passe" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
             </div>
             <div class="col">
               <label for="sign-up-form-repassword">Entrez à nouveau le mot de passe :</label>
-              <input type="password" class="form-control" id="sign-up-form-repassword" name="sign-up-form-repassword"
-                placeholder="Mot de Passe">
+              <input type="password" class="form-control" id="sign-up-form-repassword" name="sign-up-form-repassword" placeholder="Mot de Passe" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
             </div>
           </div><br>
           <button type="submit" class="btn btn-secondary">Soumettre</button>
