@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head.ejs')%>
+</head>
+
+<body>
+    <%- include('../partials/navbar.ejs')%>
+        <!-- Menu -->
+        <div id="menu">
+            <!-- Titre -->
+            <div id="menu-front-header">
+                <h1 id="menu-titre">Notre Menu</h1>
+            </div>
+
+            <!-- Pizzas avec viandes -->
+            <img class="menu-categorie-img" src="">
+            <h2 class="menu-categorie-titre">Pizzas avec viandes</h2>
+            <div class="menu-categorie">
+                <div class="menu-item">
+                    <img class="menu-item-image" src="img/Pepperoni.png">
+                    <h3 class="menu-item-nom">Pepperoni</h3>
+                    <p class="menu-item-description">Pepperoni et fromage mozzarella</p>
+                    <button class="menu-commander" onclick="redirectToItemPage('Pepperoni')">Personnaliser</button>
+                </div>
+                <div class="menu-item">
+                    <img class="menu-item-image" src="img/PouletBuffalo.png">
+                    <h3 class="menu-item-nom">Poulet buffalo</h3>
+                    <p class="menu-item-description">Poulet barbecue, oignons rouges, et fromage parmesan sur une base à la sauce Buffalo</p>
+                    <button class="menu-commander" onclick="redirectToItemPage('Poulet buffalo')">Personnaliser</button>
+                </div>
+                <div class="menu-item">
+                    <img class="menu-item-image" src="img/Carnivore.png">
+                    <h3 class="menu-item-nom">Carnivore</h3>
+                    <p class="menu-item-description">Garnie de pepperoni classique, bacon émietté, salami, de saucisse italienne épicée, de fines herbes italiennes, et de mozzarella</p>
+                    <button class="menu-commander" onclick="redirectToItemPage('Carnivore')">Personnaliser</button>
+                </div>
+            </div>
+
+            <!-- Pizzas végétariennes -->
+            <img class="menu-categorie-img" src="">
+            <h2 class="menu-categorie-titre">Pizzas végétariennes</h2>
+            <div class="menu-categorie">
+                <div class="menu-item">
+                    <img class="menu-item-image" src="img/Vegetarienne.png">
+                    <h3 class="menu-item-nom">Végétarienne</h3>
+                    <p class="menu-item-description">Croûte multi grains de blé entier garnie de poivrons verts, champignons frais, tomates Roma et fromage mozzarella</p>
+                    <button class="menu-commander" onclick="redirectToItemPage('Végétarienne')">Personnaliser</button>
+                </div>
+                <div class="menu-item">
+                    <img class="menu-item-image" src="img/Mediterranienne.png">
+                    <h3 class="menu-item-nom">Méditérannienne</h3>
+                    <p class="menu-item-description">Garnie d'olives Kalamata, brocoli, tomates sechees au soleil, oignons rouges, feta et mozzarella</p>
+                    <button class="menu-commander" onclick="redirectToItemPage('Méditérannienne')">Personnaliser</button>
+                </div>
+                <div class="menu-item">
+                    <img class="menu-item-image" src="img/CremeuseAil.png">
+                    <h3 class="menu-item-nom">Crémeuse à l'ail</h3>
+                    <p class="menu-item-description">Chaque bouchée regorge d'une délicieuse saveur crémeuse à l'ail et chaque pizza commence par une sauce de base crémeuse à l'ail suivi d'un mélange de six fromages et le tout est garni de parmesan et d'ail rôti</p>
+                    <button class="menu-commander" onclick="redirectToItemPage('Crémeuse à l\'ail')">Personnaliser</button>
+                </div>
+            </div>
+
+            <!-- Poulet -->
+            <img class="menu-categorie-img" src="">
+            <h2 class="menu-categorie-titre">Poulet</h2>
+            <div class="menu-categorie">
+                <div class="menu-item">
+                    <img class="menu-item-image" src="img/Ailes.png">
+                    <h3 class="menu-item-nom">Ailes</h3>
+                    <p class="menu-item-description">Ailes de poulet classiques</p>
+                    <button class="menu-commander" onclick="redirectToItemPage('Poulet')">Personnaliser</button>
+                </div>
+                <div class="menu-item">
+                    <img class="menu-item-image" src="img/BoucheePoulet.png">
+                    <h3 class="menu-item-nom">Bouchées de poulet</h3>
+                    <p class="menu-item-description">Bouchées de poulet désossé, entièrement faites de tendre viande blanche</p>
+                    <button class="menu-commander" onclick="redirectToItemPage('Bouchées de poulet')">Personnaliser</button>
+                </div>
+                <div class="menu-item">
+                    <img class="menu-item-image" src="img/PouletPopcorn.png">
+                    <h3 class="menu-item-nom">Poulet popcorn</h3>
+                    <p class="menu-item-description">Bouchées tendres, juteuses et légèrement assaisonnées</p>
+                    <button class="menu-commander" onclick="redirectToItemPage('Poulet popcorn')">Personnaliser</button>
+                </div>
+            </div>
+
+            <!-- Frites -->
+            <img class="menu-categorie-img" src="">
+            <h2 class="menu-categorie-titre">Frites</h2>
+            <div class="menu-categorie">
+                <div class="menu-item">
+                    <img class="menu-item-image" src="img/Frite.png">
+                    <h3 class="menu-item-nom">Frites</h3>
+                    <p class="menu-item-description">Boîte de frites dorées</p>
+                    <button class="menu-commander" onclick="redirectToItemPage('Frites')">Personnaliser</button>
+                </div>
+                <div class="menu-item">
+                    <img class="menu-item-image" src="img/FritePatateDouce.png">
+                    <h3 class="menu-item-nom">Frites de patates douces</h3>
+                    <p class="menu-item-description">Boîte de frites de patates douces coupées en lanières</p>
+                    <button class="menu-commander" onclick="redirectToItemPage('Frites de patates douces')">Personnaliser</button>
+                </div>
+                <div class="menu-item">
+                    <img class="menu-item-image" src="img/QuartierPommeDeTerre.png">
+                    <h3 class="menu-item-nom">Quartiers de pomme de terre</h3>
+                    <p class="menu-item-description">Boîte de quartiers de pomme de terre assaisonnés d'un savoureux mélange d'herbes et d'épices</p>
+                    <button class="menu-commander" onclick="redirectToItemPage('Quartiers de pomme de terre')">Personnaliser</button>
+                </div>
+            </div>
+
+            <!-- Boissons -->
+            <img class="menu-categorie-img" src="">
+            <h2 class="menu-categorie-titre">Boissons</h2>
+            <div class="menu-categorie">
+                <div class="menu-item">
+                    <img class="menu-item-image" src="img/Dasani.png">
+                    <h3 class="menu-item-nom">Bouteille d'eau</h3>
+                    <p class="menu-item-description">Bouteille d'eau Dasani de 591ml</p>
+                    <button class="menu-commander" onclick="redirectToItemPage('Bouteille d\'eau')">Personnaliser</button>
+                </div>
+                <div class="menu-item">
+                    <img class="menu-item-image" src="img/Nestea.png">
+                    <h3 class="menu-item-nom">Thé glacé Nestea</h3>
+                    <p class="menu-item-description">Bouteille de Nestea de 500ml</p>
+                    <button class="menu-commander" onclick="redirectToItemPage('Thé glacé Nestea')">Personnaliser</button>
+                </div>
+                <div class="menu-item">
+                    <img class="menu-item-image" src="img/Monster.png">
+                    <h3 class="menu-item-nom">Monster original</h3>
+                    <p class="menu-item-description">Canette de Monster de 473ml</p>
+                    <button class="menu-commander" onclick="redirectToItemPage('Monster original')">Personnaliser</button>
+                </div>
+            </div>
+
+            <!-- Trempettes -->
+            <img class="menu-categorie-img" src="">
+            <h2 class="menu-categorie-titre">Trempettes</h2>
+            <div class="menu-categorie">
+                <div class="menu-item">
+                    <img class="menu-item-image" src="img/Barbecue.png">
+                    <h3 class="menu-item-nom">Sauce barbecue</h3>
+                    <p class="menu-item-description">Tasse de sauce barbecue</p>
+                    <button class="menu-commander" onclick="redirectToItemPage('Sauce barbecue')">Personnaliser</button>
+                </div>
+                <div class="menu-item">
+                    <img class="menu-item-image" src="img/Jalapeno.png">
+                    <h3 class="menu-item-nom">Cheddar jalapeno</h3>
+                    <p class="menu-item-description">Tasse de sauce cheddar jalapeno</p>
+                    <button class="menu-commander" onclick="redirectToItemPage('Cheddar jalapeno')">Personnaliser</button>
+                </div>
+                <div class="menu-item">
+                    <img class="menu-item-image" src="img/Buffalo.png">
+                    <h3 class="menu-item-nom">Sauce au buffalo</h3>
+                    <p class="menu-item-description">Tasse de sauce au buffalo</p>
+                    <button class="menu-commander" onclick="redirectToItemPage('Sauce au buffalo')">Personnaliser</button>
+                </div>
+            </div>
+        </div>
+        <%- include('../partials/bootstrap.ejs')%>
+            <%- include('../partials/footer.ejs')%>
+</body>
+
+</html>
