@@ -1,6 +1,8 @@
 const express = require('express');
 const http = require('http');
 const mysql = require('mysql');
+const MongoClient = require('mongodb').MongoClient;
+const uri = 'mongodb://localhost:27017/Resto_awt';
 const app = express();
 const bodyParser = require("body-parser");
 const { Module } = require('module');
@@ -8,7 +10,7 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const alert = require('node-notifier');
 // const dateFormat = require("dateformat");
-import("dateformat");
+import ("dateformat");
 const now = new Date();
 
 module.exports = app;
@@ -32,38 +34,38 @@ app.use('/img', express.static(__dirname + '/views/partials/img', { extensions: 
 app.use('/js', express.static(__dirname + '/views/partials/js'));
 
 
-app.get('/', function (req, res) {
+app.get('/', function(req, res) {
     res.render("pages/index", { titrePage: "Mamma's Pizza's", Authentication: isLoggedIn });
 });
 
-app.get('/login', function (req, res) {
+app.get('/login', function(req, res) {
     res.render("pages/login", { titrePage: "Login", Authentication: isLoggedIn });
 });
 
-app.get('/signup', function (req, res) {
+app.get('/signup', function(req, res) {
     res.render("pages/signup", { titrePage: "Sign Up", Authentication: isLoggedIn, Alert: alertValidation, Alerttxt: alertValidationtxt });
 });
 
-app.get('/menu', function (req, res) {
+app.get('/menu', function(req, res) {
     res.render("pages/menu", { titrePage: "Menu", Authentication: isLoggedIn });
 });
 
-app.get('/panier', function (req, res) {
+app.get('/panier', function(req, res) {
     res.render("pages/panier", { titrePage: "Panier", Authentication: isLoggedIn });
 });
 
-app.get('/produitlist', function (req, res) {
+app.get('/produitlist', function(req, res) {
     res.render("pages/produit_list", { titrePage: "Produit List", Authentication: isLoggedIn });
 });
 
-app.get('/reservation', function (req, res) {
+app.get('/reservation', function(req, res) {
     res.render("pages/reservation", { titrePage: "Reservation", Authentication: isLoggedIn });
 });
-app.get('/review', function (req, res) {
+app.get('/review', function(req, res) {
     res.render("pages/review", { titrePage: "Review", Authentication: isLoggedIn });
 });
 
-app.get('/logout', function (req, res) {
+app.get('/logout', function(req, res) {
     isLoggedIn = false;
     res.writeHead(301, { Location: "http://localhost:4000" });
     res.end();
@@ -92,11 +94,18 @@ app.use(express.urlencoded({ extended: true }));
 connection a la bd
 */
 
+/*
 const con = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "",
     database: "resto_awt",
+});*/
+
+/* Connection a la BD MongoDB */
+
+MongoClient.connect()) {
+
 });
 
 function requireAuth(req, res, next) {
@@ -124,14 +133,14 @@ get the event list
 app.post("/signup", (req, res) => {
     const password = req.body['sign-up-form-password'];
     const repassword = req.body['sign-up-form-repassword'];
-    if(password.length > 50 && repassword.length > 50){
+    if (password.length > 50 && repassword.length > 50) {
         alertValidation = false;
         alertValidationtxt = "password trop grand, doit etre moins que 50 caractere";
         /*alert.notify({
             title: 'Erreur de password',
             message: '50 caracteres et plus dans le password'
         });*/
-        res.json({success: false});
+        res.json({ success: false });
     }
     if (password == repassword) {
         const nom = req.body['sign-up-form-nom'];
@@ -233,7 +242,7 @@ app.post('/reservation', requireAuth, (req, res) => {
 });
 
 
-app.post('/review', function (req, res) {
+app.post('/review', function(req, res) {
     const titre = req.body.titre;
     const nom = req.body.nom;
     const review = req.body.review;
@@ -245,7 +254,7 @@ app.post('/review', function (req, res) {
 /**
  * connection au serveur
  */
-const server = app.listen(4000, function () {
+const server = app.listen(4000, function() {
     console.log("serveur fonctionne sur 4000... ! ");
     console.log("http://localhost:4000/");
 });
@@ -264,7 +273,7 @@ app.get('/menu/:item', (req, res) => {
 
 
 app.get('/item', function(req, res) {
-    res.render("pages/item", { titrePage: "Item" , Authentication: isLoggedIn });
+    res.render("pages/item", { titrePage: "Item", Authentication: isLoggedIn });
 });
 
 app.post('/item', function(req, res) {

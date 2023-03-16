@@ -279,13 +279,13 @@
     padding-left: 4%;
     padding-right: 4%;
     padding-top: 4%;
-  }
+}
 
-  #resservation-form-titre {
+#resservation-form-titre {
     margin-left: 4%;
     margin-top: 10%;
     font-size: 30px;
-  }
+}
 
 
 /* Menu Page */
@@ -337,10 +337,10 @@
     height: 250px;
 }
 
-.menu-item-nom {
-}
+.menu-item-nom {}
 
-.menu-item-description {width: 90%;
+.menu-item-description {
+    width: 90%;
     padding-left: 5%;
     padding-bottom: 2%;
 }
@@ -361,9 +361,10 @@
     transition: 0.3s;
 }
 
+
 /* Item Page */
 
-#item{
+#item {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -372,43 +373,37 @@
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
 
-#item-titre{
+#item-titre {
     font-size: 2.5em;
     font-family: cursive;
     margin: 2.5% 0 1% 0;
 }
 
-#item-image{
+#item-image {
     width: 250px;
     height: 250px;
 }
 
-#item-description{
+#item-description {
     font-size: 1.5em;
 }
 
-#item-commander{
+#item-commander {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: row;
     gap: 15px;
-    margin:1% 0 1% 0;
+    margin: 1% 0 1% 0;
 }
 
-.item-incrementation{
+.item-incrementation {}
 
-}
+#item-quantite {}
 
-#item-quantite{
+#item-prix {}
 
-}
-
-#item-prix{
-
-}
-
-#item-ajouter-panier{
+#item-ajouter-panier {
     padding: 10px 50px 10px 50px;
     border: solid white 2px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
