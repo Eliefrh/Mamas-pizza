@@ -25,14 +25,21 @@ export async function executeSignUpOperations() {
         const db = mongoClient.db("Resto_awt");
         const collection = db.collection("Client");
 
-        // Variables
-        let nom;
-        let prenom;
+        // Variables selon les app.post
+        let nom = "abc";
+        let prenom = "abc";
+        let telephone = "abc";
+        let courriel = "abc";
+        let codePostal = "abc";
+        let password = "abc";
+        let repassword = "abc";
 
-
-        // Insertion
-        const document = { cl_nom: nom };
-        await collection.insertOne(document);
+        // Verification ici des mots de passe, donnees etc
+        if(password == repassword){
+            // Insertion des donnees dans la Base de donnees
+            const document = { cl_nom: nom, cl_prenom: prenom, cl_telephone: telephone, cl_courriel: courriel, cl_code_postal: codePostal, cl_password: password };
+            await collection.insertOne(document);
+        }
     } finally {
         await mongoClient.close();
     }
