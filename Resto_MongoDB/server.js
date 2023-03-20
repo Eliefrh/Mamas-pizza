@@ -8,12 +8,17 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const alert = require('node-notifier');
 
+
+
+
+
+
 // const dateFormat = require("dateformat");
 import("dateformat");
 const now = new Date();
 
 const uri = 'mongodb://localhost:27017/Resto_awt';
-const MongoClient = require('mongodb').MongoClient;
+//const MongoClient = require('mongodb').MongoClient;
 
 module.exports = app;
 let alertValidation;
@@ -91,7 +96,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 function requireAuth(req, res, next) {
-    if (req.session && req.session.email) {
+    if (req.session && req.session
+        .email) {
+
         return next();
     } else {
         res.writeHead(301, { Location: "http://localhost:27017/login" });
@@ -101,13 +108,42 @@ function requireAuth(req, res, next) {
 
 // connection a la bd
 
-MongoClient.connect(uri, {useUnifiedTopology: true}, (err, client) => {
-    if (err) return console.error(err)
-    console.log('Connected to Mongodb');
-    
-    
+const MongoClient = require('mongodb').MongoClient;
 
-});
+
+run();
+
+async function run() {
+    const url = 'mongodb://127.0.0.1:27017/';
+
+
+    const client = new MongoClient(url);
+
+    const db = client.db("Resto_awt");
+    const collection = db.collection("Client");
+    const data = collection.find();
+    console.log(await data.toArray())
+}
+
+// client.connect(url, function (err, client) {
+//     console.log('sdgdfsgsd');
+//     console.log("Connected successfully to server");
+
+//     const db = client.db('myproject');
+
+//     // Do something with the database
+
+//     client.close();
+// });
+
+
+// MongoClient.connect(uri, {useUnifiedTopology: true}, (err, client) => {
+//     if (err) return console.error(err)
+//     console.log('Connected to Mongodb');
+
+
+
+// });
 
 // const con = mysql.createConnection({
 //     host: "localhost",
@@ -240,9 +276,9 @@ MongoClient.connect(uri, {useUnifiedTopology: true}, (err, client) => {
 // });
 
 // Connecter au server
-const server = app.listen(27017, function () {
-    console.log("serveur fonctionne sur 27017... ! ");
-    console.log("http://localhost:27017/");
+const server = app.listen(29017, function () {
+    console.log("serveur fonctionne sur 29017... ! ");
+    console.log("http://localhost:29017/");
 });
 
 // /**
