@@ -73,15 +73,13 @@ app.get('/logout', function (req, res) {
     res.end();
 });
 
-app.use((req, res, next) => {
-    console.log('Requete recue! ');
-    next();
-});
+// app.use((req, res, next) => {
+//     console.log('Requete recue! ');
+//     next();
+// });
 
 
-/*
- * parse all form data
- */
+// Parse Data
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(session({
@@ -105,8 +103,11 @@ function requireAuth(req, res, next) {
 
 MongoClient.connect(uri, {useUnifiedTopology: true}, (err, client) => {
     if (err) return console.error(err)
-    console.log('Connected to Mongodb')
-})
+    console.log('Connected to Mongodb');
+    
+    
+
+});
 
 // const con = mysql.createConnection({
 //     host: "localhost",
@@ -238,13 +239,11 @@ MongoClient.connect(uri, {useUnifiedTopology: true}, (err, client) => {
 //     res.send('Review submitted successfully!');
 // });
 
-// /**
-//  * connection au serveur
-//  */
-// const server = app.listen(27017, function () {
-//     console.log("serveur fonctionne sur 27017... ! ");
-//     console.log("http://localhost:27017/");
-// });
+// Connecter au server
+const server = app.listen(27017, function () {
+    console.log("serveur fonctionne sur 27017... ! ");
+    console.log("http://localhost:27017/");
+});
 
 // /**
 //  * Bouton personnaliser dans le menu
