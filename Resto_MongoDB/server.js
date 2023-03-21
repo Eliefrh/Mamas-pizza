@@ -10,13 +10,18 @@ const alert = require('node-notifier');
 import("dateformat");
 const now = new Date();
 
+const { SignupForm } = require("./operation");
+const { LoginForm } = require("./operation");
+const { ReservationForm } = require("./operation");
+const { ReviewForm } = require("./operation");
+
 const { config } = require('dotenv');
 config();
 
 module.exports = app;
 let alertValidation;
 let alertValidationtxt;
-let isLoggedIn;
+let isLoggedIn = false;
 
 app.set('views', './views');
 app.set('view engine', 'ejs');
@@ -65,7 +70,7 @@ app.get('/review', function (req, res) {
 
 app.get('/logout', function (req, res) {
     isLoggedIn = false;
-    res.writeHead(301, { Location: "http://localhost:27017" });
+    res.writeHead(301, { Location: "http://localhost:4000/" });
     res.end();
 });
 
@@ -91,7 +96,7 @@ function requireAuth(req, res, next) {
 
         return next();
     } else {
-        res.writeHead(301, { Location: "http://localhost:27017/login" });
+        res.writeHead(301, { Location: "http://localhost:4000/login" });
         res.end();
     }
 }
@@ -147,37 +152,12 @@ function requireAuth(req, res, next) {
 // });
 
 // // Handle POST request for login
-// app.post('/login', (req, res) => {
-//     const email = req.body['login-email'];
-//     const password = req.body['login-password'];
-//     // Check if the email and password are valid
-//     const sql = `SELECT * FROM client WHERE cl_courriel = '${email}' AND cl_password = '${password}'`;
-//     con.query(sql, (err, results) => {
-//         if (err) {
-//             isLoggedIn = false;
-//             alert.notify({
-//                 title: 'erreur de login',
-//                 message: 'Mauvais utilisateur ou mot de passe '
-//             });
-//             res.writeHead(301, { Location: "http://localhost:27017/login" });
-//             res.end();
-//         } else if (results.length > 0) {
-//             // Store the user's email in a cookie
-//             req.session.email = email;
-//             isLoggedIn = true;
-//             res.writeHead(301, { Location: "http://localhost:27017" });
-//             res.end();
-//         } else {
-//             isLoggedIn = false;
-//             alert.notify({
-//                 title: 'erreur de login',
-//                 message: 'Mauvais utilisateur ou mot de passe '
-//             });
-//             res.writeHead(301, { Location: "http://localhost:27017/login" });
-//             res.end();
-//         }
-//     });
-// });
+app.post('/login', (req, res) => {
+    const email = req.body['login-email'];
+    const password = req.body['login-password'];
+    // Check if the email and password are valid
+    
+});
 
 
 // app.post('/reservation', requireAuth, (req, res) => {
@@ -250,6 +230,5 @@ const server = app.listen(4000, function () {
 // });
 
 // app.post('/item', function (req, res) {
-
 //     res.send('Item submitted successfully!');
 // });
