@@ -62,18 +62,18 @@ async function ReviewForm(formInput) {
 }
 
 // Menu operation
-async function Menu(){
+async function Menu() {
     try {
         mongoClient = await ConnectionDeMongodb(uri);
         const db = mongoClient.db("Resto_awt");
         const collection = db.collection("Produits");
-        await FindProduit(collection);
+        return await FindProduit(collection);
     } finally {
         await mongoClient.close();
     }
 }
 
-async function ItemsForm(menuInput){ // produit id, quantite, prix total
+async function ItemsForm(menuInput) { // produit id, quantite, prix total
     try {
         mongoClient = await ConnectionDeMongodb(uri);
         const db = mongoClient.db("Resto_awt");
@@ -103,8 +103,8 @@ async function CreateReview(collection, formInput) {
     await collection.insertOne(formInput);
 }
 
-async function FindProduit(collection){
-    await collection.find({});
+async function FindProduit(collection) {
+    return await collection.find({}, { _id: 1, prod_nom: 1, prod_description: 1 });
 }
 
 async function CreateItem(collection, menuInput) {

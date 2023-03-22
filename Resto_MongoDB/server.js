@@ -53,7 +53,9 @@ app.get('/signup', function(req, res) {
 });
 
 app.get('/menu', function(req, res) {
-    res.render("pages/menu", { titrePage: "Menu", Authentication: isLoggedIn });
+    const produits = Menu;
+    console.log(produits);
+    res.render("pages/menu", { titrePage: "Menu", Authentication: isLoggedIn, Produits: produits });
 });
 
 app.get('/panier', function(req, res) {
@@ -67,6 +69,7 @@ app.get('/produitlist', function(req, res) {
 app.get('/reservation', function(req, res) {
     res.render("pages/reservation", { titrePage: "Reservation", Authentication: isLoggedIn });
 });
+
 app.get('/review', function(req, res) {
     res.render("pages/review", { titrePage: "Review", Authentication: isLoggedIn });
 });
@@ -159,7 +162,7 @@ app.post('/login', (req, res) => {
     const email = req.body['login-email'];
     const password = req.body['login-password'];
     // Check if the email and password are valid
-    
+
 });
 
 
