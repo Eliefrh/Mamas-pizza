@@ -1,7 +1,7 @@
 const MongoClient = require('mongodb').MongoClient;
 
 // Connection MongoDB
-export async function ConnectionDeMongodb(uri) {
+async function ConnectionDeMongodb(uri) {
     let mongoClient;
 
     try {
@@ -18,7 +18,7 @@ export async function ConnectionDeMongodb(uri) {
 
 // Form Operation
 
-export async function SignupForm(formInput) {
+async function SignupForm(formInput) {
     const uri = process.env.DB_URi;
     let mongoClient;
 
@@ -32,7 +32,7 @@ export async function SignupForm(formInput) {
     }
 }
 
-export async function LoginForm(email, password) {
+async function LoginForm(email, password) {
     const uri = process.env.DB_URi;
     let mongoClient;
 
@@ -46,7 +46,7 @@ export async function LoginForm(email, password) {
     }
 }
 
-export async function ReservationForm(formInput) {
+async function ReservationForm(formInput) {
     const uri = process.env.DB_URi;
     let mongoClient;
 
@@ -60,7 +60,7 @@ export async function ReservationForm(formInput) {
     }
 }
 
-export async function ReviewForm(formInput) {
+async function ReviewForm(formInput) {
     const uri = process.env.DB_URi;
     let mongoClient;
 
@@ -74,20 +74,22 @@ export async function ReviewForm(formInput) {
     }
 }
 
+
+
 // Small operation
 
-export async function CreateClient(collection, formInput) {
+async function CreateClient(collection, formInput) {
     await collection.insertOne(formInput);
 }
 
-export async function CreateReservation(collection, formInput) {
+async function CreateReservation(collection, formInput) {
     await collection.insertOne(formInput);
 }
 
-export async function FincClient(collection, email, password) {
+async function FincClient(collection, email, password) {
     await collection.findOne({ cl_courriel: email, cl_password: password });
 }
 
-export async function CreateReview(collection, formInput) {
+async function CreateReview(collection, formInput) {
     await collection.insertOne(formInput);
 }

@@ -16,7 +16,6 @@ const { ReservationForm } = require("./operation");
 const { ReviewForm } = require("./operation");
 
 const { config } = require('dotenv');
-const { STMT_TYPE_DROP } = require('oracledb');
 config();
 
 module.exports = app;
@@ -55,26 +54,26 @@ app.get('/menu', async function(req, res) {
         prod_nom: String,
         prod_description: String
     }*/
-    const uri = process.env.DB_URi;
-    let mongoClient;
+    // const uri = process.env.DB_URi;
+    // let mongoClient;
 
-    try {
-        mongoClient = await ConnectionDeMongodb(uri);
-        const db = mongoClient.db("Resto_awt");
-        const collection = db.collection("Produits");
-        collection.find({}, function(produits) {
-            res.render("pages/menu", {
-                titrePage: "Menu",
-                Authentication: isLoggedIn,
-                listeProduits: produits
-            });
-        })
-    } catch (err) {
-        console.log(err);
-        res.status(500).send("Erreur de connection avec MongoDB");
-    } finally {
-        await mongoClient.close();
-    }
+    // try {
+    //     mongoClient = await ConnectionDeMongodb(uri);
+    //     const db = mongoClient.db("Resto_awt");
+    //     const collection = db.collection("Produits");
+    //     collection.find({}, function(produits) {
+    //         res.render("pages/menu", {
+    //             titrePage: "Menu",
+    //             Authentication: isLoggedIn,
+    //             listeProduits: produits
+    //         });
+    //     })
+    // } catch (err) {
+    //     console.log(err);
+    //     res.status(500).send("Erreur de connection avec MongoDB");
+    // } finally {
+    //     await mongoClient.close();
+    // }
 });
 
 app.get('/panier', function(req, res) {
@@ -180,7 +179,7 @@ app.post('/login', (req, res) => {
     const email = req.body['login-email'];
     const password = req.body['login-password'];
     // Check if the email and password are valid
-
+    
 });
 
 
