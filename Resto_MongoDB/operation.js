@@ -1,9 +1,9 @@
 const MongoClient = require('mongodb').MongoClient;
+const uri = process.env.DB_URi;
+let mongoClient;
 
 // Connection MongoDB
 async function ConnectionDeMongodb(uri) {
-    let mongoClient;
-
     try {
         mongoClient = new MongoClient(uri);
         console.log("Connection a MongoDB...");
@@ -17,11 +17,7 @@ async function ConnectionDeMongodb(uri) {
 }
 
 // Form Operation
-
 async function SignupForm(formInput) {
-    const uri = process.env.DB_URi;
-    let mongoClient;
-
     try {
         mongoClient = await ConnectionDeMongodb(uri);
         const db = mongoClient.db("Resto_awt");
@@ -33,23 +29,17 @@ async function SignupForm(formInput) {
 }
 
 async function LoginForm(email, password) {
-    const uri = process.env.DB_URi;
-    let mongoClient;
-
     try {
         mongoClient = await ConnectionDeMongodb(uri);
         const db = mongoClient.db("Resto_awt");
         const collection = db.collection("Client");
-        await FincClient(collection, email, password);
+        await FindClient(collection, email, password);
     } finally {
         await mongoClient.close();
     }
 }
 
 async function ReservationForm(formInput) {
-    const uri = process.env.DB_URi;
-    let mongoClient;
-
     try {
         mongoClient = await ConnectionDeMongodb(uri);
         const db = mongoClient.db("Resto_awt");
@@ -61,9 +51,6 @@ async function ReservationForm(formInput) {
 }
 
 async function ReviewForm(formInput) {
-    const uri = process.env.DB_URi;
-    let mongoClient;
-
     try {
         mongoClient = await ConnectionDeMongodb(uri);
         const db = mongoClient.db("Resto_awt");
@@ -74,6 +61,28 @@ async function ReviewForm(formInput) {
     }
 }
 
+// Menu operation
+async function Menu(){
+    try {
+        mongoClient = await ConnectionDeMongodb(uri);
+        const db = mongoClient.db("Resto_awt");
+        const collection = db.collection("Produits");
+        await FindProduit(collection);
+    } finally {
+        await mongoClient.close();
+    }
+}
+
+async function ItemsForm(menuInput){ // produit id, quantite, prix total
+    try {
+        mongoClient = await ConnectionDeMongodb(uri);
+        const db = mongoClient.db("Resto_awt");
+        const collection = db.collection("Items");
+        await CreateItem(collection, menuInput);
+    } finally {
+        await mongoClient.close();
+    }
+}
 
 
 // Small operation
@@ -86,10 +95,18 @@ async function CreateReservation(collection, formInput) {
     await collection.insertOne(formInput);
 }
 
-async function FincClient(collection, email, password) {
+async function FindClient(collection, email, password) {
     await collection.findOne({ cl_courriel: email, cl_password: password });
 }
 
 async function CreateReview(collection, formInput) {
     await collection.insertOne(formInput);
+}
+
+async function FindProduit(collection){
+    await collection.find({});
+}
+
+async function CreateItem(collection, menuInput) {
+    await collection.insertOne(menuInput);
 }

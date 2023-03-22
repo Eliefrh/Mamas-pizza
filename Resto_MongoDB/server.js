@@ -14,6 +14,9 @@ const { SignupForm } = require("./operation");
 const { LoginForm } = require("./operation");
 const { ReservationForm } = require("./operation");
 const { ReviewForm } = require("./operation");
+const { Menu } = require("./operation");
+const { ItemsForm } = require("./operation");
+
 
 const { config } = require('dotenv');
 config();
@@ -49,31 +52,8 @@ app.get('/signup', function(req, res) {
     res.render("pages/signup", { titrePage: "Sign Up", Authentication: isLoggedIn, Alert: alertValidation, Alerttxt: alertValidationtxt });
 });
 
-app.get('/menu', async function(req, res) {
-    /*const produitSchema = {
-        prod_nom: String,
-        prod_description: String
-    }*/
-    // const uri = process.env.DB_URi;
-    // let mongoClient;
-
-    // try {
-    //     mongoClient = await ConnectionDeMongodb(uri);
-    //     const db = mongoClient.db("Resto_awt");
-    //     const collection = db.collection("Produits");
-    //     collection.find({}, function(produits) {
-    //         res.render("pages/menu", {
-    //             titrePage: "Menu",
-    //             Authentication: isLoggedIn,
-    //             listeProduits: produits
-    //         });
-    //     })
-    // } catch (err) {
-    //     console.log(err);
-    //     res.status(500).send("Erreur de connection avec MongoDB");
-    // } finally {
-    //     await mongoClient.close();
-    // }
+app.get('/menu', function(req, res) {
+    res.render("pages/menu", { titrePage: "Menu", Authentication: isLoggedIn });
 });
 
 app.get('/panier', function(req, res) {
@@ -154,7 +134,7 @@ function requireAuth(req, res, next) {
 //         let province = req.body['sign-up-form-province'];
 //         const address = ville + ' ' + province;
 //         const zip = req.body['sign-up-form-zip'];
-
+//
 //         // Insert data into the SQL table
 //         con.query(
 //             'INSERT INTO client ( cl_nom, cl_prenom, cl_telephone, cl_courriel, cl_code_postal, cl_address, cl_password) VALUES (?, ?, ?, ?, ?, ?, ?)', [nom, prenom, tel, email, zip, address, password],
