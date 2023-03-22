@@ -7,7 +7,7 @@ const { Module } = require('module');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const alert = require('node-notifier');
-import("dateformat");
+import ("dateformat");
 const now = new Date();
 
 const { SignupForm } = require("./operation");
@@ -16,6 +16,7 @@ const { ReservationForm } = require("./operation");
 const { ReviewForm } = require("./operation");
 
 const { config } = require('dotenv');
+const { STMT_TYPE_DROP } = require('oracledb');
 config();
 
 module.exports = app;
@@ -37,38 +38,61 @@ app.use('/img', express.static(__dirname + '/views/partials/img', { extensions: 
 app.use('/js', express.static(__dirname + '/views/partials/js'));
 
 
-app.get('/', function (req, res) {
+app.get('/', function(req, res) {
     res.render("pages/index", { titrePage: "Mamma's Pizza's", Authentication: isLoggedIn });
 });
 
-app.get('/login', function (req, res) {
+app.get('/login', function(req, res) {
     res.render("pages/login", { titrePage: "Login", Authentication: isLoggedIn });
 });
 
-app.get('/signup', function (req, res) {
+app.get('/signup', function(req, res) {
     res.render("pages/signup", { titrePage: "Sign Up", Authentication: isLoggedIn, Alert: alertValidation, Alerttxt: alertValidationtxt });
 });
 
-app.get('/menu', function (req, res) {
-    res.render("pages/menu", { titrePage: "Menu", Authentication: isLoggedIn });
+app.get('/menu', async function(req, res) {
+    /*const produitSchema = {
+        prod_nom: String,
+        prod_description: String
+    }*/
+    const uri = process.env.DB_URi;
+    let mongoClient;
+
+    try {
+        mongoClient = await ConnectionDeMongodb(uri);
+        const db = mongoClient.db("Resto_awt");
+        const collection = db.collection("Produits");
+        collection.find({}, function(produits) {
+            res.render("pages/menu", {
+                titrePage: "Menu",
+                Authentication: isLoggedIn,
+                listeProduits: produits
+            });
+        })
+    } catch (err) {
+        console.log(err);
+        res.status(500).send("Erreur de connection avec MongoDB");
+    } finally {
+        await mongoClient.close();
+    }
 });
 
-app.get('/panier', function (req, res) {
+app.get('/panier', function(req, res) {
     res.render("pages/panier", { titrePage: "Panier", Authentication: isLoggedIn });
 });
 
-app.get('/produitlist', function (req, res) {
+app.get('/produitlist', function(req, res) {
     res.render("pages/produit_list", { titrePage: "Produit List", Authentication: isLoggedIn });
 });
 
-app.get('/reservation', function (req, res) {
+app.get('/reservation', function(req, res) {
     res.render("pages/reservation", { titrePage: "Reservation", Authentication: isLoggedIn });
 });
-app.get('/review', function (req, res) {
+app.get('/review', function(req, res) {
     res.render("pages/review", { titrePage: "Review", Authentication: isLoggedIn });
 });
 
-app.get('/logout', function (req, res) {
+app.get('/logout', function(req, res) {
     isLoggedIn = false;
     res.writeHead(301, { Location: "http://localhost:4000/" });
     res.end();
@@ -156,7 +180,7 @@ app.post('/login', (req, res) => {
     const email = req.body['login-email'];
     const password = req.body['login-password'];
     // Check if the email and password are valid
-    
+
 });
 
 
@@ -207,7 +231,7 @@ app.post('/login', (req, res) => {
 // });
 
 // Connecter au server
-const server = app.listen(4000, function () {
+const server = app.listen(4000, function() {
     console.log("serveur fonctionne sur 4000... ! ");
     console.log("http://localhost:4000/");
 });

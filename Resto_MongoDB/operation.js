@@ -3,15 +3,14 @@ const MongoClient = require('mongodb').MongoClient;
 // Connection MongoDB
 export async function ConnectionDeMongodb(uri) {
     let mongoClient;
-    
+
     try {
         mongoClient = new MongoClient(uri);
         console.log("Connection a MongoDB...");
         await mongoClient.connect();
         console.log("Connecte a MongoDB!");
         return mongoClient;
-    }
-    catch (error) {
+    } catch (error) {
         console.error("Erreur de connecxion a MongoDB!", error);
         process.exit();
     }
@@ -27,7 +26,7 @@ export async function SignupForm(formInput) {
         mongoClient = await ConnectionDeMongodb(uri);
         const db = mongoClient.db("Resto_awt");
         const collection = db.collection("Client");
-        await CreateClient(collection, formInput);        
+        await CreateClient(collection, formInput);
     } finally {
         await mongoClient.close();
     }
