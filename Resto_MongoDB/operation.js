@@ -4,17 +4,40 @@ let mongoClient;
 
 // Connection MongoDB
 async function ConnectionDeMongodb(uri) {
+
     try {
+        console.log('1');
         mongoClient = new MongoClient(uri);
         console.log("Connection a MongoDB...");
-        await mongoClient.connect();
+
+        mongoClient.connect();
         console.log("Connecte a MongoDB!");
         return mongoClient;
+        console.log('2');
     } catch (error) {
         console.error("Erreur de connecxion a MongoDB!", error);
+
+        console.log('3');
         process.exit();
     }
 }
+
+// async function ConnectionDeMongodb(uri) {
+//     // try {
+//     //     if (!uri.startsWith('mongodb://') && !uri.startsWith('mongodb+srv://')) {
+//     //         throw new Error('La chaîne de connexion ne commence pas par un schéma valide.');
+//     //     }
+
+//     const mongoClient = new MongoClient(uri);
+//     console.log("Connection a MongoDB...");
+//     await mongoClient.connect();
+//     console.log("Connecte a MongoDB!");
+//     return mongoClient;
+// } catch (error) {
+//     console.error("Erreur de connexion a MongoDB!", error);
+//     process.exit();
+// }
+// }
 
 // Form Operation
 async function SignupForm(formInput) {
@@ -66,7 +89,7 @@ async function ShowMenuList() {
     try {
         mongoClient = await ConnectionDeMongodb(uri);
         const db = mongoClient.db("Resto_awt");
-        const collection = db.collection("Produits");
+        const collection = db.collection("Produit");
         const produits = await FindProduit(collection);
         return produits;
     } finally {
@@ -117,3 +140,4 @@ module.exports = { ReservationForm };
 module.exports = { ReviewForm };
 module.exports = { ShowMenuList };
 module.exports = { ItemsForm };
+module.exports = { ConnectionDeMongodb };

@@ -7,7 +7,7 @@ const { Module } = require('module');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const alert = require('node-notifier');
-import ("dateformat");
+import("dateformat");
 const now = new Date();
 
 const { SignupForm } = require('./operation');
@@ -16,6 +16,7 @@ const { ReservationForm } = require('./operation');
 const { ReviewForm } = require('./operation');
 const { ShowMenuList } = require('./operation');
 const { ItemsForm } = require('./operation');
+const operation = require('./operation');
 
 
 const { config } = require('dotenv');
@@ -40,43 +41,48 @@ app.use('/img', express.static(__dirname + '/views/partials/img', { extensions: 
 app.use('/js', express.static(__dirname + '/views/partials/js'));
 
 
-app.get('/', function(req, res) {
-    res.render("pages/index", { titrePage: "Mamma's Pizza's", Authentication: isLoggedIn });
-});
+// app.get('/', function (req, res) {
+//     res.render("pages/index", { titrePage: "Mamma's Pizza's", Authentication: isLoggedIn });
+// });
 
-app.get('/login', function(req, res) {
-    res.render("pages/login", { titrePage: "Login", Authentication: isLoggedIn });
-});
+// app.get('/login', function (req, res) {
+//     res.render("pages/login", { titrePage: "Login", Authentication: isLoggedIn });
+// });
 
-app.get('/signup', function(req, res) {
-    res.render("pages/signup", { titrePage: "Sign Up", Authentication: isLoggedIn, Alert: alertValidation, Alerttxt: alertValidationtxt });
-});
+// app.get('/signup', function (req, res) {
+//     res.render("pages/signup", { titrePage: "Sign Up", Authentication: isLoggedIn, Alert: alertValidation, Alerttxt: alertValidationtxt });
+// });
 
-app.get('/menu', async(req, res) => {
-    const produits = await ShowMenuList();
-    res.render("pages/menu", { titrePage: "Menu", Authentication: isLoggedIn, Produits: produits });
-});
+// app.get('/menu', async (req, res) => {
+//     const produits = await ShowMenuList();
+//     res.render("pages/menu", { titrePage: "Menu", Authentication: isLoggedIn, Produits: produits });
+// });
 
-app.get('/panier', function(req, res) {
-    res.render("pages/panier", { titrePage: "Panier", Authentication: isLoggedIn });
-});
+// app.get('/panier', function (req, res) {
+//     res.render("pages/panier", { titrePage: "Panier", Authentication: isLoggedIn });
+// });
 
-app.get('/produitlist', function(req, res) {
-    res.render("pages/produit_list", { titrePage: "Produit List", Authentication: isLoggedIn });
-});
+// app.get('/produitlist', function (req, res) {
+//     res.render("pages/produit_list", { titrePage: "Produit List", Authentication: isLoggedIn });
+// });
 
-app.get('/reservation', function(req, res) {
-    res.render("pages/reservation", { titrePage: "Reservation", Authentication: isLoggedIn });
-});
+// app.get('/reservation', function (req, res) {
+//     res.render("pages/reservation", { titrePage: "Reservation", Authentication: isLoggedIn });
+// });
 
-app.get('/review', function(req, res) {
-    res.render("pages/review", { titrePage: "Review", Authentication: isLoggedIn });
-});
+// app.get('/review', function (req, res) {
+//     res.render("pages/review", { titrePage: "Review", Authentication: isLoggedIn });
+// });
 
-app.get('/logout', function(req, res) {
-    isLoggedIn = false;
-    res.writeHead(301, { Location: "http://localhost:4000/" });
-    res.end();
+// app.get('/logout', function (req, res) {
+//     isLoggedIn = false;
+//     res.writeHead(301, { Location: "http://localhost:29017/" });
+//     res.end();
+// });
+
+app.get('/', (req, res) => {
+    const resultat = operation.ConnectionDeMongodb();
+    res.send(resultat);
 });
 
 // app.use((req, res, next) => {
@@ -101,10 +107,21 @@ function requireAuth(req, res, next) {
 
         return next();
     } else {
-        res.writeHead(301, { Location: "http://localhost:4000/login" });
+        res.writeHead(301, { Location: "http://localhost:29017/login" });
         res.end();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
 
 // const con = mysql.createConnection({
 //     host: "localhost",
@@ -142,16 +159,16 @@ function requireAuth(req, res, next) {
 //             'INSERT INTO client ( cl_nom, cl_prenom, cl_telephone, cl_courriel, cl_code_postal, cl_address, cl_password) VALUES (?, ?, ?, ?, ?, ?, ?)', [nom, prenom, tel, email, zip, address, password],
 //             (error, results) => {
 //                 if (error) {
-//                     //res.writeHead(301, { Location: "http://localhost:27017/signup" });
+//                     //res.writeHead(301, { Location: "http://localhost:29017/signup" });
 //                     res.end();
 //                 } else {
-//                     res.writeHead(301, { Location: "http://localhost:27017/login" });
+//                     res.writeHead(301, { Location: "http://localhost:29017/login" });
 //                     res.end();
 //                 }
 //             }
 //         );
 //     } else {
-//         //res.writeHead(301, { Location: "http://localhost:27017/signup" });
+//         //res.writeHead(301, { Location: "http://localhost:29017/signup" });
 //         res.end();
 //     }
 // });
@@ -180,7 +197,7 @@ app.post('/login', (req, res) => {
 //         const sql_get_id = `SELECT cl_id FROM client WHERE cl_courriel = '${email}'`;
 //         con.query(sql_get_id, (error, results) => {
 //             if (error) {
-//                 res.writeHead(301, { Location: "http://localhost:27017/reservation" });
+//                 res.writeHead(301, { Location: "http://localhost:29017/reservation" });
 //                 res.end();
 //             } else {
 //                 const { cl_id } = results[0];
@@ -189,10 +206,10 @@ app.post('/login', (req, res) => {
 //                 const sql = `INSERT INTO reservation (num_siege, cl_id, date_reservation) VALUES ('${num_siege}', '${get_id}', '${datetime}')`;
 //                 con.query(sql, (error, results) => {
 //                     if (error) {
-//                         res.writeHead(301, { Location: "http://localhost:27017/reservation" });
+//                         res.writeHead(301, { Location: "http://localhost:29017/reservation" });
 //                         res.end();
 //                     } else {
-//                         res.writeHead(301, { Location: "http://localhost:27017" });
+//                         res.writeHead(301, { Location: "http://localhost:29017" });
 //                         res.end();
 //                     }
 //                 });
@@ -212,9 +229,9 @@ app.post('/login', (req, res) => {
 // });
 
 // Connecter au server
-const server = app.listen(4000, function() {
-    console.log("serveur fonctionne sur 4000... ! ");
-    console.log("http://localhost:4000/");
+const server = app.listen(29017, function () {
+    console.log("serveur fonctionne sur 29017... ! ");
+    console.log("http://localhost:29017/");
 });
 
 // /**
