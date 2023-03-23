@@ -98,9 +98,10 @@ app.get('/login', async (req, res) => {
 
 // });
 app.get('/signup', async (req, res) => {
-    const formInput = req.query;
-    const resultat = await SignupForm(formInput);
-    res.render('pages/signup', { titrePage: "signup", Authentication: isLoggedIn, resultat: resultat });
+    res.render('pages/signup', { titrePage: "signup", Authentication: isLoggedIn });
+});
+app.get('/menu', async (req, res) => {
+    res.render('pages/menu', { titrePage: "Menu", Authentication: isLoggedIn });
 });
 
 
