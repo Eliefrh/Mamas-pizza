@@ -10,7 +10,6 @@ async function ConnectionDeMongodb() {
     try {
         mongoClient = new MongoClient(uri);
         console.log("Connection a MongoDB...");
-
         mongoClient.connect();
         console.log("Connecte a MongoDB!");
         return mongoClient;
@@ -39,12 +38,25 @@ async function ConnectionDeMongodb() {
 // }
 
 // Form Operation
+// async function SignupForm(formInput) {
+//     try {
+//         mongoClient = await ConnectionDeMongodb(uri);
+//         const db = mongoClient.db("Resto_awt");
+//         const collection = db.collection("Client");
+//         await CreateClient(collection, formInput);
+//     } finally {
+//         await mongoClient.close();
+//     }
+// }
+
 async function SignupForm(formInput) {
     try {
-        mongoClient = await ConnectionDeMongodb(uri);
+        const mongoClient = await ConnectionDeMongodb(uri);
         const db = mongoClient.db("Resto_awt");
         const collection = db.collection("Client");
         await CreateClient(collection, formInput);
+    } catch (error) {
+        console.error(error);
     } finally {
         await mongoClient.close();
     }

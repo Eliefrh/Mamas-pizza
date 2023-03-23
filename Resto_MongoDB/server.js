@@ -80,10 +80,33 @@ app.use('/js', express.static(__dirname + '/views/partials/js'));
 //     res.end();
 // });
 
-app.get('/', (req, res) => {
-    const resultat = operation.ConnectionDeMongodb();
-    res.send(resultat);
+app.get('/', async (req, res) => {
+
+    const resultat = await operation.ConnectionDeMongodb();
+    res.render('pages/index', { titrePage: "Mamma's Pizza's", Authentication: isLoggedIn, resultat: resultat });
+
 });
+app.get('/login', async (req, res) => {
+
+    const resultat = await operation.LoginForm();
+    res.render('pages/login', { titrePage: "Login", Authentication: isLoggedIn, resultat: resultat });
+
+});
+
+// app.get('/signup', async (req, res) => {
+
+//     const resultat = await operation.SignupForm();
+//     res.render('pages/signup', { titrePage: "signup", Authentication: isLoggedIn, resultat: resultat });
+
+// });
+app.get('/signup', async (req, res) => {
+    const formInput = req.query;
+    const resultat = await SignupForm(formInput);
+    res.render('pages/signup', { titrePage: "signup", Authentication: isLoggedIn, resultat: resultat });
+});
+
+
+
 
 // app.use((req, res, next) => {
 //     console.log('Requete recue! ');
