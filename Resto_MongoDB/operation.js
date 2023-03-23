@@ -1,23 +1,22 @@
 const MongoClient = require('mongodb').MongoClient;
+require('dotenv').config();
 const uri = process.env.DB_URi;
+
 let mongoClient;
 
 // Connection MongoDB
-async function ConnectionDeMongodb(uri) {
+async function ConnectionDeMongodb() {
 
     try {
-        console.log('1');
         mongoClient = new MongoClient(uri);
         console.log("Connection a MongoDB...");
 
         mongoClient.connect();
         console.log("Connecte a MongoDB!");
         return mongoClient;
-        console.log('2');
     } catch (error) {
         console.error("Erreur de connecxion a MongoDB!", error);
 
-        console.log('3');
         process.exit();
     }
 }
