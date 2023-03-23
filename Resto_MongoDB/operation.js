@@ -68,13 +68,13 @@ async function ShowMenuList() {
         const db = mongoClient.db("Resto_awt");
         const collection = db.collection("Produits");
         const produits = await FindProduit(collection);
-        return produits.toArray();
+        return produits;
     } finally {
         await mongoClient.close();
     }
 }
 
-async function ItemsForm(menuInput) { // produit id, quantite, prix total
+async function ItemsForm(menuInput) { // produit id, quantite, prix total, id client
     try {
         mongoClient = await ConnectionDeMongodb(uri);
         const db = mongoClient.db("Resto_awt");
@@ -84,7 +84,6 @@ async function ItemsForm(menuInput) { // produit id, quantite, prix total
         await mongoClient.close();
     }
 }
-
 
 // Small operation
 
@@ -105,9 +104,16 @@ async function CreateReview(collection, formInput) {
 }
 
 async function FindProduit(collection) {
-    return await collection.find({}, { _id: 1, prod_nom: 1, prod_description: 1 });
+    return await collection.find({}, { _id: 1, prod_nom: 1, prod_description: 1 }.toArray());
 }
 
 async function CreateItem(collection, menuInput) {
     await collection.insertOne(menuInput);
 }
+
+module.exports = { SignupForm };
+module.exports = { LoginForm };
+module.exports = { ReservationForm };
+module.exports = { ReviewForm };
+module.exports = { ShowMenuList };
+module.exports = { ItemsForm };

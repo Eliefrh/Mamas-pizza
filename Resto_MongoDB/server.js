@@ -10,12 +10,12 @@ const alert = require('node-notifier');
 import ("dateformat");
 const now = new Date();
 
-const { SignupForm } = require("./operation");
-const { LoginForm } = require("./operation");
-const { ReservationForm } = require("./operation");
-const { ReviewForm } = require("./operation");
-const { ShowMenuList } = require("./operation");
-const { ItemsForm } = require("./operation");
+const { SignupForm } = require('./operation');
+const { LoginForm } = require('./operation');
+const { ReservationForm } = require('./operation');
+const { ReviewForm } = require('./operation');
+const { ShowMenuList } = require('./operation');
+const { ItemsForm } = require('./operation');
 
 
 const { config } = require('dotenv');
@@ -52,8 +52,9 @@ app.get('/signup', function(req, res) {
     res.render("pages/signup", { titrePage: "Sign Up", Authentication: isLoggedIn, Alert: alertValidation, Alerttxt: alertValidationtxt });
 });
 
-app.get('/menu', function(req, res) {
-    res.render("pages/menu", { titrePage: "Menu", Authentication: isLoggedIn, Produits: ShowMenuList });
+app.get('/menu', async(req, res) => {
+    const produits = await ShowMenuList();
+    res.render("pages/menu", { titrePage: "Menu", Authentication: isLoggedIn, Produits: produits });
 });
 
 app.get('/panier', function(req, res) {
