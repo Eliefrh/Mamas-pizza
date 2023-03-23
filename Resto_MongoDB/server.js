@@ -80,6 +80,7 @@ app.use('/js', express.static(__dirname + '/views/partials/js'));
 //     res.end();
 // });
 
+
 app.get('/', async (req, res) => {
 
     const resultat = await operation.ConnectionDeMongodb();
@@ -87,10 +88,7 @@ app.get('/', async (req, res) => {
 
 });
 app.get('/login', async (req, res) => {
-
-    const resultat = await operation.LoginForm();
-    res.render('pages/login', { titrePage: "Login", Authentication: isLoggedIn, resultat: resultat });
-
+    res.render('pages/login', { titrePage: "Login", Authentication: isLoggedIn });
 });
 
 // app.get('/signup', async (req, res) => {
@@ -197,11 +195,22 @@ function requireAuth(req, res, next) {
 // });
 
 // // Handle POST request for login
-app.post('/login', (req, res) => {
-    const email = req.body['login-email'];
-    const password = req.body['login-password'];
-    // Check if the email and password are valid
+app.post('/login', async (req, res) => {
+    const email = req.body['login_email'];
+    const password = req.body['login_password'];
 
+    // Vérifiez si l'email et le mot de passe sont valides
+    const resultat = await operation.LoginForm(email, password);
+
+    if (resultat) {
+        // Authentification réussie
+        req.session.isLoggedIn = true;
+        req.session.userEmail = email;
+        res.redirect('/dashboard');
+    } else {
+        // Authentification échouée
+        res.render('pages/login', { titrePage: "Login", Authentication: isLoggedIn, error: "Email ou mot de passe incorrect" });
+    }
 });
 
 
