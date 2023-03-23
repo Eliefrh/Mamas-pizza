@@ -14,7 +14,7 @@ const { SignupForm } = require("./operation");
 const { LoginForm } = require("./operation");
 const { ReservationForm } = require("./operation");
 const { ReviewForm } = require("./operation");
-const { Menu } = require("./operation");
+const { ShowMenuList } = require("./operation");
 const { ItemsForm } = require("./operation");
 
 
@@ -53,9 +53,7 @@ app.get('/signup', function(req, res) {
 });
 
 app.get('/menu', function(req, res) {
-    const produits = Menu;
-    console.log(produits);
-    res.render("pages/menu", { titrePage: "Menu", Authentication: isLoggedIn, Produits: produits });
+    res.render("pages/menu", { titrePage: "Menu", Authentication: isLoggedIn, Produits: ShowMenuList });
 });
 
 app.get('/panier', function(req, res) {

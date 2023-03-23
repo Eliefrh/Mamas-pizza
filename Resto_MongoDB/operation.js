@@ -62,12 +62,13 @@ async function ReviewForm(formInput) {
 }
 
 // Menu operation
-async function Menu() {
+async function ShowMenuList() {
     try {
         mongoClient = await ConnectionDeMongodb(uri);
         const db = mongoClient.db("Resto_awt");
         const collection = db.collection("Produits");
-        return await FindProduit(collection);
+        const produits = await FindProduit(collection);
+        return produits.toArray();
     } finally {
         await mongoClient.close();
     }
