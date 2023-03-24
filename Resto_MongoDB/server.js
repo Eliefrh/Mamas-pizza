@@ -240,10 +240,10 @@ app.post("/signup", async (req, res) => {
     };
   
     try {
-      const dbClient = await MongoClient.connect('mongodb://localhost:27017/myapp');
+      const dbClient = await operation.ConnectionDeMongodb();
       const db = dbClient.db();
-      const users = db.collection('users');
-  
+      const users = db.collection('Client');
+        
       // Check if email already exists
       const existingUser = await users.findOne({ Email: email });
       if (existingUser) {
@@ -258,6 +258,7 @@ app.post("/signup", async (req, res) => {
       res.status(500).send('Erreur interne du serveur');
     }
   });
+  
   
 
 
