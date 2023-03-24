@@ -154,65 +154,161 @@ function requireAuth(req, res, next) {
 
 
 // Handle form submission
-// app.post("/signup", (req, res) => {
-//     const password = req.body['sign-up-form-password'];
-//     const repassword = req.body['sign-up-form-repassword'];
-//     if (password.length > 50 && repassword.length > 50) {
-//         alertValidation = false;
-//         alertValidationtxt = "password trop grand, doit etre moins que 50 caractere";
-//         /*alert.notify({
-//             title: 'Erreur de password',
-//             message: '50 caracteres et plus dans le password'
-//         });*/
-//         res.json({ success: false });
-//     }
-//     if (password == repassword) {
-//         const nom = req.body['sign-up-form-nom'];
-//         const prenom = req.body['sign-up-form-prenom'];
-//         const email = req.body['sign-up-form-email'];
-//         const tel = req.body['sign-up-form-tel'];
-//         let ville = req.body['sign-up-form-ville'];
-//         let province = req.body['sign-up-form-province'];
-//         const address = ville + ' ' + province;
-//         const zip = req.body['sign-up-form-zip'];
-//
-//         // Insert data into the SQL table
-//         con.query(
-//             'INSERT INTO client ( cl_nom, cl_prenom, cl_telephone, cl_courriel, cl_code_postal, cl_address, cl_password) VALUES (?, ?, ?, ?, ?, ?, ?)', [nom, prenom, tel, email, zip, address, password],
-//             (error, results) => {
-//                 if (error) {
-//                     //res.writeHead(301, { Location: "http://localhost:29017/signup" });
-//                     res.end();
-//                 } else {
-//                     res.writeHead(301, { Location: "http://localhost:29017/login" });
-//                     res.end();
-//                 }
-//             }
-//         );
-//     } else {
-//         //res.writeHead(301, { Location: "http://localhost:29017/signup" });
-//         res.end();
-//     }
-// });
+// // // app.post("/signup", (req, res) => {
+// // //     const password = req.body['sign-up-form-password'];
+// // //     const repassword = req.body['sign-up-form-repassword'];
+// // //     if (password.length > 50 && repassword.length > 50) {
+// // //         alertValidation = false;
+// // //         alertValidationtxt = "password trop grand, doit etre moins que 50 caractere";
+// // //         /*alert.notify({
+// // //             title: 'Erreur de password',
+// // //             message: '50 caracteres et plus dans le password'
+// // //         });*/
+// // //         res.json({ success: false });
+// // //     }
+// // //     if (password == repassword) {
+// // //         const nom = req.body['sign-up-form-nom'];
+// // //         const prenom = req.body['sign-up-form-prenom'];
+// // //         const email = req.body['sign-up-form-email'];
+// // //         const tel = req.body['sign-up-form-tel'];
+// // //         let ville = req.body['sign-up-form-ville'];
+// // //         let province = req.body['sign-up-form-province'];
+// // //         const address = ville + ' ' + province;
+// // //         const zip = req.body['sign-up-form-zip'];
+// // // //
+// // // //         // Insert data into the mongodb collection
+// // //         const client = {
+// // //             Nom: nom,
+// // //             Prenom: prenom,
+// // //             Email:email,
+// // //             Tel:tel,
+// // //             Ville:ville,
+// // //             Province: province,
+// // //             Address: address,
+// // //             Zip:zip,
+// // //         }; 
+// // //         await collection.insertOne(etudiantDocument); 
+
+    
+
+
+// // //             (error, results) => {
+// // //                 if (error) {
+// // //                     //res.writeHead(301, { Location: "http://localhost:29017/signup" });
+// // //                     res.end();
+// // //                 } else {
+// // //                     res.writeHead(301, { Location: "http://localhost:29017/login" });
+// // //                     res.end();
+// // //                 }
+// // //             }
+        
+// // //     } else {
+// // //         //res.writeHead(301, { Location: "http://localhost:29017/signup" });
+// // //         res.end();
+// // //     }
+    
+// // // });
+
+app.post("/signup", async (req, res) => {
+    const password = req.body['sign-up-form-password'];
+    const repassword = req.body['sign-up-form-repassword'];
+    if (password.length > 50 || repassword.length > 50) {
+      return res.status(400).send('Le mot de passe doit être inférieur à 50 caractères');
+    }
+    if (password !== repassword) {
+      return res.status(400).send('Les mots de passe ne correspondent pas');
+    }
+  
+    const nom = req.body['sign-up-form-nom'];
+    const prenom = req.body['sign-up-form-prenom'];
+    const email = req.body['sign-up-form-email'];
+    const tel = req.body['sign-up-form-tel'];
+    const ville = req.body['sign-up-form-ville'];
+    const province = req.body['sign-up-form-province'];
+    const address = ville + ' ' + province;
+    const zip = req.body['sign-up-form-zip'];
+  
+    const client = {
+      Nom: nom,
+      Prenom: prenom,
+      Email: email,
+      Tel: tel,
+      Ville: ville,
+      Province: province,
+      Address: address,
+      Zip: zip,
+    };
+  
+    try {
+      const dbClient = await MongoClient.connect('mongodb://localhost:27017/myapp');
+      const db = dbClient.db();
+      const users = db.collection('users');
+  
+      // Check if email already exists
+      const existingUser = await users.findOne({ Email: email });
+      if (existingUser) {
+        return res.status(409).send('Un compte avec cet e-mail existe déjà');
+      }
+  
+      // Insert new user
+      await users.insertOne(client);
+      res.redirect('/login');
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Erreur interne du serveur');
+    }
+  });
+  
+
+
 
 // // Handle POST request for login
+
+
+// // // app.post('/login', async (req, res) => {
+// // //     const email = req.body['login_email'];
+// // //     const password = req.body['login_password'];
+
+// // //     // Vérifiez si l'email et le mot de passe sont valides
+// // //     const resultat = await operation.LoginForm(email, password);
+
+// // //     if (resultat) {
+// // //         // Authentification réussie
+// // //         req.session.isLoggedIn = true;
+// // //         req.session.userEmail = email;
+// // //         res.redirect('/dashboard');
+// // //     } else {
+// // //         // Authentification échouée
+// // //         res.render('pages/login', { titrePage: "Login", Authentication: isLoggedIn, error: "Email ou mot de passe incorrect" });
+// // //     }
+// // // });
+
+
+
+
 app.post('/login', async (req, res) => {
-    const email = req.body['login_email'];
-    const password = req.body['login_password'];
+  //const { email, password } = req.body;
+  const email = req.body['login_email'];
+ const password = req.body['login_password'];
+  
+  try {
+    const client = await operation.ConnectionDeMongodb();
+    const db = client.db();
+    const users = db.collection('Client');
+    const user = await users.findOne({ email, password });
 
-    // Vérifiez si l'email et le mot de passe sont valides
-    const resultat = await operation.LoginForm(email, password);
-
-    if (resultat) {
-        // Authentification réussie
-        req.session.isLoggedIn = true;
-        req.session.userEmail = email;
-        res.redirect('/dashboard');
-    } else {
-        // Authentification échouée
-        res.render('pages/login', { titrePage: "Login", Authentication: isLoggedIn, error: "Email ou mot de passe incorrect" });
+    if (!user) {
+      return res.status(401).send('Invalid username or password');
     }
+
+    req.session.userId = user._id;
+    res.redirect('/');
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Internal Server Error');
+  }
 });
+
 
 
 // app.post('/reservation', requireAuth, (req, res) => {
