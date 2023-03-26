@@ -82,7 +82,6 @@ app.use('/js', express.static(__dirname + '/views/partials/js'));
 
 
 app.get('/', async (req, res) => {
-
     const resultat = await operation.ConnectionDeMongodb();
     res.render('pages/index', { titrePage: "Mamma's Pizza's", Authentication: isLoggedIn, resultat: resultat });
 
@@ -100,6 +99,7 @@ app.get('/login', async (req, res) => {
 app.get('/signup', async (req, res) => {
     res.render('pages/signup', { titrePage: "signup", Authentication: isLoggedIn });
 });
+
 app.get('/menu', async (req, res) => {
     res.render('pages/menu', { titrePage: "Menu", Authentication: isLoggedIn });
 });
@@ -215,7 +215,7 @@ app.post("/signup", async (req, res) => {
     if (password.length > 50 || repassword.length > 50) {
       return res.status(400).send('Le mot de passe doit être inférieur à 50 caractères');
     }
-    if (password !== repassword) {
+    else if (password !== repassword) {
       return res.status(400).send('Les mots de passe ne correspondent pas');
     }
   
@@ -290,7 +290,7 @@ app.post("/signup", async (req, res) => {
 app.post('/login', async (req, res) => {
   //const { email, password } = req.body;
   const email = req.body['login_email'];
- const password = req.body['login_password'];
+  const password = req.body['login_password'];
   
   try {
     const client = await operation.ConnectionDeMongodb();
@@ -300,10 +300,10 @@ app.post('/login', async (req, res) => {
 
     if (!user) {
       return res.status(401).send('Invalid username or password');
+    } else {
+      req.session.userId = user._id;
+      res.redirect('/');
     }
-
-    req.session.userId = user._id;
-    res.redirect('/');
   } catch (err) {
     console.error(err);
     res.status(500).send('Internal Server Error');
