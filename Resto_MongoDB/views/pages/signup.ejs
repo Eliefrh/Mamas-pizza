@@ -1,23 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <%- include('../partials/head.ejs')%>
 </head>
-
 <body>
     <%- include('../partials/navbar.ejs')%>
-
-
-
+    <%- include('../partials/message.ejs')%>
         <br>
         <br>
         <span id="sign-up-form-titre">Inscription : </span>
         <section class="sign-up-form-section">
             <div id="sign-up-form-div">
                 <form action="http://localhost:29017/signup" method="post">
-
-
                     <div class="form-row">
                         <div class="col">
                             <label for="sign-up-form-prenom">Prénom :</label>
@@ -75,9 +69,7 @@
                 </form>
             </div>
         </section>
-
         <%- include('../partials/bootstrap.ejs')%>
-            <%- include('../partials/footer.ejs')%>
+        <%- include('../partials/footer.ejs')%>
 </body>
-
 </html>

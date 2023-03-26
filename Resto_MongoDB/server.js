@@ -10,26 +10,19 @@ const alert = require('node-notifier');
 import("dateformat");
 const now = new Date();
 
-const { SignupForm } = require('./operation');
-const { LoginForm } = require('./operation');
-const { ReservationForm } = require('./operation');
-const { ReviewForm } = require('./operation');
-const { ShowMenuList } = require('./operation');
-const { ItemsForm } = require('./operation');
 const operation = require('./operation');
-
 
 const { config } = require('dotenv');
 config();
 
 module.exports = app;
-let alertValidation;
-let alertValidationtxt;
 let isLoggedIn = false;
+let successMessage = false;
+let failedMessage = false;
+let StatusMessage;
 
 app.set('views', './views');
 app.set('view engine', 'ejs');
-
 
 //importe all related JavaScript and CSS files to inject in our app
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
@@ -39,19 +32,6 @@ app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 app.use('/css', express.static(__dirname + '/views/partials/css'));
 app.use('/img', express.static(__dirname + '/views/partials/img', { extensions: ['jpg', 'png'] }));
 app.use('/js', express.static(__dirname + '/views/partials/js'));
-
-
-// app.get('/', function (req, res) {
-//     res.render("pages/index", { titrePage: "Mamma's Pizza's", Authentication: isLoggedIn });
-// });
-
-// app.get('/login', function (req, res) {
-//     res.render("pages/login", { titrePage: "Login", Authentication: isLoggedIn });
-// });
-
-// app.get('/signup', function (req, res) {
-//     res.render("pages/signup", { titrePage: "Sign Up", Authentication: isLoggedIn, Alert: alertValidation, Alerttxt: alertValidationtxt });
-// });
 
 // app.get('/menu', async (req, res) => {
 //     const produits = await ShowMenuList();
@@ -66,14 +46,6 @@ app.use('/js', express.static(__dirname + '/views/partials/js'));
 //     res.render("pages/produit_list", { titrePage: "Produit List", Authentication: isLoggedIn });
 // });
 
-// app.get('/reservation', function (req, res) {
-//     res.render("pages/reservation", { titrePage: "Reservation", Authentication: isLoggedIn });
-// });
-
-// app.get('/review', function (req, res) {
-//     res.render("pages/review", { titrePage: "Review", Authentication: isLoggedIn });
-// });
-
 // app.get('/logout', function (req, res) {
 //     isLoggedIn = false;
 //     res.writeHead(301, { Location: "http://localhost:29017/" });
@@ -82,35 +54,28 @@ app.use('/js', express.static(__dirname + '/views/partials/js'));
 
 
 app.get('/', async (req, res) => {
-    const resultat = await operation.ConnectionDeMongodb();
-    res.render('pages/index', { titrePage: "Mamma's Pizza's", Authentication: isLoggedIn, resultat: resultat });
-
+    res.render('pages/index', { titrePage: "Mamma's Pizza's", Authentication: isLoggedIn});
 });
+
 app.get('/login', async (req, res) => {
     res.render('pages/login', { titrePage: "Login", Authentication: isLoggedIn });
 });
 
-// app.get('/signup', async (req, res) => {
-
-//     const resultat = await operation.SignupForm();
-//     res.render('pages/signup', { titrePage: "signup", Authentication: isLoggedIn, resultat: resultat });
-
-// });
 app.get('/signup', async (req, res) => {
-    res.render('pages/signup', { titrePage: "signup", Authentication: isLoggedIn });
+    res.render('pages/signup', { titrePage: "signup", Authentication: isLoggedIn, successMessage: successMessage, failedMessage: failedMessage, StatusMessage: StatusMessage });
+});
+
+app.get('/reservation', async (req, res) => {
+  res.render("pages/reservation", { titrePage: "Reservation", Authentication: isLoggedIn });
+});
+
+app.get('/review', async (req, res) => {
+  res.render("pages/review", { titrePage: "Review", Authentication: isLoggedIn });
 });
 
 app.get('/menu', async (req, res) => {
     res.render('pages/menu', { titrePage: "Menu", Authentication: isLoggedIn });
 });
-
-
-
-
-// app.use((req, res, next) => {
-//     console.log('Requete recue! ');
-//     next();
-// });
 
 // Parse Data
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -124,9 +89,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 function requireAuth(req, res, next) {
-    if (req.session && req.session
-        .email) {
-
+    if (req.session && req.session.email) {
         return next();
     } else {
         res.writeHead(301, { Location: "http://localhost:29017/login" });
@@ -134,88 +97,21 @@ function requireAuth(req, res, next) {
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-// const con = mysql.createConnection({
-//     host: "localhost",
-//     user: "root",
-//     password: "",
-//     database: "resto_awt",
-// });
-
-
-// Handle form submission
-// // // app.post("/signup", (req, res) => {
-// // //     const password = req.body['sign-up-form-password'];
-// // //     const repassword = req.body['sign-up-form-repassword'];
-// // //     if (password.length > 50 && repassword.length > 50) {
-// // //         alertValidation = false;
-// // //         alertValidationtxt = "password trop grand, doit etre moins que 50 caractere";
-// // //         /*alert.notify({
-// // //             title: 'Erreur de password',
-// // //             message: '50 caracteres et plus dans le password'
-// // //         });*/
-// // //         res.json({ success: false });
-// // //     }
-// // //     if (password == repassword) {
-// // //         const nom = req.body['sign-up-form-nom'];
-// // //         const prenom = req.body['sign-up-form-prenom'];
-// // //         const email = req.body['sign-up-form-email'];
-// // //         const tel = req.body['sign-up-form-tel'];
-// // //         let ville = req.body['sign-up-form-ville'];
-// // //         let province = req.body['sign-up-form-province'];
-// // //         const address = ville + ' ' + province;
-// // //         const zip = req.body['sign-up-form-zip'];
-// // // //
-// // // //         // Insert data into the mongodb collection
-// // //         const client = {
-// // //             Nom: nom,
-// // //             Prenom: prenom,
-// // //             Email:email,
-// // //             Tel:tel,
-// // //             Ville:ville,
-// // //             Province: province,
-// // //             Address: address,
-// // //             Zip:zip,
-// // //         }; 
-// // //         await collection.insertOne(etudiantDocument); 
-
-    
-
-
-// // //             (error, results) => {
-// // //                 if (error) {
-// // //                     //res.writeHead(301, { Location: "http://localhost:29017/signup" });
-// // //                     res.end();
-// // //                 } else {
-// // //                     res.writeHead(301, { Location: "http://localhost:29017/login" });
-// // //                     res.end();
-// // //                 }
-// // //             }
-        
-// // //     } else {
-// // //         //res.writeHead(301, { Location: "http://localhost:29017/signup" });
-// // //         res.end();
-// // //     }
-    
-// // // });
-
+/*
+  Le post methode pour la page de Sign Up
+*/
 app.post("/signup", async (req, res) => {
     const password = req.body['sign-up-form-password'];
     const repassword = req.body['sign-up-form-repassword'];
+
     if (password.length > 50 || repassword.length > 50) {
+      failedMessage = true;
+      StatusMessage = "Le mot de passe doit être inférieur à 50 caractères";
       return res.status(400).send('Le mot de passe doit être inférieur à 50 caractères');
     }
     else if (password !== repassword) {
+      failedMessage = true;
+      StatusMessage = "Les mots de passe ne correspondent pas";
       return res.status(400).send('Les mots de passe ne correspondent pas');
     }
   
@@ -229,24 +125,26 @@ app.post("/signup", async (req, res) => {
     const zip = req.body['sign-up-form-zip'];
   
     const client = {
-      Nom: nom,
-      Prenom: prenom,
-      Email: email,
-      Tel: tel,
-      Ville: ville,
-      Province: province,
-      Address: address,
-      Zip: zip,
+      cl_nom: nom,
+      cl_prenom: prenom,
+      cl_courriel: email,
+      cl_telephone: tel,
+      cl_address: address,
+      cl_code_postal: zip,
+      cl_password: password
     };
   
     try {
       const dbClient = await operation.ConnectionDeMongodb();
-      const db = dbClient.db();
-      const users = db.collection('Client');
+      const db = dbClient.db("Resto_awt");
+      const users = db.collection("Client");
         
       // Check if email already exists
-      const existingUser = await users.findOne({ Email: email });
+      const existingUser = await users.findOne({ cl_courriel: email });
+
       if (existingUser) {
+        failedMessage = true;
+        StatusMessage = "Un compte avec cet e-mail existe déjà";
         return res.status(409).send('Un compte avec cet e-mail existe déjà');
       }
   
@@ -257,51 +155,27 @@ app.post("/signup", async (req, res) => {
       console.error(err);
       res.status(500).send('Erreur interne du serveur');
     }
-  });
-  
-  
+});
 
-
-
-// // Handle POST request for login
-
-
-// // // app.post('/login', async (req, res) => {
-// // //     const email = req.body['login_email'];
-// // //     const password = req.body['login_password'];
-
-// // //     // Vérifiez si l'email et le mot de passe sont valides
-// // //     const resultat = await operation.LoginForm(email, password);
-
-// // //     if (resultat) {
-// // //         // Authentification réussie
-// // //         req.session.isLoggedIn = true;
-// // //         req.session.userEmail = email;
-// // //         res.redirect('/dashboard');
-// // //     } else {
-// // //         // Authentification échouée
-// // //         res.render('pages/login', { titrePage: "Login", Authentication: isLoggedIn, error: "Email ou mot de passe incorrect" });
-// // //     }
-// // // });
-
-
-
-
+/*
+  Le post methode pour la page de Login
+*/
 app.post('/login', async (req, res) => {
-  //const { email, password } = req.body;
-  const email = req.body['login_email'];
-  const password = req.body['login_password'];
+  const email = req.body['login-email'];
+  const password = req.body['login-password'];
   
   try {
     const client = await operation.ConnectionDeMongodb();
-    const db = client.db();
-    const users = db.collection('Client');
-    const user = await users.findOne({ email, password });
+    const db = client.db("Resto_awt");
+    const users = db.collection("Client");
+    const user = await users.findOne({ cl_courriel: email, cl_password: password });
 
     if (!user) {
       return res.status(401).send('Invalid username or password');
     } else {
-      req.session.userId = user._id;
+      req.session.email = email;
+      req.session.userId = user._id.toString();
+      isLoggedIn = true;
       res.redirect('/');
     }
   } catch (err) {
@@ -310,53 +184,67 @@ app.post('/login', async (req, res) => {
   }
 });
 
+/*
+  Le post methode pour la page de Reservation
+*/
+app.post('/reservation', requireAuth, async (req, res) => {
+  let current_date = new Date();
+    const date = req.body['reservation-form-date'];
 
+    if (Date.parse(date) >= current_date) {
+      const time = req.body['reservation-form-time'];
+      const datetime = `${date} ${time}`;
+      const num_siege = req.body['reservation-form-siege'];
 
-// app.post('/reservation', requireAuth, (req, res) => {
+      try {
+        const client = await operation.ConnectionDeMongodb();
+        const db = client.db("Resto_awt");
+        const reservation = db.collection('Reservation');
+        
+        const InputForm = {
+          num_siege: num_siege,
+          cl_id: req.session.userId,
+          date_reservation: datetime
+        }
 
-//     const email = req.session.email;
-//     let current_date = new Date();
-//     const date = req.body['reservation-form-date'];
+        await reservation.insertOne(InputForm);
+        res.redirect('/');
+      } catch (err) {
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+      }
+    } else { 
+      return res.status(401).send('Date Invalid');
+    }
+});
 
-//     if (Date.parse(date) >= current_date) {
+/*
+  Le post methode pour la page de Review
+*/
+app.post('/review', requireAuth, async (req, res) => {
+  const titre = req.body['review-form-title'];
+  const content = req.body['review-form-review'];
+  const rating = req.body['review-form-rating'];
 
-//         const time = req.body['reservation-form-time'];
-//         const datetime = `${date} ${time}`;
-//         const num_siege = req.body['reservation-form-siege'];
+  try {
+    const dbClient = await operation.ConnectionDeMongodb();
+    const db = dbClient.db("Resto_awt");
+    const review = db.collection("Review");
 
-//         const sql_get_id = `SELECT cl_id FROM client WHERE cl_courriel = '${email}'`;
-//         con.query(sql_get_id, (error, results) => {
-//             if (error) {
-//                 res.writeHead(301, { Location: "http://localhost:29017/reservation" });
-//                 res.end();
-//             } else {
-//                 const { cl_id } = results[0];
-//                 const get_id = cl_id;
+    const InputForm = {
+      cl_id: req.session.userId,
+      review_title: titre,
+      review_text: content,
+      review_rating: rating
+    }
 
-//                 const sql = `INSERT INTO reservation (num_siege, cl_id, date_reservation) VALUES ('${num_siege}', '${get_id}', '${datetime}')`;
-//                 con.query(sql, (error, results) => {
-//                     if (error) {
-//                         res.writeHead(301, { Location: "http://localhost:29017/reservation" });
-//                         res.end();
-//                     } else {
-//                         res.writeHead(301, { Location: "http://localhost:29017" });
-//                         res.end();
-//                     }
-//                 });
-//             }
-//         });
-//     }
-// });
-
-
-// app.post('/review', function (req, res) {
-//     const titre = req.body.titre;
-//     const nom = req.body.nom;
-//     const review = req.body.review;
-//     const rating = req.body.rating;
-//     // Do something with the review data, such as save it to a database
-//     res.send('Review submitted successfully!');
-// });
+    await review.insertOne(InputForm);
+    res.redirect('/');
+  } catch {
+    console.error(err);
+    res.status(500).send('Internal Server Error');
+  } 
+});
 
 // Connecter au server
 const server = app.listen(29017, function () {
