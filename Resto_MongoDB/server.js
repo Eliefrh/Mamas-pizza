@@ -239,12 +239,6 @@ app.post('/review', requireAuth, async (req, res) => {
   } 
 });
 
-// Connecter au server
-const server = app.listen(29017, function () {
-    console.log("serveur fonctionne sur 29017... ! ");
-    console.log("http://localhost:29017/");
-});
-
 /*
   Le post methode pour logout
 */
@@ -253,6 +247,12 @@ app.post('/logout', requireAuth, async (req, res) => {
   req.session.userId = null;
   req.session.email = null;
   res.redirect('/');
+});
+
+// Connecter au server
+const server = app.listen(29017, function () {
+  console.log("serveur fonctionne sur 29017... ! ");
+  console.log("http://localhost:29017/");
 });
 
 // /**
