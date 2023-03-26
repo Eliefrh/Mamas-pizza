@@ -20,6 +20,7 @@ let isLoggedIn = false;
 let successMessage = false;
 let failedMessage = false;
 let StatusMessage;
+let LogedInForm;
 
 app.set('views', './views');
 app.set('view engine', 'ejs');
@@ -64,6 +65,10 @@ app.get('/reservation', async (req, res) => {
 
 app.get('/review', async (req, res) => {
   res.render("pages/review", { titrePage: "Review", Authentication: isLoggedIn });
+});
+
+app.get('/account', async (req, res) => {
+  res.render('pages/account', { titrePage: "Account", Authentication: isLoggedIn, LogedInForm: LogedInForm });
 });
 
 app.get('/menu', async (req, res) => {
@@ -168,6 +173,17 @@ app.post('/login', async (req, res) => {
     } else {
       req.session.email = email;
       req.session.userId = user._id.toString();
+
+      LogedInForm = {
+        cl_nom: user.cl_nom,
+        cl_prenom: user.cl_prenom,
+        cl_courriel: email,
+        cl_telephone: user.cl_telephone,
+        cl_address: user.cl_address,
+        cl_code_postal: user.cl_code_postal,
+        cl_password: password
+      }
+
       isLoggedIn = true;
       res.redirect('/');
     }

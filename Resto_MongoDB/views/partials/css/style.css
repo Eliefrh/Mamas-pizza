@@ -435,3 +435,29 @@
     color: black;
     border-color: black;
 }
+
+/* Account Page */
+
+#account-form-title {
+    margin-left: 5pc;
+    margin-top: 5pc;
+    font-size: 30px;
+}
+
+.account-form-section {
+    height: 850px;
+    background-color: whitesmoke;
+    margin-left: 5pc;
+    margin-bottom: 5pc;
+    margin-right: 5pc;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+#account-form-div {
+    width: 50%;
+    float: left;
+    padding-left: 4%;
+    padding-right: 4%;
+    padding-top: 4%;
+}
