@@ -46,13 +46,6 @@ app.use('/js', express.static(__dirname + '/views/partials/js'));
 //     res.render("pages/produit_list", { titrePage: "Produit List", Authentication: isLoggedIn });
 // });
 
-// app.get('/logout', function (req, res) {
-//     isLoggedIn = false;
-//     res.writeHead(301, { Location: "http://localhost:29017/" });
-//     res.end();
-// });
-
-
 app.get('/', async (req, res) => {
     res.render('pages/index', { titrePage: "Mamma's Pizza's", Authentication: isLoggedIn});
 });
@@ -89,7 +82,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 function requireAuth(req, res, next) {
-    if (req.session && req.session.email) {
+    if (req.session && req.session.email && req.session.userId) {
         return next();
     } else {
         res.writeHead(301, { Location: "http://localhost:29017/login" });
@@ -250,6 +243,16 @@ app.post('/review', requireAuth, async (req, res) => {
 const server = app.listen(29017, function () {
     console.log("serveur fonctionne sur 29017... ! ");
     console.log("http://localhost:29017/");
+});
+
+/*
+  Le post methode pour logout
+*/
+app.post('/logout', requireAuth, async (req, res) => {
+  isLoggedIn = false;
+  req.session.userId = null;
+  req.session.email = null;
+  res.redirect('/');
 });
 
 // /**

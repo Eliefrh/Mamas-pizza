@@ -419,3 +419,19 @@
     background-color: white;
     transition: 0.3s;
 }
+
+/* Logout Button */
+
+#logout-btn {
+    font-size: 16px;
+    font-weight: lighter;
+    border-color: gray;
+    border-width: thin;
+    color: gray;
+    background-color: transparent;
+}
+
+#logout-btn:hover {
+    color: black;
+    border-color: black;
+}
