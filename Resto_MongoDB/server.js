@@ -48,23 +48,23 @@ app.use('/js', express.static(__dirname + '/views/partials/js'));
 // });
 
 app.get('/', async (req, res) => {
-    res.render('pages/index', { titrePage: "Mamma's Pizza's", Authentication: isLoggedIn});
+    res.render('pages/index', { titrePage: "Mamma's Pizza's", Authentication: isLoggedIn, LogedInForm: LogedInForm });
 });
 
 app.get('/login', async (req, res) => {
-    res.render('pages/login', { titrePage: "Login", Authentication: isLoggedIn });
+    res.render('pages/login', { titrePage: "Login", Authentication: isLoggedIn, LogedInForm: LogedInForm  });
 });
 
 app.get('/signup', async (req, res) => {
-    res.render('pages/signup', { titrePage: "signup", Authentication: isLoggedIn, successMessage: successMessage, failedMessage: failedMessage, StatusMessage: StatusMessage });
+    res.render('pages/signup', { titrePage: "signup", Authentication: isLoggedIn, successMessage: successMessage, failedMessage: failedMessage, StatusMessage: StatusMessage, LogedInForm: LogedInForm  });
 });
 
 app.get('/reservation', async (req, res) => {
-  res.render("pages/reservation", { titrePage: "Reservation", Authentication: isLoggedIn });
+  res.render("pages/reservation", { titrePage: "Reservation", Authentication: isLoggedIn, LogedInForm: LogedInForm  });
 });
 
 app.get('/review', async (req, res) => {
-  res.render("pages/review", { titrePage: "Review", Authentication: isLoggedIn });
+  res.render("pages/review", { titrePage: "Review", Authentication: isLoggedIn, LogedInForm: LogedInForm  });
 });
 
 app.get('/account', async (req, res) => {
@@ -72,7 +72,7 @@ app.get('/account', async (req, res) => {
 });
 
 app.get('/menu', async (req, res) => {
-    res.render('pages/menu', { titrePage: "Menu", Authentication: isLoggedIn });
+    res.render('pages/menu', { titrePage: "Menu", Authentication: isLoggedIn, LogedInForm: LogedInForm  });
 });
 
 // Parse Data
