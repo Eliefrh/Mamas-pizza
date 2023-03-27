@@ -7,31 +7,36 @@
 
 <body>
     <%- include('../partials/navbar.ejs') %>
-    <div class="container">
-        <br>
-        <br>
-        <h1>Écrivez un Review : </h1>
-        <hr>
-        <form method="POST" action="http://localhost:29017/review">
-            <div class="form-group">
-                <label for="review-form-title">Titre</label>
-                <input type="text" class="form-control" id="review-form-title" name="review-form-title" required>
-            </div>
-            <div class="form-group">
-                <label for="review-form-review">Review</label>
-                <textarea class="form-control" id="review-form-review" name="review-form-review" rows="5" required></textarea>
-            </div>
-            <div class="form-group">
-                <label for="review-form-rating">Rating:</label>
-                <input type="number" id="review-form-rating" name="review-form-rating" min="1" max="5" required>
-            </div>
+        <div class="container">
+            <br>
+            <br>
+            <h1>Écrivez un Review : </h1>
+            <hr>
+            <form method="POST" action="http://localhost:29017/review">
+                <div class="form-group">
+                    <label for="review-form-title">Titre</label>
+                    <input type="text" class="form-control" id="review-form-title" name="review-form-title" required>
+                </div>
+                <div class="form-group">
+                    <label for="review-form-review">Review</label>
+                    <textarea class="form-control" id="review-form-review" name="review-form-review" rows="5"
+                        required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="review-form-rating">Rating:</label>
+                    <input type="number" id="review-form-rating" name="review-form-rating" min="1" max="5" required>
+                </div>
+                <div class="form-group">
+                    <label for="review-form-prenom">Prenom:</label>
+                    <input type="number" id="review-form-prenom" name="review-form-prenom" min="1" max="5" required>
+                </div>
 
-            <button type="submit" class="btn btn-secondary">Submit</button>
-        </form>
-        <br>
-    </div>
-    <%- include('../partials/bootstrap.ejs')%>
-    <%- include('../partials/footer.ejs')%>
+                <button type="submit" class="btn btn-secondary">Submit</button>
+            </form>
+            <br>
+        </div>
+        <%- include('../partials/bootstrap.ejs')%>
+            <%- include('../partials/footer.ejs')%>
 </body>
 
 </html>
