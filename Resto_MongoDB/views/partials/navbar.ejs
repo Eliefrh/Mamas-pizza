@@ -2,7 +2,8 @@
     <a class="navbar-brand" href="/">
         <img src="img/PizzaLogoNavbar.png" width="40" height="40" alt="">
     </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
@@ -16,37 +17,42 @@
             <li class="nav-item">
                 <a class="nav-link" href="/reservation">Reservation<span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link" href="/review">Review<span class="sr-only">(current)</span></a>
+            </li> -->
+            <li class="nav-item">
+                <a class="nav-link" href="/reviewList">Reviews<span class="sr-only">(current)</span></a>
             </li>
 
-    <% if (Authentication) { %>
-            <li class="nav-item">
-                <a class="nav-link" href="/account">Account<span class="sr-only">(current)</span></a>
-            </li>
+            <% if (Authentication) { %>
+                <li class="nav-item">
+                    <a class="nav-link" href="/account">Account<span class="sr-only">(current)</span></a>
+                </li>
         </ul>
     </div>
     <div class="navbar-nav">
         <li class="nav-item">
-            <a class="nav-link">Connecté : <%= LogedInForm.cl_prenom %> <%= LogedInForm.cl_nom %><span class="sr-only">(current)</span></a>
+            <a class="nav-link">Connecté : <%= LogedInForm.cl_prenom %>
+                    <%= LogedInForm.cl_nom %><span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="/panier">Panier<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
             <form method="post" action="http://localhost:29017/logout">
-                <a class="nav-link" href="/logout"><button type="submit" id="logout-btn">Logout</button><span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/logout"><button type="submit" id="logout-btn">Logout</button><span
+                        class="sr-only">(current)</span></a>
             </form>
         </li>
     </div>
     <% } else { %>
-            <li class="nav-item">
-                <a class="nav-link" href="/login">Login<span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/signup">Sign Up<span class="sr-only">(current)</span></a>
-            </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/login">Login<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/signup">Sign Up<span class="sr-only">(current)</span></a>
+        </li>
         </ul>
-    </div>
-    <% } %>
+        </div>
+        <% } %>
 </nav>
