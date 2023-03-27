@@ -330,8 +330,55 @@ app.post('/account', requireAuth, async (req, res) => {
     const new_cl_code_postal = req.body["account-form-new-zip"];
     const new_cl_password = req.body["account-form-new-password"];
     const new_cl_repassword = req.body["account-form-new-repassword"];
-    
 
+    try {
+      const client = await operation.ConnectionDeMongodb();
+      const db = client.db("Resto_awt");
+      const users = db.collection("Client");
+      console.log(req.session.userId);
+      const user = await users.findOne(ObjectId(req.session.userId));
+      console.log(user);
+      res.redirect('/account');
+      if (new_cl_prenom != "") {
+        if (new_cl_prenom != LogedInForm.cl_prenom) {
+          LogedInForm.cl_prenom = new_cl_prenom;
+        }
+      }
+      if (new_cl_nom != "") {
+        if (new_cl_nom != LogedInForm.cl_nom) {
+          LogedInForm.cl_nom = new_cl_nom;
+        }
+      }
+      if (new_cl_courriel != "") {
+        if (new_cl_courriel != LogedInForm.cl_courriel) {
+          LogedInForm.cl_courriel = new_cl_courriel;
+        }
+      }
+      if (new_cl_telephone != "") {
+        if (new_cl_telephone != LogedInForm.cl_telephone) {
+          LogedInForm.cl_telephone = new_cl_telephone;
+        }
+      }
+      if (new_cl_address != "") {
+        if (new_cl_address != LogedInForm.cl_address) {
+          LogedInForm.cl_address = new_cl_address;
+        }
+      }
+      if (new_cl_code_postal != "") {
+        if (new_cl_code_postal != LogedInForm.cl_code_postal) {
+          LogedInForm.cl_code_postal = new_cl_code_postal;
+        }
+      }
+      if (new_cl_password != "" && new_cl_repassword != "") {
+        if (new_cl_password != LogedInForm.cl_password) {
+          LogedInForm.cl_password = new_cl_password;
+        }
+      }
+    } catch(err) {
+      console.error(err);
+      res.status(500).send('Internal Server Error');
+    }
+  }
 });
 
 /*
