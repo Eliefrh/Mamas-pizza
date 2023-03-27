@@ -7,15 +7,50 @@
 
 <body>
     <%- include('../partials/navbar.ejs')%>
-
-
-
     <!-- Menu -->
     <div id="menu">
         <!-- Titre -->
         <div id="menu-front-header">
             <h1 id="menu-titre">Notre Menu</h1>
         </div>
+
+        <% let categorie = true; %>
+        <% for(let i = 0; i < Produits.length; i++){ %>
+                <% if(categorie){ %>
+                <!-- Pizzas avec viandes -->
+                <img class="menu-categorie-img" src="">
+                <h2 class="menu-categorie-titre"><%= Produits[i].cat_nom %></h2>
+                <div class="menu-categorie">
+                    <% if(Produits[i].cat_nom == "Pizzas avec viandes"){ %>
+                    <div class="menu-item">
+                        <img class="menu-item-image" src=<%= Produits[i].prod_image %>>
+                        <h3 class="menu-item-nom"><%= Produits[i].prod_nom %></h3>
+                        <p class="menu-item-description"><%= Produits[i].prod_description %></p>
+                        <button class="menu-commander" onclick="redirectToItemPage('<%= Produits[i].prod_nom %>')">Personnaliser</button>
+                    </div>
+                    <% } %>
+                </div>
+                <% categorie = false; %>
+                <% } %>
+            <% if(Produits[i].cat_nom == "Pizzas végétariennes"){ %>
+
+            <% } %>
+            <% if(Produits[i].cat_nom == "Poulet"){ %>
+
+            <% } %>
+            <% if(Produits[i].cat_nom == "Frites"){ %>
+
+            <% } %>
+            <% if(Produits[i].cat_nom == "Boissons"){ %>
+
+            <% } %>
+            <% if(Produits[i].cat_nom == "Trempettes"){ %>
+
+            <% } %>
+        <% } %>
+
+
+
 
         <!-- Pizzas avec viandes -->
         <img class="menu-categorie-img" src="">

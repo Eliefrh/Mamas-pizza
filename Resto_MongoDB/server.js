@@ -72,7 +72,21 @@ app.get('/account', async (req, res) => {
 });
 
 app.get('/menu', async (req, res) => {
-    res.render('pages/menu', { titrePage: "Menu", Authentication: isLoggedIn, LogedInForm: LogedInForm  });
+    try{
+      const client = await operation.ConnectionDeMongodb();
+      const db = client.db("Resto_awt");
+      const produits = db.collection("Produit");
+      const produit = await produits.find().toArray();
+
+      produit.forEach(element => {
+        console.log(element);
+      });
+
+      res.render('pages/menu', { titrePage: "Menu", Authentication: isLoggedIn, LogedInForm: LogedInForm, Produits: produit});
+    } catch (err){
+      console.error(err);
+    res.status(500).send('Internal Server Error');
+    }
 });
 
 // Parse Data

@@ -2,162 +2,162 @@
   "_id": {
     "$oid": "6411fbe1d7c8e5e22b9616f5"
   },
-  "prod_id": "1",
   "prod_nom": "Pepperoni",
   "prod_description": "Pepperoni et fromage mozzarella",
   "prod_prix": "12.50",
+  "prod_image": "img/Pepperoni.png",
   "cat_nom": "Pizzas avec viandes"
 },{
   "_id": {
     "$oid": "64120c3dd7c8e5e22b9616f8"
   },
-  "prod_id": "2",
   "prod_nom": "Poulet buffalo",
   "prod_description": "Poulet barbecue, oignons rouges, et fromage parmesan sur une base à la sauce Buffalo",
   "prod_prix": "13.00",
+  "prod_image": "img/PouletBuffalo.png",
   "cat_nom": "Pizzas avec viandes"
 },{
   "_id": {
     "$oid": "64120d4ad7c8e5e22b9616f9"
   },
-  "prod_id": "3",
   "prod_nom": "Carnivore",
   "prod_description": "Garnie de pepperoni classique, bacon émietté, salami, de saucisse italienne épicée, de fines herbes italiennes, et de mozzarella",
   "prod_prix": "15.50",
+  "prod_image": "img/Carnivore.png",
   "cat_nom": "Pizzas avec viandes"
 },{
   "_id": {
     "$oid": "64121f0dd7c8e5e22b9616fa"
   },
-  "prod_id": "4",
   "prod_nom": "Végétarienne",
   "prod_description": "Croûte multi grains de blé entier garnie de poivrons verts, champignons frais, tomates Roma et fromage mozzarella",
   "prod_prix": "11.50",
+  "prod_image": "img/Vegetarienne.png",
   "cat_nom": "Pizzas végétariennes"
 },{
   "_id": {
     "$oid": "641220d4d7c8e5e22b9616fb"
   },
-  "prod_id": "5",
   "prod_nom": "Méditérannienne",
   "prod_description": "Garnie d'olives Kalamata, brocoli, tomates sechees au soleil, oignons rouges, feta et mozzarella",
   "prod_prix": "13.00",
+  "prod_image": "img/Mediterranienne.png",
   "cat_nom": "Pizzas végétariennes"
 },{
   "_id": {
     "$oid": "64122245d7c8e5e22b9616fc"
   },
-  "prod_id": "6",
   "prod_nom": "Crémeuse à l'ail",
   "prod_description": "Chaque bouchée regorge d'une délicieuse saveur crémeuse à l'ail et chaque pizza commence par une sauce de base crémeuse à l'ail suivi d'un mélange de six fromages et le tout est garni de parmesan et d'ail rôti",
   "prod_prix": "14.50",
+  "prod_image": "img/CremeuseAil.png",
   "cat_nom": "Pizzas végétariennes"
 },{
   "_id": {
     "$oid": "64122272d7c8e5e22b9616fd"
   },
-  "prod_id": "7",
   "prod_nom": "Ailes",
   "prod_description": "Ailes de poulet classiques",
   "prod_prix": "9.50",
+  "prod_image": "img/Ailes.png",
   "cat_nom": "Poulet"
 },{
   "_id": {
     "$oid": "6412229ad7c8e5e22b9616fe"
   },
-  "prod_id": "8",
   "prod_nom": "Bouchées de poulet",
   "prod_description": "Bouchées de poulet désossé, entièrement faites de tendre viande blanche",
   "prod_prix": "9.00",
+  "prod_image": "img/BoucheePoulet.png",
   "cat_nom": "Poulet"
 },{
   "_id": {
     "$oid": "641222e9d7c8e5e22b9616ff"
   },
-  "prod_id": "9",
   "prod_nom": "Poulet popcorn",
   "prod_description": "Bouchées tendres, juteuses et légèrement assaisonnées",
   "prod_prix": "10.50",
+  "prod_image": "img/PouletPopcorn.png",
   "cat_nom": "Poulet"
 },{
   "_id": {
     "$oid": "6412231bd7c8e5e22b961700"
   },
-  "prod_id": "10",
   "prod_nom": "Frites",
   "prod_description": "Boîte de frites dorées",
   "prod_prix": "5.00",
+  "prod_image": "img/Frite.png",
   "cat_nom": "Frites"
 },{
   "_id": {
     "$oid": "64122450d7c8e5e22b96170c"
   },
-  "prod_id": "11",
   "prod_nom": "Frites de patates douces",
   "prod_description": "Boîte de frites de patates douces coupées en lanières",
   "prod_prix": "6.00",
+  "prod_image": "img/FritePatateDouce.png",
   "cat_nom": "Frites"
 },{
   "_id": {
     "$oid": "6412246ed7c8e5e22b96170d"
   },
-  "prod_id": "12",
   "prod_nom": "Quartiers de pomme de terre",
   "prod_description": "Boîte de quartiers de pomme de terre assaisonnés d'un savoureux mélange d'herbes et d'épices",
   "prod_prix": "5.50",
+  "prod_image": "img/QuartierPommeDeTerre.png",
   "cat_nom": "Frites"
 },{
   "_id": {
     "$oid": "64122487d7c8e5e22b96170e"
   },
-  "prod_id": "13",
   "prod_nom": "Bouteille d'eau",
   "prod_description": "Bouteille d'eau Dasani de 591ml",
   "prod_prix": "1.50",
+  "prod_image": "img/Dasani.png",
   "cat_nom": "Boissons"
 },{
   "_id": {
     "$oid": "641224b0d7c8e5e22b96170f"
   },
-  "prod_id": "14",
   "prod_nom": "Thé glacé Nestea",
   "prod_description": "Bouteille de Nestea de 500ml",
   "prod_prix": "2.00",
+  "prod_image": "img/Nestea.png",
   "cat_nom": "Boissons"
 },{
   "_id": {
     "$oid": "641224cfd7c8e5e22b961710"
   },
-  "prod_id": "15",
   "prod_nom": "Monster original",
   "prod_description": "Canette de Monster de 473ml",
   "prod_prix": "2.50",
+  "prod_image": "img/Monster.png",
   "cat_nom": "Boissons"
 },{
   "_id": {
     "$oid": "641224e8d7c8e5e22b961711"
   },
-  "prod_id": "16",
   "prod_nom": "Sauce barbecue",
   "prod_description": "Tasse de sauce barbecue",
   "prod_prix": "0.50",
+  "prod_image": "img/Barbecue.png",
   "cat_nom": "Trempettes"
 },{
   "_id": {
     "$oid": "64122507d7c8e5e22b961712"
   },
-  "prod_id": "17",
   "prod_nom": "Cheddar jalapeno",
   "prod_description": "Tasse de sauce cheddar jalapeno",
   "prod_prix": "0.50",
+  "prod_image": "img/Jalapeno.png",
   "cat_nom": "Trempettes"
 },{
   "_id": {
     "$oid": "64122520d7c8e5e22b961713"
   },
-  "prod_id": "18",
   "prod_nom": "Sauce au buffalo",
   "prod_description": "Tasse de sauce au buffalo",
   "prod_prix": "0.50",
+  "prod_image": "img/Buffalo.png",
   "cat_nom": "Trempettes"
 }]

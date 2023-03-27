@@ -51,7 +51,7 @@ async function ConnectionDeMongodb() {
 
 async function SignupForm(formInput) {
     try {
-        const mongoClient = await ConnectionDeMongodb(uri);
+        mongoClient = await ConnectionDeMongodb();
         const db = mongoClient.db("Resto_awt");
         const collection = db.collection("Client");
         await CreateClient(collection, formInput);
@@ -76,7 +76,7 @@ async function LoginForm(email, password) {
 
 async function ReservationForm(formInput) {
     try {
-        mongoClient = await ConnectionDeMongodb(uri);
+        mongoClient = await ConnectionDeMongodb();
         const db = mongoClient.db("Resto_awt");
         const collection = db.collection("Reservation");
         await CreateReservation(collection, formInput)
@@ -87,7 +87,7 @@ async function ReservationForm(formInput) {
 
 async function ReviewForm(formInput) {
     try {
-        mongoClient = await ConnectionDeMongodb(uri);
+        mongoClient = await ConnectionDeMongodb();
         const db = mongoClient.db("Resto_awt");
         const collection = db.collection("Review");
         await CreateReview(collection, formInput);
@@ -99,7 +99,7 @@ async function ReviewForm(formInput) {
 // Menu operation
 async function ShowMenuList() {
     try {
-        mongoClient = await ConnectionDeMongodb(uri);
+        mongoClient = await ConnectionDeMongodb();
         const db = mongoClient.db("Resto_awt");
         const collection = db.collection("Produit");
         const produits = await FindProduit(collection);
@@ -111,7 +111,7 @@ async function ShowMenuList() {
 
 async function ItemsForm(menuInput) { // produit id, quantite, prix total, id client
     try {
-        mongoClient = await ConnectionDeMongodb(uri);
+        mongoClient = await ConnectionDeMongodb();
         const db = mongoClient.db("Resto_awt");
         const collection = db.collection("Items");
         await CreateItem(collection, menuInput);
@@ -139,7 +139,7 @@ async function CreateReview(collection, formInput) {
 }
 
 async function FindProduit(collection) {
-    return await collection.find({}, { _id: 1, prod_nom: 1, prod_description: 1 }.toArray());
+    await collection.find({}, { _id: 1, prod_nom: 1, prod_description: 1 }.toArray());
 }
 
 async function CreateItem(collection, menuInput) {
