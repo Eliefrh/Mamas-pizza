@@ -2,6 +2,7 @@ const express = require('express');
 const http = require('http');
 const mysql = require('mysql');
 const app = express();
+const ObjectId = require("mongodb");
 const bodyParser = require("body-parser");
 const { Module } = require('module');
 const cookieParser = require('cookie-parser');
@@ -249,7 +250,7 @@ app.post('/review', requireAuth, async (req, res) => {
 
     await review.insertOne(InputForm);
     res.redirect('/');
-  } catch {
+  } catch(err) {
     console.error(err);
     res.status(500).send('Internal Server Error');
   } 
@@ -259,17 +260,67 @@ app.post('/review', requireAuth, async (req, res) => {
   Le post methode pour la page account
 */
 app.post('/account', requireAuth, async (req, res) => {
-  const new_cl_prenom = req.body["account-form-new-prenom"];
-  const new_cl_nom = req.body["account-form-new-nom"];
-  const new_cl_courriel = req.body["account-form-new-email"];
-  const new_cl_telephone = req.body["account-form-new-phone"];
-  const new_cl_address = req.body["account-form-new-address"];
-  const new_cl_code_postal = req.body["account-form-new-zip"];
-  const new_cl_password = req.body["account-form-new-password"];
-  const new_cl_repassword = req.body["account-form-new-repassword"];
   const conf_cl_password = req.body["account-form-conformation-password"];
 
-  
+  if (conf_cl_password == LogedInForm.cl_password) {
+    const new_cl_prenom = req.body["account-form-new-prenom"];
+    const new_cl_nom = req.body["account-form-new-nom"];
+    const new_cl_courriel = req.body["account-form-new-email"];
+    const new_cl_telephone = req.body["account-form-new-phone"];
+    const new_cl_address = req.body["account-form-new-address"];
+    const new_cl_code_postal = req.body["account-form-new-zip"];
+    const new_cl_password = req.body["account-form-new-password"];
+    const new_cl_repassword = req.body["account-form-new-repassword"];
+
+    try {
+      const client = await operation.ConnectionDeMongodb();
+      const db = client.db("Resto_awt");
+      const users = db.collection("Client");
+      console.log(req.session.userId);
+      const user = await users.findOne(ObjectId(req.session.userId));
+      console.log(user);
+      res.redirect('/account');
+      if (new_cl_prenom != "") {
+        if (new_cl_prenom != LogedInForm.cl_prenom) {
+          LogedInForm.cl_prenom = new_cl_prenom;
+        }
+      }
+      if (new_cl_nom != "") {
+        if (new_cl_nom != LogedInForm.cl_nom) {
+          LogedInForm.cl_nom = new_cl_nom;
+        }
+      }
+      if (new_cl_courriel != "") {
+        if (new_cl_courriel != LogedInForm.cl_courriel) {
+          LogedInForm.cl_courriel = new_cl_courriel;
+        }
+      }
+      if (new_cl_telephone != "") {
+        if (new_cl_telephone != LogedInForm.cl_telephone) {
+          LogedInForm.cl_telephone = new_cl_telephone;
+        }
+      }
+      if (new_cl_address != "") {
+        if (new_cl_address != LogedInForm.cl_address) {
+          LogedInForm.cl_address = new_cl_address;
+        }
+      }
+      if (new_cl_code_postal != "") {
+        if (new_cl_code_postal != LogedInForm.cl_code_postal) {
+          LogedInForm.cl_code_postal = new_cl_code_postal;
+        }
+      }
+      if (new_cl_password != "" && new_cl_repassword != "") {
+        if (new_cl_password != LogedInForm.cl_password) {
+          LogedInForm.cl_password = new_cl_password;
+        }
+      }
+    } catch(err) {
+      console.error(err);
+      res.status(500).send('Internal Server Error');
+    }
+
+  }
 });
 
 /*
