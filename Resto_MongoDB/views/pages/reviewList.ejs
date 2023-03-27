@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head.ejs') %>
+</head>
+
+<body>
+    <%- include('../partials/navbar.ejs') %>
+        <div class="container">
+            <br>
+            <br>
+            <h1>Nos Review : </h1>
+            <hr>
+
+            <% Reviews.forEach(element=> { %>
+                <p>
+
+                    Nombre d'etoiles: <%= element.etoiles %>
+                </p>
+                <!-- <p>
+                    Prenom : <%= element.prenom %>
+                </p> -->
+                <p>
+                    Review : <br>
+                    <%= element.text %>
+                </p>
+                <br>
+                <br>
+                <p>-----------------------------------------------------------</p>
+                <br>
+                <br>
+
+
+
+
+
+                <% }); %>
+                    <br>
+
+        </div>
+        <%- include('../partials/bootstrap.ejs')%>
+            <%- include('../partials/footer.ejs')%>
+</body>
+
+</html>
