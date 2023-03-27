@@ -256,6 +256,23 @@ app.post('/review', requireAuth, async (req, res) => {
 });
 
 /*
+  Le post methode pour la page account
+*/
+app.post('/account', requireAuth, async (req, res) => {
+  const new_cl_prenom = req.body["account-form-new-prenom"];
+  const new_cl_nom = req.body["account-form-new-nom"];
+  const new_cl_courriel = req.body["account-form-new-email"];
+  const new_cl_telephone = req.body["account-form-new-phone"];
+  const new_cl_address = req.body["account-form-new-address"];
+  const new_cl_code_postal = req.body["account-form-new-zip"];
+  const new_cl_password = req.body["account-form-new-password"];
+  const new_cl_repassword = req.body["account-form-new-repassword"];
+  const conf_cl_password = req.body["account-form-conformation-password"];
+
+  
+});
+
+/*
   Le post methode pour logout
 */
 app.post('/logout', requireAuth, async (req, res) => {
@@ -264,6 +281,7 @@ app.post('/logout', requireAuth, async (req, res) => {
   req.session.email = null;
   res.redirect('/');
 });
+
 
 // Connecter au server
 const server = app.listen(29017, function () {
