@@ -290,8 +290,6 @@
 
 /* Menu Page */
 
-#menu {}
-
 #menu-front-header {
     background-color: rgb(194, 105, 105);
     height: 250px;
@@ -316,8 +314,6 @@
     margin-bottom: 2%;
 }
 
-.menu-categorie-img {}
-
 .menu-categorie-titre {
     font-size: 2em;
     text-align: center;
@@ -336,8 +332,6 @@
     width: 250px;
     height: 250px;
 }
-
-.menu-item-nom {}
 
 .menu-item-description {
     width: 90%;
@@ -420,6 +414,7 @@
     transition: 0.3s;
 }
 
+
 /* Logout Button */
 
 #logout-btn {
@@ -435,6 +430,7 @@
     color: black;
     border-color: black;
 }
+
 
 /* Account Page */
 
