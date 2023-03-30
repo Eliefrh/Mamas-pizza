@@ -1,6 +1,5 @@
 /* Item Page */
-
-function decrementer(){
+function decrementer() {
     const quantite = document.getElementById("item-quantite");
     const prixTotal = document.getElementById("item-prix");
     const prixUnitaire = 5;
@@ -8,7 +7,7 @@ function decrementer(){
     let compteur = quantite.innerHTML;
     let prix;
 
-    if(compteur > 0){
+    if (compteur > 0) {
         compteur--;
         quantite.innerHTML = compteur;
         prix = compteur * prixUnitaire;
@@ -16,7 +15,7 @@ function decrementer(){
     }
 }
 
-function incrementer(){
+function incrementer() {
     const quantite = document.getElementById("item-quantite");
     const prixTotal = document.getElementById("item-prix");
     const prixUnitaire = 5;
@@ -30,24 +29,22 @@ function incrementer(){
     prixTotal.innerHTML = prix + "$";
 }
 
-function ajouterAuPanier(){
+function ajouterAuPanier() {
     // Envoie le nom du produit, la quantite et le prix total dans le panier
     const nom = document.getElementById("item-titre");
     const quantite = document.getElementById("item-quantite");
     const prixTotal = document.getElementById("item-prix");
 
-    if(quantite == 0){
+    if (quantite == 0) {
 
     }
 }
 
-function redirectToItemPage(itemName){
-    const itemUrl = `/menu/${itemName}`;
-    const data = {
-        itemName: itemName
-    }
-    window.location.href = itemUrl;
+/* Menu page */
+function redirectLogin() {
+    window.location.href = `/login`;
 }
 
-/* Signup Page */
-
+function redirectToItem(item) {
+    window.location.href = `/menu/${item}`;
+}

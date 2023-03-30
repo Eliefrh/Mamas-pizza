@@ -35,41 +35,36 @@ app.use('/css', express.static(__dirname + '/views/partials/css'));
 app.use('/img', express.static(__dirname + '/views/partials/img', { extensions: ['jpg', 'png'] }));
 app.use('/js', express.static(__dirname + '/views/partials/js'));
 
-// app.get('/menu', async (req, res) => {
-//     const produits = await ShowMenuList();
-//     res.render("pages/menu", { titrePage: "Menu", Authentication: isLoggedIn, Produits: produits });
-// });
-
 // app.get('/panier', function (req, res) {
-//     res.render("pages/panier", { titrePage: "Panier", Authentication: isLoggedIn });
+//     res.render("pages/panier", { titrePage: "Panier", Authentification: isLoggedIn });
 // });
 
 // app.get('/produitlist', function (req, res) {
-//     res.render("pages/produit_list", { titrePage: "Produit List", Authentication: isLoggedIn });
+//     res.render("pages/produit_list", { titrePage: "Produit List", Authentification: isLoggedIn });
 // });
 
 app.get('/', async(req, res) => {
-    res.render('pages/index', { titrePage: "Mamma's Pizza's", Authentication: isLoggedIn, LogedInForm: LogedInForm });
+    res.render('pages/index', { titrePage: "Mamma's Pizza's", Authentification: isLoggedIn, LogedInForm: LogedInForm });
 });
 
 app.get('/login', async(req, res) => {
-    res.render('pages/login', { titrePage: "Login", Authentication: isLoggedIn, LogedInForm: LogedInForm });
+    res.render('pages/login', { titrePage: "Login", Authentification: isLoggedIn, LogedInForm: LogedInForm });
 });
 
 app.get('/signup', async(req, res) => {
-    res.render('pages/signup', { titrePage: "signup", Authentication: isLoggedIn, successMessage: successMessage, failedMessage: failedMessage, StatusMessage: StatusMessage, LogedInForm: LogedInForm });
+    res.render('pages/signup', { titrePage: "signup", Authentification: isLoggedIn, successMessage: successMessage, failedMessage: failedMessage, StatusMessage: StatusMessage, LogedInForm: LogedInForm });
 });
 
 app.get('/reservation', async(req, res) => {
-    res.render("pages/reservation", { titrePage: "Reservation", Authentication: isLoggedIn, LogedInForm: LogedInForm });
+    res.render("pages/reservation", { titrePage: "Reservation", Authentification: isLoggedIn, LogedInForm: LogedInForm });
 });
 
 app.get('/review', async(req, res) => {
-    res.render("pages/review", { titrePage: "Review", Authentication: isLoggedIn, LogedInForm: LogedInForm });
+    res.render("pages/review", { titrePage: "Review", Authentification: isLoggedIn, LogedInForm: LogedInForm });
 });
 
 app.get('/account', async(req, res) => {
-    res.render('pages/account', { titrePage: "Account", Authentication: isLoggedIn, LogedInForm: LogedInForm });
+    res.render('pages/account', { titrePage: "Account", Authentification: isLoggedIn, LogedInForm: LogedInForm });
 });
 
 app.get('/menu', async(req, res) => {
@@ -77,14 +72,36 @@ app.get('/menu', async(req, res) => {
         const client = await operation.ConnectionDeMongodb();
         const db = client.db("Resto_awt");
         const produits = db.collection("Produit");
-        const produit = await produits.find().toArray();
+        const produitList = await produits.find().toArray();
 
         const categorie = new Set();
-        for (let i = 0; i < produit.length; i++) {
-            categorie.add(produit[i].cat_nom);
+        for (let i = 0; i < produitList.length; i++) {
+            categorie.add(produitList[i].cat_nom);
         }
 
-        res.render('pages/menu', { titrePage: "Menu", Authentication: isLoggedIn, LogedInForm: LogedInForm, Produits: produit, Categories: categorie });
+        res.render('pages/menu', { titrePage: "Menu", Authentification: isLoggedIn, LogedInForm: LogedInForm, Produits: produitList, Categories: categorie });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+app.get('/menu/:item', async(req, res) => {
+    try {
+        const item = req.params.item;
+        const client = await operation.ConnectionDeMongodb();
+        const db = client.db("Resto_awt");
+        const produits = db.collection("Produit");
+        const produitList = await produits.find().toArray();
+
+        let produitSelectionne;
+        produitList.forEach(function(produit) {
+            if (produit.prod_nom == item) {
+                produitSelectionne = produit;
+            }
+        })
+
+        res.render('pages/item', { titrePage: item, Authentification: isLoggedIn, LogedInForm: LogedInForm, Item: produitSelectionne });
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error');
@@ -93,15 +110,13 @@ app.get('/menu', async(req, res) => {
 
 app.get('/reviewList', async(req, res) => {
     const client = await operation.ConnectionDeMongodb();
-
     const db = client.db("Resto_awt");
     const review = db.collection("Review");
     const reviews = await review.find().toArray();
     reviews.forEach(element => {
         //  console.log(element);
-
     });
-    res.render('pages/reviewList', { titrePage: "reviewList", Authentication: isLoggedIn, LogedInForm: LogedInForm, Reviews: reviews });
+    res.render('pages/reviewList', { titrePage: "reviewList", Authentification: isLoggedIn, LogedInForm: LogedInForm, Reviews: reviews });
 });
 
 
@@ -114,7 +129,7 @@ app.get('/reviewList', async(req, res) => {
 //   });
 
 
-//   res.render('pages/reviewList', { titrePage: "ReviewList", Authentication: isLoggedIn, LogedInForm: LogedInForm });
+//   res.render('pages/reviewList', { titrePage: "ReviewList", Authentification: isLoggedIn, LogedInForm: LogedInForm });
 
 // });
 
@@ -402,17 +417,12 @@ const server = app.listen(29017, function() {
 //  * Bouton personnaliser dans le menu
 //  */
 
-// app.get('/menu/:item', (req, res) => {
-//     const itemName = req.params.item;
-//     const itemUrl = `/menu/${itemName}`;
-//     res.redirect(itemUrl);
-// });
 
 // /* Bouton Ajouter au panier */
 
 
 // app.get('/item', function (req, res) {
-//     res.render("pages/item", { titrePage: "Item", Authentication: isLoggedIn });
+//     res.render("pages/item", { titrePage: "Item", Authentification: isLoggedIn });
 // });
 
 // app.post('/item', function (req, res) {
