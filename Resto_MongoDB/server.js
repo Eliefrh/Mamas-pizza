@@ -383,7 +383,7 @@ app.post('/account', requireAuth, async (req, res) => {
                         const InputForm = {
                             cl_courriel: LogedInForm.cl_courriel
                         }
-    
+                        req.session.email = LogedInForm.cl_courriel;
                         await users.updateOne({ cl_courriel: req.session.email }, {$set: InputForm});
                     }
                 }
@@ -391,7 +391,7 @@ app.post('/account', requireAuth, async (req, res) => {
             if (new_cl_telephone != "") {
                 if (new_cl_telephone != LogedInForm.cl_telephone) {
                     const existingTelephone = await users.findOne({ cl_telephone: new_cl_telephone });
-                    if (existingUser) {
+                    if (existingTelephone) {
                         failedMessage = true;
                         StatusMessage = "Un compte avec cet telephone existe déjà";
                         return res.status(409).send('Un compte avec cet telephone existe déjà');
@@ -437,6 +437,7 @@ app.post('/account', requireAuth, async (req, res) => {
                     }
                 }
             }
+            res.redirect('/account');
         } catch (err) {
             console.error(err);
             res.status(500).send('Internal Server Error');
