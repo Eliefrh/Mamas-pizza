@@ -20,8 +20,8 @@ module.exports = app;
 let isLoggedIn = false;
 let successMessage = false;
 let failedMessage = false;
-let StatusMessage;
-let LogedInForm;
+let statusMessage;
+let loggedInForm;
 
 app.set('views', './views');
 app.set('view engine', 'ejs');
@@ -44,27 +44,27 @@ app.use('/js', express.static(__dirname + '/views/partials/js'));
 // });
 
 app.get('/', async (req, res) => {
-    res.render('pages/index', { titrePage: "Mamma's Pizza's", Authentification: isLoggedIn, LogedInForm: LogedInForm });
+    res.render('pages/index', { titrePage: "Mamma's Pizza's", Authentification: isLoggedIn, LoggedInForm: loggedInForm });
 });
 
 app.get('/login', async (req, res) => {
-    res.render('pages/login', { titrePage: "Login", Authentification: isLoggedIn, LogedInForm: LogedInForm });
+    res.render('pages/login', { titrePage: "Login", Authentification: isLoggedIn, LoggedInForm: loggedInForm });
 });
 
 app.get('/signup', async (req, res) => {
-    res.render('pages/signup', { titrePage: "signup", Authentification: isLoggedIn, successMessage: successMessage, failedMessage: failedMessage, StatusMessage: StatusMessage, LogedInForm: LogedInForm });
+    res.render('pages/signup', { titrePage: "signup", Authentification: isLoggedIn, successMessage: successMessage, failedMessage: failedMessage, StatusMessage: statusMessage, LoggedInForm: loggedInForm });
 });
 
 app.get('/reservation', async (req, res) => {
-    res.render("pages/reservation", { titrePage: "Reservation", Authentification: isLoggedIn, LogedInForm: LogedInForm });
+    res.render("pages/reservation", { titrePage: "Reservation", Authentification: isLoggedIn, LoggedInForm: loggedInForm });
 });
 
 app.get('/review', async (req, res) => {
-    res.render("pages/review", { titrePage: "Review", Authentification: isLoggedIn, LogedInForm: LogedInForm });
+    res.render("pages/review", { titrePage: "Review", Authentification: isLoggedIn, LoggedInForm: loggedInForm });
 });
 
 app.get('/account', async (req, res) => {
-    res.render('pages/account', { titrePage: "Account", Authentification: isLoggedIn, LogedInForm: LogedInForm });
+    res.render('pages/account', { titrePage: "Account", Authentification: isLoggedIn, LoggedInForm: loggedInForm });
 });
 
 app.get('/menu', async (req, res) => {
@@ -79,7 +79,7 @@ app.get('/menu', async (req, res) => {
             categorie.add(produitList[i].cat_nom);
         }
 
-        res.render('pages/menu', { titrePage: "Menu", Authentification: isLoggedIn, LogedInForm: LogedInForm, Produits: produitList, Categories: categorie });
+        res.render('pages/menu', { titrePage: "Menu", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Produits: produitList, Categories: categorie });
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error');
@@ -101,7 +101,7 @@ app.get('/menu/:item', async (req, res) => {
             }
         })
 
-        res.render('pages/item', { titrePage: item, Authentification: isLoggedIn, LogedInForm: LogedInForm, Item: produitSelectionne });
+        res.render('pages/item', { titrePage: item, Authentification: isLoggedIn, LoggedInForm: loggedInForm, Item: produitSelectionne });
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error');
@@ -116,7 +116,7 @@ app.get('/reviewList', async (req, res) => {
     reviews.forEach(element => {
         //  console.log(element);
     });
-    res.render('pages/reviewList', { titrePage: "reviewList", Authentification: isLoggedIn, LogedInForm: LogedInForm, Reviews: reviews });
+    res.render('pages/reviewList', { titrePage: "reviewList", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Reviews: reviews });
 });
 
 
@@ -129,7 +129,7 @@ app.get('/reviewList', async (req, res) => {
 //   });
 
 
-//   res.render('pages/reviewList', { titrePage: "ReviewList", Authentification: isLoggedIn, LogedInForm: LogedInForm });
+//   res.render('pages/reviewList', { titrePage: "ReviewList", Authentification: isLoggedIn, LoggedInForm: loggedInForm });
 
 // });
 
@@ -163,11 +163,11 @@ app.post("/signup", async (req, res) => {
 
     if (password.length > 50 || repassword.length > 50) {
         failedMessage = true;
-        StatusMessage = "Le mot de passe doit être inférieur à 50 caractères";
+        statusMessage = "Le mot de passe doit être inférieur à 50 caractères";
         return res.status(400).send('Le mot de passe doit être inférieur à 50 caractères');
     } else if (password !== repassword) {
         failedMessage = true;
-        StatusMessage = "Les mots de passe ne correspondent pas";
+        statusMessage = "Les mots de passe ne correspondent pas";
         return res.status(400).send('Les mots de passe ne correspondent pas');
     }
 
@@ -200,7 +200,7 @@ app.post("/signup", async (req, res) => {
 
         if (existingUser) {
             failedMessage = true;
-            StatusMessage = "Un compte avec cet e-mail existe déjà";
+            statusMessage = "Un compte avec cet e-mail existe déjà";
             return res.status(409).send('Un compte avec cet e-mail existe déjà');
         }
 
@@ -232,7 +232,7 @@ app.post('/login', async (req, res) => {
             req.session.email = email;
             req.session.userId = user._id.toString();
 
-            LogedInForm = {
+            loggedInForm = {
                 cl_nom: user.cl_nom,
                 cl_prenom: user.cl_prenom,
                 cl_courriel: email,
@@ -336,7 +336,7 @@ app.post('/review', requireAuth, async (req, res) => {
 app.post('/account', requireAuth, async (req, res) => {
     const conf_cl_password = req.body["account-form-conformation-password"];
 
-    if (conf_cl_password == LogedInForm.cl_password) {
+    if (conf_cl_password == loggedInForm.cl_password) {
         const new_cl_prenom = req.body["account-form-new-prenom"];
         const new_cl_nom = req.body["account-form-new-nom"];
         const new_cl_courriel = req.body["account-form-new-email"];
@@ -352,36 +352,36 @@ app.post('/account', requireAuth, async (req, res) => {
             const users = db.collection("Client");
 
             if (new_cl_prenom != "") {
-                if (new_cl_prenom != LogedInForm.cl_prenom) {
-                    LogedInForm.cl_prenom = new_cl_prenom;
+                if (new_cl_prenom != loggedInForm.cl_prenom) {
+                  loggedInForm.cl_prenom = new_cl_prenom;
                     const InputForm = {
-                        cl_prenom: LogedInForm.cl_prenom
+                        cl_prenom: loggedInForm.cl_prenom
                     }
 
                     await users.updateOne({ cl_courriel: req.session.email }, { $set: InputForm });
                 }
             }
             if (new_cl_nom != "") {
-                if (new_cl_nom != LogedInForm.cl_nom) {
-                    LogedInForm.cl_nom = new_cl_nom;
+                if (new_cl_nom != loggedInForm.cl_nom) {
+                  loggedInForm.cl_nom = new_cl_nom;
                     const InputForm = {
-                        cl_nom: LogedInForm.cl_nom
+                        cl_nom: loggedInForm.cl_nom
                     }
 
                     await users.updateOne({ cl_courriel: req.session.email }, { $set: InputForm });
                 }
             }
             if (new_cl_courriel != "") {
-                if (new_cl_courriel != LogedInForm.cl_courriel) {
+                if (new_cl_courriel != loggedInForm.cl_courriel) {
                     const existingUser = await users.findOne({ cl_courriel: new_cl_courriel });
                     if (existingUser) {
                         failedMessage = true;
-                        StatusMessage = "Un compte avec cet e-mail existe déjà";
+                        statusMessage = "Un compte avec cet e-mail existe déjà";
                         return res.status(409).send('Un compte avec cet e-mail existe déjà');
                     } else {
-                        LogedInForm.cl_courriel = new_cl_courriel;
+                      loggedInForm.cl_courriel = new_cl_courriel;
                         const InputForm = {
-                            cl_courriel: LogedInForm.cl_courriel
+                            cl_courriel: loggedInForm.cl_courriel
                         }
     
                         await users.updateOne({ cl_courriel: req.session.email }, {$set: InputForm});
@@ -389,16 +389,16 @@ app.post('/account', requireAuth, async (req, res) => {
                 }
             }
             if (new_cl_telephone != "") {
-                if (new_cl_telephone != LogedInForm.cl_telephone) {
+                if (new_cl_telephone != loggedInForm.cl_telephone) {
                     const existingTelephone = await users.findOne({ cl_telephone: new_cl_telephone });
                     if (existingUser) {
                         failedMessage = true;
-                        StatusMessage = "Un compte avec cet telephone existe déjà";
+                        statusMessage = "Un compte avec cet telephone existe déjà";
                         return res.status(409).send('Un compte avec cet telephone existe déjà');
                     } else {
-                        LogedInForm.cl_telephone = new_cl_telephone;
+                      loggedInForm.cl_telephone = new_cl_telephone;
                         const InputForm = {
-                            cl_telephone: LogedInForm.cl_telephone
+                            cl_telephone: loggedInForm.cl_telephone
                         }
 
                         await users.updateOne({ cl_courriel: req.session.email }, {$set: InputForm});
@@ -406,20 +406,20 @@ app.post('/account', requireAuth, async (req, res) => {
                 }
             }
             if (new_cl_address != "") {
-                if (new_cl_address != LogedInForm.cl_address) {
-                    LogedInForm.cl_address = new_cl_address;
+                if (new_cl_address != loggedInForm.cl_address) {
+                  loggedInForm.cl_address = new_cl_address;
                     const InputForm = {
-                        cl_address: LogedInForm.cl_address
+                        cl_address: loggedInForm.cl_address
                     }
 
                     await users.updateOne({ cl_courriel: req.session.email }, {$set: InputForm});
                 }
             }
             if (new_cl_code_postal != "") {
-                if (new_cl_code_postal != LogedInForm.cl_code_postal) {
-                    LogedInForm.cl_code_postal = new_cl_code_postal;
+                if (new_cl_code_postal != loggedInForm.cl_code_postal) {
+                  loggedInForm.cl_code_postal = new_cl_code_postal;
                     const InputForm = {
-                        cl_code_postal: LogedInForm.cl_code_postal
+                        cl_code_postal: loggedInForm.cl_code_postal
                     }
 
                     await users.updateOne({ cl_courriel: req.session.email }, {$set: InputForm});
@@ -427,10 +427,10 @@ app.post('/account', requireAuth, async (req, res) => {
             }
             if (new_cl_password != "" && new_cl_repassword != "") {
                 if (new_cl_password == new_cl_repassword) {
-                    if (new_cl_password != LogedInForm.cl_password) {
-                        LogedInForm.cl_password = new_cl_password;
+                    if (new_cl_password != loggedInForm.cl_password) {
+                      loggedInForm.cl_password = new_cl_password;
                         const InputForm = {
-                            cl_password: LogedInForm.cl_password
+                            cl_password: loggedInForm.cl_password
                         }
     
                         await users.updateOne({ cl_courriel: req.session.email }, {$set: InputForm});
