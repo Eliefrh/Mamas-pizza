@@ -320,8 +320,8 @@ app.post('/review', requireAuth, async (req, res) => {
             review_title: titre,
             review_text: content,
             review_rating: rating,
-            review_prenom: LogedInForm.cl_prenom,
-            review_nom: LogedInForm.cl_nom
+            review_prenom: loggedInForm.cl_prenom,
+            review_nom: loggedInForm.cl_nom
         }
 
         await review.insertOne(InputForm);
