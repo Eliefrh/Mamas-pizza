@@ -7,32 +7,26 @@
 
 <body>
     <%- include('../partials/navbar.ejs')%>
-        <%= Item._id %>
-            <%= Item.prod_nom %>
+        <div id="item">
+            <h1 id="item-titre">
+                <%= Item.prod_nom %>
+            </h1>
+            <img id="item-image" src="/<%= Item.prod_image %>" alt="Image de l'item">
+            <p id="item-description">
                 <%= Item.prod_description %>
+            </p>
+            <div id="item-commander">
+                <button class="item-incrementation" onclick="decrementer()">-</button>
+                <p id="item-quantite">1</p>
+                <button class="item-incrementation" onclick="incrementer()">+</button>
+                <p id="item-prix">
                     <%= Item.prod_prix %>
-                        <%= Item.prod_image %>
-                            <%= Item.cat_nom %>
-                                <br><br><br><br><br><br>
-
-
-                                <div id="item">
-                                    <!-- <%#= item.nom %> (Enlever le #)-->
-                                    <h1 id="item-titre">Nom de l'item</h1>
-                                    <!-- <%#= item.image %> -->
-                                    <img id="item-image" src="img/Ailes.png" alt="Image de l'item">
-                                    <!-- <%#= item.description %> -->
-                                    <p id="item-description">Description de l'item</p>
-                                    <div id="item-commander">
-                                        <button class="item-incrementation" onclick="decrementer()">-</button>
-                                        <p id="item-quantite">1</p>
-                                        <button class="item-incrementation" onclick="incrementer()">+</button>
-                                        <p id="item-prix">5$</p>
-                                    </div>
-                                    <button id="item-ajouter-panier" onclick="ajouterAuPanier()">Ajouter au panier</button>
-                                </div>
-                                <%- include('../partials/bootstrap.ejs')%>
-                                    <%- include('../partials/footer.ejs')%>
+                </p>
+            </div>
+            <button id="item-ajouter-panier" onclick="ajouterAuPanier()">Ajouter au panier</button>
+        </div>
+        <%- include('../partials/bootstrap.ejs')%>
+            <%- include('../partials/footer.ejs')%>
 </body>
 
 </html>

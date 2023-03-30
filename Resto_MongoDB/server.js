@@ -8,7 +8,7 @@ const { Module } = require('module');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const alert = require('node-notifier');
-import ("dateformat");
+import("dateformat");
 const now = new Date();
 
 const operation = require('./operation');
@@ -43,31 +43,31 @@ app.use('/js', express.static(__dirname + '/views/partials/js'));
 //     res.render("pages/produit_list", { titrePage: "Produit List", Authentification: isLoggedIn });
 // });
 
-app.get('/', async(req, res) => {
+app.get('/', async (req, res) => {
     res.render('pages/index', { titrePage: "Mamma's Pizza's", Authentification: isLoggedIn, LogedInForm: LogedInForm });
 });
 
-app.get('/login', async(req, res) => {
+app.get('/login', async (req, res) => {
     res.render('pages/login', { titrePage: "Login", Authentification: isLoggedIn, LogedInForm: LogedInForm });
 });
 
-app.get('/signup', async(req, res) => {
+app.get('/signup', async (req, res) => {
     res.render('pages/signup', { titrePage: "signup", Authentification: isLoggedIn, successMessage: successMessage, failedMessage: failedMessage, StatusMessage: StatusMessage, LogedInForm: LogedInForm });
 });
 
-app.get('/reservation', async(req, res) => {
+app.get('/reservation', async (req, res) => {
     res.render("pages/reservation", { titrePage: "Reservation", Authentification: isLoggedIn, LogedInForm: LogedInForm });
 });
 
-app.get('/review', async(req, res) => {
+app.get('/review', async (req, res) => {
     res.render("pages/review", { titrePage: "Review", Authentification: isLoggedIn, LogedInForm: LogedInForm });
 });
 
-app.get('/account', async(req, res) => {
+app.get('/account', async (req, res) => {
     res.render('pages/account', { titrePage: "Account", Authentification: isLoggedIn, LogedInForm: LogedInForm });
 });
 
-app.get('/menu', async(req, res) => {
+app.get('/menu', async (req, res) => {
     try {
         const client = await operation.ConnectionDeMongodb();
         const db = client.db("Resto_awt");
@@ -86,7 +86,7 @@ app.get('/menu', async(req, res) => {
     }
 });
 
-app.get('/menu/:item', async(req, res) => {
+app.get('/menu/:item', async (req, res) => {
     try {
         const item = req.params.item;
         const client = await operation.ConnectionDeMongodb();
@@ -95,8 +95,8 @@ app.get('/menu/:item', async(req, res) => {
         const produitList = await produits.find().toArray();
 
         let produitSelectionne;
-        produitList.forEach(function(produit) {
-            if (produit.prod_nom == item) {
+        produitList.forEach(function (produit) {
+            if (produit._id == item) {
                 produitSelectionne = produit;
             }
         })
@@ -108,7 +108,7 @@ app.get('/menu/:item', async(req, res) => {
     }
 });
 
-app.get('/reviewList', async(req, res) => {
+app.get('/reviewList', async (req, res) => {
     const client = await operation.ConnectionDeMongodb();
     const db = client.db("Resto_awt");
     const review = db.collection("Review");
@@ -157,7 +157,7 @@ function requireAuth(req, res, next) {
 /*
   Le post methode pour la page de Sign Up
 */
-app.post("/signup", async(req, res) => {
+app.post("/signup", async (req, res) => {
     const password = req.body['sign-up-form-password'];
     const repassword = req.body['sign-up-form-repassword'];
 
@@ -216,7 +216,7 @@ app.post("/signup", async(req, res) => {
 /*
   Le post methode pour la page de Login
 */
-app.post('/login', async(req, res) => {
+app.post('/login', async (req, res) => {
     const email = req.body['login-email'];
     const password = req.body['login-password'];
 
@@ -254,7 +254,7 @@ app.post('/login', async(req, res) => {
 
 //methode post pour toutes les reviews 
 
-app.post('/reviewList', async(req, res) => {
+app.post('/reviewList', async (req, res) => {
     const client = await operation.ConnectionDeMongodb();
 
     const db = client.db("Resto_awt");
@@ -270,7 +270,7 @@ app.post('/reviewList', async(req, res) => {
 /*
   Le post methode pour la page de Reservation
 */
-app.post('/reservation', requireAuth, async(req, res) => {
+app.post('/reservation', requireAuth, async (req, res) => {
     let current_date = new Date();
     const date = req.body['reservation-form-date'];
 
@@ -304,7 +304,7 @@ app.post('/reservation', requireAuth, async(req, res) => {
 /*
   Le post methode pour la page de Review
 */
-app.post('/review', requireAuth, async(req, res) => {
+app.post('/review', requireAuth, async (req, res) => {
     const titre = req.body['review-form-title'];
     const content = req.body['review-form-review'];
     const rating = req.body['review-form-rating'];
@@ -333,7 +333,7 @@ app.post('/review', requireAuth, async(req, res) => {
 /*
   Le post methode pour la page account
 */
-app.post('/account', requireAuth, async(req, res) => {
+app.post('/account', requireAuth, async (req, res) => {
     const conf_cl_password = req.body["account-form-conformation-password"];
 
     if (conf_cl_password == LogedInForm.cl_password) {
@@ -358,7 +358,7 @@ app.post('/account', requireAuth, async(req, res) => {
                         cl_prenom: LogedInForm.cl_prenom
                     }
 
-                    await users.updateOne({ cl_courriel: req.session.email }, {$set: InputForm});
+                    await users.updateOne({ cl_courriel: req.session.email }, { $set: InputForm });
                 }
             }
             if (new_cl_nom != "") {
@@ -368,7 +368,7 @@ app.post('/account', requireAuth, async(req, res) => {
                         cl_nom: LogedInForm.cl_nom
                     }
 
-                    await users.updateOne({ cl_courriel: req.session.email }, {$set: InputForm});
+                    await users.updateOne({ cl_courriel: req.session.email }, { $set: InputForm });
                 }
             }
             if (new_cl_courriel != "") {
@@ -447,7 +447,7 @@ app.post('/account', requireAuth, async(req, res) => {
 /*
   Le post methode pour logout
 */
-app.post('/logout', requireAuth, async(req, res) => {
+app.post('/logout', requireAuth, async (req, res) => {
     isLoggedIn = false;
     req.session.userId = null;
     req.session.email = null;
@@ -456,7 +456,7 @@ app.post('/logout', requireAuth, async(req, res) => {
 
 
 // Connecter au server
-const server = app.listen(29017, function() {
+const server = app.listen(29017, function () {
     console.log("serveur fonctionne sur 29017... ! ");
     console.log("http://localhost:29017/");
 });
