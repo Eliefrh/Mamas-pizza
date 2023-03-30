@@ -1,9 +1,8 @@
 /* Item Page */
 function decrementer() {
+    const prixUnitaire = document.getElementById("item-prix");
     const quantite = document.getElementById("item-quantite");
     const prixTotal = document.getElementById("item-prix");
-    const prixUnitaire = 5;
-    //const prixUnitaire = prixTotal.innerHTML.slice(0, prixTotal.innerHTML.length - 1);
     let compteur = quantite.innerHTML;
     let prix;
 
