@@ -351,14 +351,11 @@ app.post('/account', requireAuth, async(req, res) => {
             const db = client.db("Resto_awt");
             const users = db.collection("Client");
 
-            const user = await users.findOne({ cl_courriel: req.session.email });
-
-            res.redirect('/account');
             if (new_cl_prenom != "") {
                 if (new_cl_prenom != LogedInForm.cl_prenom) {
                     LogedInForm.cl_prenom = new_cl_prenom;
                     const InputForm = {
-                        cl_nom: LogedInForm.cl_prenom
+                        cl_prenom: LogedInForm.cl_prenom
                     }
 
                     await users.updateOne({ cl_courriel: req.session.email }, {$set: InputForm});
@@ -376,27 +373,68 @@ app.post('/account', requireAuth, async(req, res) => {
             }
             if (new_cl_courriel != "") {
                 if (new_cl_courriel != LogedInForm.cl_courriel) {
-                    LogedInForm.cl_courriel = new_cl_courriel;
+                    const existingUser = await users.findOne({ cl_courriel: new_cl_courriel });
+                    if (existingUser) {
+                        failedMessage = true;
+                        StatusMessage = "Un compte avec cet e-mail existe déjà";
+                        return res.status(409).send('Un compte avec cet e-mail existe déjà');
+                    } else {
+                        LogedInForm.cl_courriel = new_cl_courriel;
+                        const InputForm = {
+                            cl_courriel: LogedInForm.cl_courriel
+                        }
+    
+                        await users.updateOne({ cl_courriel: req.session.email }, {$set: InputForm});
+                    }
                 }
             }
             if (new_cl_telephone != "") {
                 if (new_cl_telephone != LogedInForm.cl_telephone) {
-                    LogedInForm.cl_telephone = new_cl_telephone;
+                    const existingTelephone = await users.findOne({ cl_telephone: new_cl_telephone });
+                    if (existingUser) {
+                        failedMessage = true;
+                        StatusMessage = "Un compte avec cet telephone existe déjà";
+                        return res.status(409).send('Un compte avec cet telephone existe déjà');
+                    } else {
+                        LogedInForm.cl_telephone = new_cl_telephone;
+                        const InputForm = {
+                            cl_telephone: LogedInForm.cl_telephone
+                        }
+
+                        await users.updateOne({ cl_courriel: req.session.email }, {$set: InputForm});
+                    }
                 }
             }
             if (new_cl_address != "") {
                 if (new_cl_address != LogedInForm.cl_address) {
                     LogedInForm.cl_address = new_cl_address;
+                    const InputForm = {
+                        cl_address: LogedInForm.cl_address
+                    }
+
+                    await users.updateOne({ cl_courriel: req.session.email }, {$set: InputForm});
                 }
             }
             if (new_cl_code_postal != "") {
                 if (new_cl_code_postal != LogedInForm.cl_code_postal) {
                     LogedInForm.cl_code_postal = new_cl_code_postal;
+                    const InputForm = {
+                        cl_code_postal: LogedInForm.cl_code_postal
+                    }
+
+                    await users.updateOne({ cl_courriel: req.session.email }, {$set: InputForm});
                 }
             }
             if (new_cl_password != "" && new_cl_repassword != "") {
-                if (new_cl_password != LogedInForm.cl_password) {
-                    LogedInForm.cl_password = new_cl_password;
+                if (new_cl_password == new_cl_repassword) {
+                    if (new_cl_password != LogedInForm.cl_password) {
+                        LogedInForm.cl_password = new_cl_password;
+                        const InputForm = {
+                            cl_password: LogedInForm.cl_password
+                        }
+    
+                        await users.updateOne({ cl_courriel: req.session.email }, {$set: InputForm});
+                    }
                 }
             }
         } catch (err) {
