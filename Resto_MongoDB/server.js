@@ -96,7 +96,7 @@ app.get('/menu/:item', async(req, res) => {
 
         let produitSelectionne;
         produitList.forEach(function(produit) {
-            if (produit.prod_nom == item) {
+            if (produit._id == item) {
                 produitSelectionne = produit;
             }
         })

@@ -26,7 +26,7 @@
                                 <p class="menu-item-description">
                                     <%= produit.prod_description %>
                                 </p>
-                                <button class="menu-commander" onclick=<% if(!Authentification){ %> redirectLogin() <% } else { %> redirectToItem('<%= produit.prod_nom %>') <% } %>>Personnaliser</button>
+                                <button class="menu-commander" onclick=<% if(!Authentification){ %> redirectLogin() <% } else { %> redirectToItem('<%= produit._id %>') <% } %>>Personnaliser</button>
                             </div>
                             <% } %>
                                 <% }) %>
