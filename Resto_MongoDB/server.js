@@ -350,18 +350,28 @@ app.post('/account', requireAuth, async(req, res) => {
             const client = await operation.ConnectionDeMongodb();
             const db = client.db("Resto_awt");
             const users = db.collection("Client");
-            console.log(req.session.userId);
-            const user = await users.findOne(ObjectId(req.session.userId));
-            console.log(user);
+
+            const user = await users.findOne({ cl_courriel: req.session.email });
+
             res.redirect('/account');
             if (new_cl_prenom != "") {
                 if (new_cl_prenom != LogedInForm.cl_prenom) {
                     LogedInForm.cl_prenom = new_cl_prenom;
+                    const InputForm = {
+                        cl_nom: LogedInForm.cl_prenom
+                    }
+
+                    await users.updateOne({ cl_courriel: req.session.email }, {$set: InputForm});
                 }
             }
             if (new_cl_nom != "") {
                 if (new_cl_nom != LogedInForm.cl_nom) {
                     LogedInForm.cl_nom = new_cl_nom;
+                    const InputForm = {
+                        cl_nom: LogedInForm.cl_nom
+                    }
+
+                    await users.updateOne({ cl_courriel: req.session.email }, {$set: InputForm});
                 }
             }
             if (new_cl_courriel != "") {
