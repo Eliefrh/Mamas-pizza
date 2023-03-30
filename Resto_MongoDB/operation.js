@@ -20,35 +20,6 @@ async function ConnectionDeMongodb() {
     }
 }
 
-// async function ConnectionDeMongodb(uri) {
-//     // try {
-//     //     if (!uri.startsWith('mongodb://') && !uri.startsWith('mongodb+srv://')) {
-//     //         throw new Error('La chaîne de connexion ne commence pas par un schéma valide.');
-//     //     }
-
-//     const mongoClient = new MongoClient(uri);
-//     console.log("Connection a MongoDB...");
-//     await mongoClient.connect();
-//     console.log("Connecte a MongoDB!");
-//     return mongoClient;
-// } catch (error) {
-//     console.error("Erreur de connexion a MongoDB!", error);
-//     process.exit();
-// }
-// }
-
-// Form Operation
-// async function SignupForm(formInput) {
-//     try {
-//         mongoClient = await ConnectionDeMongodb(uri);
-//         const db = mongoClient.db("Resto_awt");
-//         const collection = db.collection("Client");
-//         await CreateClient(collection, formInput);
-//     } finally {
-//         await mongoClient.close();
-//     }
-// }
-
 async function SignupForm(formInput) {
     try {
         mongoClient = await ConnectionDeMongodb();
