@@ -16,18 +16,28 @@
             <% Reviews.forEach(element=> { %>
                 <p>
 
-                    Nombre d'etoiles: <%= element.etoiles %>
+                    Nombre d'etoiles: <%= element.review_rating %>
+                </p>
+                <p>
+
+                    Nom: <%= element.review_prenom %>
+                        <%= element.review_nom %>
+
                 </p>
 
                 <p>
+                    <%= element.review_title%>
+                </p>
+
+
+                <p>
                     Review : <br>
-                    <%= element.text %>
+                    <%= element.review_text%>
                 </p>
                 <br>
-                <br>
                 <p>-----------------------------------------------------------</p>
-                <br>
-                <br>
+
+
 
 
 

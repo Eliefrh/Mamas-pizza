@@ -254,18 +254,17 @@ app.post('/login', async (req, res) => {
 
 //methode post pour toutes les reviews 
 
-app.post('/reviewList', async (req, res) => {
-    const client = await operation.ConnectionDeMongodb();
+// app.post('/reviewList', async (req, res) => {
+//     const client = await operation.ConnectionDeMongodb();
 
-    const db = client.db("Resto_awt");
-    const review = db.collection("Review");
+//     const db = client.db("Resto_awt");
+//     const review = db.collection("Review");
 
-    array.forEach(element => {
-        console.log(review);
+//     // review.forEach(element => {
+//     //     console.log(review);
+//     // });
 
-    });
-
-});
+// });
 
 /*
   Le post methode pour la page de Reservation
@@ -308,7 +307,8 @@ app.post('/review', requireAuth, async (req, res) => {
     const titre = req.body['review-form-title'];
     const content = req.body['review-form-review'];
     const rating = req.body['review-form-rating'];
-    const prenom = req.session.prenom;
+    // const prenom = req.session.prenom;
+    //  const nom = req.session.nom;
 
     try {
         const dbClient = await operation.ConnectionDeMongodb();
@@ -316,10 +316,12 @@ app.post('/review', requireAuth, async (req, res) => {
         const review = db.collection("Review");
 
         const InputForm = {
-            cl_id: req.session.userId,
+            //cl_id: req.session.userId,
             review_title: titre,
             review_text: content,
-            review_rating: rating
+            review_rating: rating,
+            review_prenom: LogedInForm.cl_prenom,
+            review_nom: LogedInForm.cl_nom
         }
 
         await review.insertOne(InputForm);
@@ -383,8 +385,8 @@ app.post('/account', requireAuth, async (req, res) => {
                         const InputForm = {
                             cl_courriel: LogedInForm.cl_courriel
                         }
-    
-                        await users.updateOne({ cl_courriel: req.session.email }, {$set: InputForm});
+
+                        await users.updateOne({ cl_courriel: req.session.email }, { $set: InputForm });
                     }
                 }
             }
@@ -401,7 +403,7 @@ app.post('/account', requireAuth, async (req, res) => {
                             cl_telephone: LogedInForm.cl_telephone
                         }
 
-                        await users.updateOne({ cl_courriel: req.session.email }, {$set: InputForm});
+                        await users.updateOne({ cl_courriel: req.session.email }, { $set: InputForm });
                     }
                 }
             }
@@ -412,7 +414,7 @@ app.post('/account', requireAuth, async (req, res) => {
                         cl_address: LogedInForm.cl_address
                     }
 
-                    await users.updateOne({ cl_courriel: req.session.email }, {$set: InputForm});
+                    await users.updateOne({ cl_courriel: req.session.email }, { $set: InputForm });
                 }
             }
             if (new_cl_code_postal != "") {
@@ -422,7 +424,7 @@ app.post('/account', requireAuth, async (req, res) => {
                         cl_code_postal: LogedInForm.cl_code_postal
                     }
 
-                    await users.updateOne({ cl_courriel: req.session.email }, {$set: InputForm});
+                    await users.updateOne({ cl_courriel: req.session.email }, { $set: InputForm });
                 }
             }
             if (new_cl_password != "" && new_cl_repassword != "") {
@@ -432,8 +434,8 @@ app.post('/account', requireAuth, async (req, res) => {
                         const InputForm = {
                             cl_password: LogedInForm.cl_password
                         }
-    
-                        await users.updateOne({ cl_courriel: req.session.email }, {$set: InputForm});
+
+                        await users.updateOne({ cl_courriel: req.session.email }, { $set: InputForm });
                     }
                 }
             }
