@@ -339,106 +339,38 @@ app.post('/account', requireAuth, async (req, res) => {
     const conf_cl_password = req.body["account-form-conformation-password"];
 
     if (conf_cl_password == loggedInForm.cl_password) {
-        const new_cl_prenom = req.body["account-form-new-prenom"];
-        const new_cl_nom = req.body["account-form-new-nom"];
-        const new_cl_courriel = req.body["account-form-new-email"];
-        const new_cl_telephone = req.body["account-form-new-phone"];
-        const new_cl_address = req.body["account-form-new-address"];
-        const new_cl_code_postal = req.body["account-form-new-zip"];
-        const new_cl_password = req.body["account-form-new-password"];
-        const new_cl_repassword = req.body["account-form-new-repassword"];
+        const new_cl_prenom = req.body["account-form-prenom"];
+        const new_cl_nom = req.body["account-form-nom"];
+        const new_cl_courriel = req.body["account-form-email"];
+        const new_cl_telephone = req.body["account-form-phone"];
+        const new_cl_address = req.body["account-form-address"];
+        const new_cl_code_postal = req.body["account-form-zip"];
+        const new_cl_password = req.body["account-form-password"];
+        const new_cl_repassword = req.body["account-form-repassword"];
 
         try {
             const client = await operation.ConnectionDeMongodb();
             const db = client.db("Resto_awt");
             const users = db.collection("Client");
 
-            if (new_cl_prenom != "") {
-                if (new_cl_prenom != loggedInForm.cl_prenom) {
-                  loggedInForm.cl_prenom = new_cl_prenom;
-                    const InputForm = {
-                        cl_prenom: loggedInForm.cl_prenom
-                    }
-
-                    await users.updateOne({ cl_courriel: req.session.email }, { $set: InputForm });
-                }
+            const existingCourriel = await users.findOne({ cl_courriel: new_cl_courriel });
+            const existingTelephone = await users.findOne({ cl_telephone: new_cl_telephone });
+            
+            if ((!existingCourriel) || (!existingTelephone)) {
+                loggedInForm = {
+                    cl_nom: new_cl_nom,
+                    cl_prenom: new_cl_prenom,
+                    cl_courriel: new_cl_courriel,
+                    cl_telephone: new_cl_telephone,
+                    cl_address: new_cl_address,
+                    cl_code_postal: new_cl_code_postal,
+                    cl_password: new_cl_password
+                }      
+                await users.updateOne({ cl_courriel: req.session.email }, { $set: loggedInForm });
+                req.session.email = new_cl_courriel;
+                console.log(req.session.email);
             }
-            if (new_cl_nom != "") {
-                if (new_cl_nom != loggedInForm.cl_nom) {
-                  loggedInForm.cl_nom = new_cl_nom;
-                    const InputForm = {
-                        cl_nom: loggedInForm.cl_nom
-                    }
-
-                    await users.updateOne({ cl_courriel: req.session.email }, { $set: InputForm });
-                }
-            }
-            if (new_cl_courriel != "") {
-                if (new_cl_courriel != loggedInForm.cl_courriel) {
-                    const existingUser = await users.findOne({ cl_courriel: new_cl_courriel });
-                    if (existingUser) {
-                        failedMessage = true;
-                        statusMessage = "Un compte avec cet e-mail existe déjà";
-                        return res.status(409).send('Un compte avec cet e-mail existe déjà');
-                    } else {
-                      loggedInForm.cl_courriel = new_cl_courriel;
-                        const InputForm = {
-                            cl_courriel: loggedInForm.cl_courriel
-                        }
-                        req.session.email = LogedInForm.cl_courriel;
-                        await users.updateOne({ cl_courriel: req.session.email }, {$set: InputForm});
-                    }
-                }
-            }
-            if (new_cl_telephone != "") {
-                if (new_cl_telephone != loggedInForm.cl_telephone) {
-                    const existingTelephone = await users.findOne({ cl_telephone: new_cl_telephone });
-                    if (existingTelephone) {
-                        failedMessage = true;
-                        statusMessage = "Un compte avec cet telephone existe déjà";
-                        return res.status(409).send('Un compte avec cet telephone existe déjà');
-                    } else {
-                      loggedInForm.cl_telephone = new_cl_telephone;
-                        const InputForm = {
-                            cl_telephone: loggedInForm.cl_telephone
-                        }
-
-                        await users.updateOne({ cl_courriel: req.session.email }, { $set: InputForm });
-                    }
-                }
-            }
-            if (new_cl_address != "") {
-                if (new_cl_address != loggedInForm.cl_address) {
-                  loggedInForm.cl_address = new_cl_address;
-                    const InputForm = {
-                        cl_address: loggedInForm.cl_address
-                    }
-
-                    await users.updateOne({ cl_courriel: req.session.email }, { $set: InputForm });
-                }
-            }
-            if (new_cl_code_postal != "") {
-                if (new_cl_code_postal != loggedInForm.cl_code_postal) {
-                  loggedInForm.cl_code_postal = new_cl_code_postal;
-                    const InputForm = {
-                        cl_code_postal: loggedInForm.cl_code_postal
-                    }
-
-                    await users.updateOne({ cl_courriel: req.session.email }, { $set: InputForm });
-                }
-            }
-            if (new_cl_password != "" && new_cl_repassword != "") {
-                if (new_cl_password == new_cl_repassword) {
-                    if (new_cl_password != loggedInForm.cl_password) {
-                      loggedInForm.cl_password = new_cl_password;
-                        const InputForm = {
-                            cl_password: loggedInForm.cl_password
-                        }
-
-                        await users.updateOne({ cl_courriel: req.session.email }, { $set: InputForm });
-                    }
-                }
-            }
+            
             res.redirect('/account');
         } catch (err) {
             console.error(err);
