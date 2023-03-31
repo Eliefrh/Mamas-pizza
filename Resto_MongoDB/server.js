@@ -352,25 +352,26 @@ app.post('/account', requireAuth, async (req, res) => {
             const client = await operation.ConnectionDeMongodb();
             const db = client.db("Resto_awt");
             const users = db.collection("Client");
-
-            const existingCourriel = await users.findOne({ cl_courriel: new_cl_courriel });
-            const existingTelephone = await users.findOne({ cl_telephone: new_cl_telephone });
             
-            if ((!existingCourriel) || (!existingTelephone)) {
-                loggedInForm = {
-                    cl_nom: new_cl_nom,
-                    cl_prenom: new_cl_prenom,
-                    cl_courriel: new_cl_courriel,
-                    cl_telephone: new_cl_telephone,
-                    cl_address: new_cl_address,
-                    cl_code_postal: new_cl_code_postal,
-                    cl_password: new_cl_password
-                }      
-                await users.updateOne({ cl_courriel: req.session.email }, { $set: loggedInForm });
-                req.session.email = new_cl_courriel;
-                console.log(req.session.email);
+            if ((new_cl_password == new_cl_repassword) && (new_cl_password != loggedInForm.cl_password)) {
+                Object.assign(loggedInForm, {cl_password: new_cl_password})
             }
-            
+            if ((loggedInForm.cl_courriel != new_cl_courriel) || (loggedInForm.cl_telephone != new_cl_telephone)) {
+                const existingCourriel = await users.findOne({ cl_courriel: new_cl_courriel });
+                const existingTelephone = await users.findOne({ cl_telephone: new_cl_telephone });
+                if ((!existingCourriel) || (!existingTelephone)) {
+                    Object.assign(loggedInForm, {cl_courriel: new_cl_courriel, cl_telephone: new_cl_telephone})
+                         
+                    await users.updateOne({ cl_courriel: req.session.email }, { $set: loggedInForm });
+                    req.session.email = new_cl_courriel;
+                } else {
+                    failedMessage = true;
+                    statusMessage = "Un compte avec cet e-mail existe déjà";
+                    return res.status(409).send('Un compte avec cet e-mail ou telephone existe déjà');
+                }
+            }
+            Object.assign(loggedInForm, {cl_nom: new_cl_nom, cl_prenom: new_cl_prenom, cl_address: new_cl_address, cl_code_postal: new_cl_code_postal})
+            await users.updateOne({ cl_courriel: req.session.email }, { $set: loggedInForm });
             res.redirect('/account');
         } catch (err) {
             console.error(err);

@@ -12,43 +12,18 @@
             <br>
             <h1>Nos Review : </h1>
             <hr>
-
             <% Reviews.forEach(element=> { %>
-                <p>
-
-                    Nombre d'etoiles: <%= element.review_rating %>
-                </p>
-                <p>
-
-                    Nom: <%= element.review_prenom %>
-                        <%= element.review_nom %>
-
-                </p>
-
-                <p>
-                    <%= element.review_title%>
-                </p>
-
-
-                <p>
-                    Review : <br>
-                    <%= element.review_text%>
-                </p>
-                <br>
-                <p>-----------------------------------------------------------</p>
-
-
-
-
-
-
-
+                <div class="reviwer-section">
+                    <div id="reviewer-div">
+                        <span id="reviewer-name"><%= element.review_prenom %> <%= element.review_nom %> | </span> <span id="reviewer-stare">Nombre d'etoiles: <%= element.review_rating %></span><br>
+                        <span id="reviewer-title"><%= element.review_title%></span><br><br>
+                        <p id="reviewer-content"><%= element.review_text%></p>
+                    </div>
+                </div>
                 <% }); %>
-                    <br>
-
+            <br>
         </div>
         <%- include('../partials/bootstrap.ejs')%>
-            <%- include('../partials/footer.ejs')%>
+        <%- include('../partials/footer.ejs')%>
 </body>
-
 </html>

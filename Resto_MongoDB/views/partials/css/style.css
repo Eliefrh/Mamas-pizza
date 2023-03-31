@@ -465,3 +465,39 @@
     padding-right: 4%;
     padding-top: 4%;
 }
+
+/* Review list page */
+
+.reviewer-section {
+    margin-left: 5pc;
+    margin-bottom: 5pc;
+    margin-right: 5pc;
+}
+
+#reviewer-div {
+    height: auto;
+    background-color: whitesmoke;
+    padding-left: 4%;
+    padding-right: 4%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+#reviewer-name {
+    font-size: 13px;
+}
+
+#reviewer-stare {
+    font-size: 13px;
+}
+
+#reviewer-title {
+    font-size: 18px;
+}
+
+#reviewer-content {
+    font-size: 15px;
+}
+
