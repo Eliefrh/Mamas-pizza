@@ -381,6 +381,26 @@ app.post('/account', requireAuth, async (req, res) => {
 });
 
 /*
+   Methode post pour les items
+*/
+app.post('/menu/:item', requireAuth, async (req, res) => {
+    
+
+    const id = req.params.item;
+    const nom = req.body["item-titre"];
+    const quantite = req.body["item-quantite"];
+    const prix = req.body["item-prix"];
+    console.log(id);
+    console.log(nom);
+    console.log(quantite);
+    console.log(prix);
+
+    res.redirect('/');
+});
+
+
+
+/*
   Le post methode pour logout
 */
 app.post('/logout', requireAuth, async (req, res) => {

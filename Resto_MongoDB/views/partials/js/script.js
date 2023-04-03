@@ -1,4 +1,4 @@
-/* Item Page */
+/*
 function decrementer() {
     const prixUnitaire = document.getElementById("item-prix");
     const quantite = document.getElementById("item-quantite");
@@ -38,6 +38,7 @@ function ajouterAuPanier() {
 
     }
 }
+*/
 
 /* Menu page */
 function redirectLogin() {
