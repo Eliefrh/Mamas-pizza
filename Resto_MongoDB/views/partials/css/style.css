@@ -10,7 +10,8 @@
 .front-header {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     background-color: rgb(194, 105, 105);
-    height: 500px;
+    height: 60%;
+    display: flex;
 }
 
 #front-header-div {
@@ -43,7 +44,8 @@
 
 .nos-special-section {
     margin: 5pc;
-    height: 400px;
+    display: flex;
+    height: 30%;
     background-color: rgb(185, 181, 181, 0.8);
     border-radius: 10px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
@@ -79,7 +81,8 @@
 .menu-section {
     margin: 5pc;
     border-radius: 10px;
-    height: 200px;
+    height: 30%;
+    display: flex;
     background-color: rgb(194, 105, 105);
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
@@ -104,7 +107,8 @@
     border-radius: 10px;
     margin-top: 50px;
     margin-left: 20%;
-    height: 100px;
+    height: 30%;
+    display: flex;
     width: 60%;
     font-size: 35px;
     color: white;
@@ -121,7 +125,8 @@
 }
 
 .sign-up-section {
-    height: 200px;
+    height: 30%;
+    display: flex;
     background-color: rgba(0, 0, 0, 0.8);
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     margin: 5pc;
@@ -140,7 +145,8 @@
     border-radius: 10px;
     margin-top: 50px;
     margin-left: 20%;
-    height: 100px;
+    height: 50%;
+    display: flex;
     width: 60%;
     font-size: 35px;
     color: white;
@@ -165,7 +171,8 @@
 }
 
 .a-propos-nous-section {
-    height: 600px;
+    height: 50%;
+    display: flex;
     background-color: rgba(98, 81, 81, 0.8);
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     margin: 5pc;
@@ -173,6 +180,7 @@
 }
 
 #a-propos-nous-div {
+    align-self: auto;
     width: 50%;
     float: left;
 }
