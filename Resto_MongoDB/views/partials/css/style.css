@@ -56,6 +56,14 @@
     float: left;
 }
 
+@media screen and (max-width: 767px){
+    #nos-special-div {
+        float: none;
+        width: 100%;
+    }
+
+}
+
 #nos-special-txt {
     padding-top: 20px;
     padding-left: 20px;
