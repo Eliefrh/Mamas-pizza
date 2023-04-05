@@ -35,6 +35,26 @@ app.use('/css', express.static(__dirname + '/views/partials/css'));
 app.use('/img', express.static(__dirname + '/views/partials/img', { extensions: ['jpg', 'png'] }));
 app.use('/js', express.static(__dirname + '/views/partials/js'));
 
+// Parse Data
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(session({
+    secret: 'mysecretkey',
+    resave: true,
+    saveUninitialized: true
+}));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+function requireAuth(req, res, next) {
+    if (req.session && req.session.email && req.session.userId) {
+        return next();
+    } else {
+        res.writeHead(301, { Location: "http://localhost:29017/login" });
+        res.end();
+    }
+}
+
 // app.get('/panier', function (req, res) {
 //     res.render("pages/panier", { titrePage: "Panier", Authentification: isLoggedIn });
 // });
@@ -44,7 +64,20 @@ app.use('/js', express.static(__dirname + '/views/partials/js'));
 // });
 
 app.get('/', async (req, res) => {
-    res.render('pages/index', { titrePage: "Mamma's Pizza's", Authentification: isLoggedIn, LoggedInForm: loggedInForm });
+    try {
+        const client = await operation.ConnectionDeMongodb();
+        const db = client.db("Resto_awt");
+        const produits = db.collection("Produit");
+        const NosSpecial = await produits.find().limit(3).toArray();
+
+        console.log(NosSpecial); 
+
+        res.render('pages/index', { titrePage: "Mamma's Pizza's", Authentification: isLoggedIn, LoggedInForm: loggedInForm, NosSpecial: NosSpecial});
+    }
+    catch (err) {
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+    }
 });
 
 app.get('/login', async (req, res) => {
@@ -65,6 +98,13 @@ app.get('/review', async (req, res) => {
 
 app.get('/account', async (req, res) => {
     res.render('pages/account', { titrePage: "Account", Authentification: isLoggedIn, LoggedInForm: loggedInForm });
+});
+
+app.get('/logout', async (req, res) => {
+    isLoggedIn = false;
+    req.session.userId = null;
+    req.session.email = null;
+    res.redirect('/');
 });
 
 app.get('/menu', async (req, res) => {
@@ -118,41 +158,6 @@ app.get('/reviewList', async (req, res) => {
     });
     res.render('pages/reviewList', { titrePage: "reviewList", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Reviews: reviews });
 });
-
-
-// app.post('/reviewList', async (req, res) => {
-//   const client = await operation.ConnectionDeMongodb();
-//   const db = client.db("Resto_awt");
-//   const Reviews = db.collection("Review");
-//   Reviews.forEach((review) => {
-//     console.log(review);
-//   });
-
-
-//   res.render('pages/reviewList', { titrePage: "ReviewList", Authentification: isLoggedIn, LoggedInForm: loggedInForm });
-
-// });
-
-
-// Parse Data
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser());
-app.use(session({
-    secret: 'mysecretkey',
-    resave: true,
-    saveUninitialized: true
-}));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-function requireAuth(req, res, next) {
-    if (req.session && req.session.email && req.session.userId) {
-        return next();
-    } else {
-        res.writeHead(301, { Location: "http://localhost:29017/login" });
-        res.end();
-    }
-}
 
 /*
   Le post methode pour la page de Sign Up
@@ -251,21 +256,6 @@ app.post('/login', async (req, res) => {
     }
 });
 
-
-//methode post pour toutes les reviews 
-
-// app.post('/reviewList', async (req, res) => {
-//     const client = await operation.ConnectionDeMongodb();
-
-//     const db = client.db("Resto_awt");
-//     const review = db.collection("Review");
-
-//     // review.forEach(element => {
-//     //     console.log(review);
-//     // });
-
-// });
-
 /*
   Le post methode pour la page de Reservation
 */
@@ -307,8 +297,6 @@ app.post('/review', requireAuth, async (req, res) => {
     const titre = req.body['review-form-title'];
     const content = req.body['review-form-review'];
     const rating = req.body['review-form-rating'];
-    // const prenom = req.session.prenom;
-    //  const nom = req.session.nom;
 
     try {
         const dbClient = await operation.ConnectionDeMongodb();
@@ -316,7 +304,6 @@ app.post('/review', requireAuth, async (req, res) => {
         const review = db.collection("Review");
 
         const InputForm = {
-            //cl_id: req.session.userId,
             review_title: titre,
             review_text: content,
             review_rating: rating,
@@ -398,18 +385,9 @@ app.post('/menu/:item', requireAuth, async (req, res) => {
     res.redirect('/');
 });
 
-
-
 /*
   Le post methode pour logout
 */
-app.post('/logout', requireAuth, async (req, res) => {
-    isLoggedIn = false;
-    req.session.userId = null;
-    req.session.email = null;
-    res.redirect('/');
-});
-
 
 // Connecter au server
 const server = app.listen(29017, function () {

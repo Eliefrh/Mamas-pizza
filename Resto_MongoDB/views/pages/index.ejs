@@ -23,12 +23,27 @@
         </section>
 
         <section class="nos-special-section">
-            <div id="nos-special-div">
+            <div class="nos-special-div">
                 <div id="nos-special-txt">
                     <span id="nos-special-title">Nos Specials :</span>
                 </div>
+                <div class="nos-special-div">
+                    <div class="menu-categorie">
+                        <% NosSpecial.forEach(function(produit){ %>
+                                <div class="menu-item">
+                                    <img class="menu-item-image" src="<%= NosSpecial.prod_image %>">
+                                    <h3 class="menu-item-nom">
+                                        <%= NosSpecial.prod_nom %>
+                                    </h3>
+                                    <p class="menu-item-description">
+                                        <%= NosSpecial.prod_description %>
+                                    </p>
+                                </div>
+                        <% }) %>
+                    </div>
+                </div>
             </div>
-            <div id="nos-special-div">
+            <div class="nos-special-div">
                 <p id="nos-special-paragraphe">
                     Ces spéciaux ne sont disponibles que pour une période limitée, alors n'hésitez pas à les essayer
                     pendant que vous le pouvez! Et comme toujours, notre menu propose une grande variété d'autres
@@ -38,7 +53,7 @@
         </section>
 
         <section class="menu-section">
-            <div id="menu-div">
+            <div class="menu-div">
                 <p id="menu-paragraphe">
                     Nous sommes fiers de notre nourriture et nous nous efforçons de fournir une expérience culinaire
                     exceptionnelle à chacun de nos invités. Que vous cherchiez une tranche rapide ou un repas complet,
@@ -46,7 +61,7 @@
                     Mama's.
                 </p>
             </div>
-            <div id="menu-div">
+            <div class="menu-div">
                 <a href="/menu">
                     <button id="menu-button">Voir Notre Menu</button>
                 </a>

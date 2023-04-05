@@ -44,24 +44,15 @@
 
 .nos-special-section {
     margin: 5pc;
-    display: flex;
     height: 30%;
     background-color: rgb(185, 181, 181, 0.8);
     border-radius: 10px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-#nos-special-div {
-    width: 50%;
-    float: left;
-}
-
-@media screen and (max-width: 767px){
-    #nos-special-div {
-        float: none;
-        width: 100%;
-    }
-
+.nos-special-div {
+    width: 100%;
+    float: none;
 }
 
 #nos-special-txt {
@@ -95,10 +86,12 @@
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-#menu-div {
+.menu-div {
     width: 50%;
     float: left;
 }
+
+
 
 #menu-paragraphe {
     font-size: 20px;
