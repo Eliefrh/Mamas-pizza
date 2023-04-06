@@ -513,3 +513,35 @@
     font-size: 15px;
 }
 
+/* Panier Page */
+
+#panier-title {
+    margin-top: 3%;
+    margin-left: 5pc;
+    margin-right: 5pc;
+}
+
+.panier-item-section {
+    
+}
+
+.panier-item-div {
+    height: auto;
+    background-color: whitesmoke;
+    padding-left: 4%;
+    padding-right: 4%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    margin-left: 5pc;
+    margin-right: 5pc;
+}
+
+.panier-payment-div {
+    padding-left: 4%;
+    padding-right: 4%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    margin-bottom: 5pc;
+}

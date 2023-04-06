@@ -70,8 +70,6 @@ app.get('/', async (req, res) => {
         const produits = db.collection("Produit");
         const NosSpecial = await produits.find().limit(3).toArray();
 
-        console.log(NosSpecial); 
-
         res.render('pages/index', { titrePage: "Mamma's Pizza's", Authentification: isLoggedIn, LoggedInForm: loggedInForm, NosSpecial: NosSpecial});
     }
     catch (err) {
@@ -156,8 +154,13 @@ app.get('/reviewList', async (req, res) => {
     reviews.forEach(element => {
         //  console.log(element);
     });
-    res.render('pages/reviewList', { titrePage: "reviewList", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Reviews: reviews });
+    res.render('pages/reviewList', { titrePage: "Reviews", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Reviews: reviews });
 });
+
+app.get('/panier', async (req, res) => {
+    res.render("pages/panier", { titrePage: "Panier", Authentification: isLoggedIn, LoggedInForm: loggedInForm });
+});
+
 
 /*
   Le post methode pour la page de Sign Up
