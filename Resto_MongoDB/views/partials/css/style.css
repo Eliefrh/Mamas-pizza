@@ -546,6 +546,12 @@
     margin-bottom: 5pc;
 }
 
-.panier-payment-table {
-    
+.panier-payment-half-one {
+    float: left;
+    width: 80%;
+}
+
+.panier-payment-half-two {
+    float: left;
+    width: 20%;
 }

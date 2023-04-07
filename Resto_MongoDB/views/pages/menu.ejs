@@ -7,34 +7,34 @@
 
 <body>
     <%- include('../partials/navbar.ejs')%>
-        <div>
-            <div id="menu-front-header">
-                <h1 id="menu-titre">Notre Menu</h1>
-            </div>
-            <% for (let categorie of Categories){ %>
-                <h2 class="menu-categorie-titre">
-                    <%= categorie %>
-                </h2>
-                <div class="menu-categorie">
-                    <% Produits.forEach(function(produit){ %>
-                        <% if(produit.cat_nom == categorie){ %>
-                            <div class="menu-item">
-                                <img class="menu-item-image" src="<%= produit.prod_image %>">
-                                <h3 class="menu-item-nom">
-                                    <%= produit.prod_nom %>
-                                </h3>
-                                <p class="menu-item-description">
-                                    <%= produit.prod_description %>
-                                </p>
-                                <button class="menu-commander" onclick=<% if(!Authentification){ %> redirectLogin() <% } else { %> redirectToItem('<%= produit._id %>') <% } %>>Personnaliser</button>
-                            </div>
-                            <% } %>
-                                <% }) %>
-                </div>
-                <% } %>
+    <div>
+        <div id="menu-front-header">
+            <h1 id="menu-titre">Notre Menu</h1>
         </div>
-        <%- include('../partials/bootstrap.ejs')%>
-            <%- include('../partials/footer.ejs')%>
+        <% for (let categorie of Categories){ %>
+            <h2 class="menu-categorie-titre">
+                <%= categorie %>
+            </h2>
+            <div class="menu-categorie">
+                <% Produits.forEach(function(produit){ %>
+                    <% if(produit.cat_nom == categorie){ %>
+                        <div class="menu-item">
+                            <img class="menu-item-image" src="<%= produit.prod_image %>">
+                            <h3 class="menu-item-nom">
+                                <%= produit.prod_nom %>
+                            </h3>
+                            <p class="menu-item-description">
+                                <%= produit.prod_description %>
+                            </p>
+                            <button class="menu-commander" onclick=<% if(!Authentification){ %> redirectLogin() <% } else { %> redirectToItem('<%= produit._id %>') <% } %>>Personnaliser</button>
+                        </div>
+                    <% } %>
+                <% }) %>
+            </div>
+        <% } %>
+    </div>
+    <%- include('../partials/bootstrap.ejs')%>
+    <%- include('../partials/footer.ejs')%>
 </body>
 
 </html>
