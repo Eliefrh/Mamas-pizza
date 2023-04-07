@@ -522,7 +522,7 @@
 }
 
 .panier-item-section {
-    height: auto;
+
 }
 
 .panier-item-div {
@@ -538,12 +538,11 @@
     margin-right: 5pc;
 }
 
-.panier-payment-div {
+#panier-payment-div {
+    height: auto;
     margin-bottom: 5pc;
     margin-left: 5pc;
     margin-right: 5pc;
-    padding-bottom: 5%;
-    padding-top: 2%;
 }
 
 .panier-payment-half-one {
@@ -554,12 +553,57 @@
 .panier-payment-half-two {
     float: left;
     width: 20%;
+    text-align: right;
 }
 
 #panier-payment-text {
-    
+    font-size: 18px;
+    font-weight: lighter;
 }
 
 #panier-payment-amount {
+    font-size: 18px;
+    font-weight: lighter;
+}
 
+.panier-item-content {
+    
+}
+
+.panier-item-table {
+    width: 100%;
+}
+
+#panier-item-table-header {
+    border-bottom: 1px solid black;
+}
+
+#panier-item-table-image {
+    width: 20%;
+}
+
+#panier-item-table-nom {
+    width: 40%;
+}
+
+#panier-item-table-quantite {
+    width: 10%;
+}
+
+#panier-item-table-prix {
+    width: 10%;
+}
+
+#panier-item-table-button {
+    width: 20%;
+}
+
+#panier-item-table-content {
+    border-spacing: 10px;
+}
+
+
+#panier-payment-button-content {
+    margin-top: 5%;
+    margin-bottom: 5%;
 }
