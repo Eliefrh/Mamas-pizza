@@ -522,7 +522,7 @@
 }
 
 .panier-item-section {
-    
+    height: auto;
 }
 
 .panier-item-div {
@@ -539,11 +539,11 @@
 }
 
 .panier-payment-div {
-    padding-left: 4%;
-    padding-right: 4%;
-    padding-top: 2%;
-    padding-bottom: 2%;
     margin-bottom: 5pc;
+    margin-left: 5pc;
+    margin-right: 5pc;
+    padding-bottom: 5%;
+    padding-top: 2%;
 }
 
 .panier-payment-half-one {
@@ -554,4 +554,12 @@
 .panier-payment-half-two {
     float: left;
     width: 20%;
+}
+
+#panier-payment-text {
+    
+}
+
+#panier-payment-amount {
+
 }
