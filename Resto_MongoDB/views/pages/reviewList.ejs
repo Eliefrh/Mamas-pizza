@@ -10,20 +10,48 @@
         <div class="container">
             <br>
             <br>
-            <h1>Nos Review : </h1>
+            <h1>Nos Reviews :</h1>
             <hr>
-            <% Reviews.forEach(element=> { %>
+            <% Reviews.forEach(review=> { %>
                 <div class="reviwer-section">
                     <div id="reviewer-div">
-                        <span id="reviewer-name"><%= element.review_prenom %> <%= element.review_nom %> | </span> <span id="reviewer-stare">Nombre d'etoiles: <%= element.review_rating %></span><br>
-                        <span id="reviewer-title"><%= element.review_title%></span><br><br>
-                        <p id="reviewer-content"><%= element.review_text%></p>
+                        <span id="reviewer-name">
+                            <%= review.review_prenom %>
+                                <%= review.review_nom %>
+
+                        </span>
+                        <span id="reviewer-stare">
+                            <div class="rating">
+                                <br>
+                                <% for(var i=1; i <=5; i++) { %>
+                                    <% if(i <=review.review_rating) { %>
+                                        <input type="image" src="/img/etoile.jpeg" style="width: 20px; height: 20px;"
+                                            star<%=i %>"
+                                        name="rating" value="<%= i %>" checked
+                                            disabled />
+                                            <% } else { %>
+                                                <input type="hidden" id="star<%= i %>" name="rating" value="<%= i %>"
+                                                    disabled />
+                                                <% } %>
+                                                    <label for="star<%= i %>" disabled><i
+                                                            class="fas fa-star"></i></label>
+                                                    <% } %>
+                            </div>
+                        </span>
+                        <br>
+                        <span id="reviewer-title">
+                            <%= review.review_title %>
+                        </span><br><br>
+                        <p id="reviewer-content">
+                            <%= review.review_text %>
+                        </p>
                     </div>
                 </div>
                 <% }); %>
-            <br>
+                    <br>
         </div>
-    <%- include('../partials/bootstrap.ejs')%>
-    <%- include('../partials/footer.ejs')%>
+        <%- include('../partials/bootstrap.ejs')%>
+            <%- include('../partials/footer.ejs')%>
 </body>
+
 </html>
