@@ -70,7 +70,7 @@ app.get('/', async (req, res) => {
         const produits = db.collection("Produit");
         const NosSpecial = await produits.find().limit(3).toArray();
 
-        res.render('pages/index', { titrePage: "Mamma's Pizza's", Authentification: isLoggedIn, LoggedInForm: loggedInForm, NosSpecial: NosSpecial});
+        res.render('pages/index', { titrePage: "Mamma's Pizza's", Authentification: isLoggedIn, LoggedInForm: loggedInForm, NosSpecial: NosSpecial });
     }
     catch (err) {
         console.error(err);
@@ -342,16 +342,16 @@ app.post('/account', requireAuth, async (req, res) => {
             const client = await operation.ConnectionDeMongodb();
             const db = client.db("Resto_awt");
             const users = db.collection("Client");
-            
+
             if ((new_cl_password == new_cl_repassword) && (new_cl_password != loggedInForm.cl_password)) {
-                Object.assign(loggedInForm, {cl_password: new_cl_password})
+                Object.assign(loggedInForm, { cl_password: new_cl_password })
             }
             if ((loggedInForm.cl_courriel != new_cl_courriel) || (loggedInForm.cl_telephone != new_cl_telephone)) {
                 const existingCourriel = await users.findOne({ cl_courriel: new_cl_courriel });
                 const existingTelephone = await users.findOne({ cl_telephone: new_cl_telephone });
                 if ((!existingCourriel) || (!existingTelephone)) {
-                    Object.assign(loggedInForm, {cl_courriel: new_cl_courriel, cl_telephone: new_cl_telephone})
-                         
+                    Object.assign(loggedInForm, { cl_courriel: new_cl_courriel, cl_telephone: new_cl_telephone })
+
                     await users.updateOne({ cl_courriel: req.session.email }, { $set: loggedInForm });
                     req.session.email = new_cl_courriel;
                 } else {
@@ -360,7 +360,7 @@ app.post('/account', requireAuth, async (req, res) => {
                     return res.status(409).send('Un compte avec cet e-mail ou telephone existe déjà');
                 }
             }
-            Object.assign(loggedInForm, {cl_nom: new_cl_nom, cl_prenom: new_cl_prenom, cl_address: new_cl_address, cl_code_postal: new_cl_code_postal})
+            Object.assign(loggedInForm, { cl_nom: new_cl_nom, cl_prenom: new_cl_prenom, cl_address: new_cl_address, cl_code_postal: new_cl_code_postal })
             await users.updateOne({ cl_courriel: req.session.email }, { $set: loggedInForm });
             res.redirect('/account');
         } catch (err) {
@@ -374,7 +374,7 @@ app.post('/account', requireAuth, async (req, res) => {
    Methode post pour les items
 */
 app.post('/menu/:item', requireAuth, async (req, res) => {
-    
+
 
     const id = req.params.item;
     const nom = req.body["item-titre"];
