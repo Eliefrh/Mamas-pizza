@@ -1,33 +1,26 @@
-/*
-function decrementer() {
-    const prixUnitaire = document.getElementById("item-prix");
+function decrementer(prixUnitaire){
     const quantite = document.getElementById("item-quantite");
-    const prixTotal = document.getElementById("item-prix");
-    let compteur = quantite.innerHTML;
-    let prix;
+    const prix = document.getElementById("item-prix");
+    let compteur = quantite.value;
 
-    if (compteur > 0) {
+    if(compteur > 1){
         compteur--;
-        quantite.innerHTML = compteur;
-        prix = compteur * prixUnitaire;
-        prixTotal.innerHTML = prix + "$";
+        quantite.value--;
+        let prixTotal = quantite.value * prixUnitaire;
+        prix.value = prixTotal.toFixed(2) + "$";
     }
 }
 
-function incrementer() {
+function incrementer(prixUnitaire){
     const quantite = document.getElementById("item-quantite");
-    const prixTotal = document.getElementById("item-prix");
-    const prixUnitaire = 5;
-    //const prixUnitaire = prixTotal.innerHTML.slice(0, prixTotal.innerHTML.length - 1);
-    let compteur = quantite.innerHTML;
-    let prix;
+    const prix = document.getElementById("item-prix");
 
-    compteur++;
-    quantite.innerHTML = compteur;
-    prix = compteur * prixUnitaire;
-    prixTotal.innerHTML = prix + "$";
+    quantite.value++;
+    let prixTotal = quantite.value * prixUnitaire;
+    prix.value = prixTotal.toFixed(2) + "$";
 }
 
+/*
 function ajouterAuPanier() {
     // Envoie le nom du produit, la quantite et le prix total dans le panier
     const nom = document.getElementById("item-titre");
