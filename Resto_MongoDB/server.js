@@ -375,15 +375,32 @@ app.post('/account', requireAuth, async (req, res) => {
 */
 app.post('/menu/:item', requireAuth, async (req, res) => {
     const id = req.params.item;
+    const nom = req.body["nom"];
     const quantite = req.body["quantite"];
     const prix = req.body["prix"];
     console.log(id);
+    console.log(nom);
     console.log(quantite);
     console.log(prix);
 
+    try{
+        const client = await operation.ConnectionDeMongodb();
+        const db = client.db("Resto_awt");
+        const items = db.collection("Items");
 
-    
-    res.redirect("/");
+        const ItemForm = {
+            prod_id: id,
+            item_nom: nom,
+            item_quantite: quantite,
+            item_prix: prix
+        }
+
+        await items.insertOne(ItemForm);
+        res.redirect("/");
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+    }
 });
 
 /*

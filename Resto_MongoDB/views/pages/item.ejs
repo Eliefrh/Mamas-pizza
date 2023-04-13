@@ -17,11 +17,12 @@
             </p>
             <div id="item-commander">
                 <input class="item-incrementation" id="item-decrementer" type="button" onclick="decrementer('<%= Item.prod_prix %>')" value="-">
-                <input class="item-input" id="item-quantite" name="quantite" type="number" value="1" disabled>
+                <input class="item-input" id="item-quantite" name="quantite" type="number" value="1">
                 <input class="item-incrementation" id="item-incrementer" type="button" onclick="incrementer('<%= Item.prod_prix %>')" value="+">
-                <input class="item-input" id="item-prix" name="prix" value="<%= Item.prod_prix %>$" disabled>
+                <input class="item-input" id="item-prix" name="prix" value="<%= Item.prod_prix %>$">
             </div>
             <button id="item-ajouter-panier" type="submit">Ajouter au panier</button>
+            <input type="hidden" name="nom" value="<%= Item.prod_nom %>">
         </form>
     <%- include('../partials/bootstrap.ejs')%>
     <%- include('../partials/footer.ejs')%>
