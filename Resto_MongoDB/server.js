@@ -170,7 +170,9 @@ app.get('/panier', async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
-
+app.get('/checkout', async (req, res) => {
+    res.render("pages/checkout", { titrePage: "Chekout", Authentification: isLoggedIn, LoggedInForm: loggedInForm });
+});
 
 /*
   Le post methode pour la page de Sign Up
@@ -389,7 +391,7 @@ app.post('/menu/:item', requireAuth, async (req, res) => {
     const quantite = parseInt(req.body["quantite"]);
     const prix = parseFloat(req.body["prix"].slice(0, -1));
 
-    try{
+    try {
         const client = await operation.ConnectionDeMongodb();
         const db = client.db("Resto_awt");
         const items = db.collection("Items");
