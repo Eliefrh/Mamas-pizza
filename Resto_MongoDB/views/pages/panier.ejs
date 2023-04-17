@@ -7,15 +7,13 @@
 
 <body>
   <%- include('../partials/navbar.ejs')%>
+  <% let sousTotal = parseFloat(0); %>
 
   <h3 id="panier-title">
-    Panier de Soumission
+    Panier de la commande
     <hr>
   </h1>
   <section class="panier-item-section">
-    <div class="panier-commande">
-      
-    </div>
     <div class="panier-item-div">
       <div class="panier-item-content">
         <table class="panier-item-table">
@@ -25,31 +23,33 @@
               <th id="panier-item-table-nom">Nom</th>
               <th id="panier-item-table-quantite">Quantité</th>
               <th id="panier-item-table-prix">Prix</th>
-              <th id="panier-item-table-button"></th>
             </tr>
           </thead>
-          <tbody>
-            <tr id="panier-item-table-content">
-              <td><img></td>
-              <td>pizza</td>
-              <td>2</td>
-              <td>50$</td>
-              <td><button>$</button></td>
-            </tr>
-          </tbody>
+          <!-- Inserer les items ici -->
+          <% Items.forEach(function(item){ %>
+            <% sousTotal += parseFloat(item.item_prix); %>
+            <tbody>
+              <tr id="panier-item-table-content">
+                <td><img></td>
+                <td><%= item.item_nom %></td>
+                <td><%= item.item_quantite %></td>
+                <td><%= item.item_prix %>$</td>
+              </tr>
+            </tbody>
+          <% }) %>
         </table>
       </div>
     </div>
     <div class="panier-payment-div">
       <div class="panier-payment-one">
-        <span id="panier-payment-text">Subtotal : </span><hr>
+        <span id="panier-payment-text">Sous-total : </span><hr>
         <span id="panier-payment-text">Taxes : </span><hr>
         <span id="panier-payment-text">Total : </span>
       </div>
       <div class="panier-payment-two">
-        <span id="panier-payment-amount">1</span><hr>
-        <span id="panier-payment-amount">1</span><hr>
-        <span id="panier-payment-amount">1</span>
+        <span id="panier-payment-amount"><%= sousTotal.toFixed(2) %>$</span><hr>
+        <span id="panier-payment-amount">À faire</span><hr>
+        <span id="panier-payment-amount">À faire</span>
       </div>
       <div class="panier-payment-three">
         <button type="submit" class="btn btn-secondary">Procédez au Paiement</button>
