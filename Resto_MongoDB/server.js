@@ -160,7 +160,9 @@ app.get('/reviewList', async (req, res) => {
 app.get('/panier', async (req, res) => {
     res.render("pages/panier", { titrePage: "Panier", Authentification: isLoggedIn, LoggedInForm: loggedInForm });
 });
-
+app.get('/checkout', async (req, res) => {
+    res.render("pages/checkout", { titrePage: "Chekout", Authentification: isLoggedIn, LoggedInForm: loggedInForm });
+});
 
 /*
   Le post methode pour la page de Sign Up
@@ -385,7 +387,7 @@ app.post('/menu/:item', requireAuth, async (req, res) => {
     console.log(quantite);
     console.log(prix);
 
-    try{
+    try {
         const client = await operation.ConnectionDeMongodb();
         const db = client.db("Resto_awt");
         const items = db.collection("Items");
