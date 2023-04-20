@@ -1,3 +1,13 @@
+/* Menu page */
+function redirectLogin() {
+    window.location.href = `/login`;
+}
+
+function redirectToItem(item) {
+    window.location.href = `/menu/${item}`;
+}
+
+/* Item page */
 function decrementer(prixUnitaire){
     const quantite = document.getElementById("item-quantite");
     const prix = document.getElementById("item-prix");
@@ -20,24 +30,4 @@ function incrementer(prixUnitaire){
     prix.value = prixTotal.toFixed(2) + "$";
 }
 
-/*
-function ajouterAuPanier() {
-    // Envoie le nom du produit, la quantite et le prix total dans le panier
-    const nom = document.getElementById("item-titre");
-    const quantite = document.getElementById("item-quantite");
-    const prixTotal = document.getElementById("item-prix");
-
-    if (quantite == 0) {
-
-    }
-}
-*/
-
-/* Menu page */
-function redirectLogin() {
-    window.location.href = `/login`;
-}
-
-function redirectToItem(item) {
-    window.location.href = `/menu/${item}`;
-}
+/* Panier page */

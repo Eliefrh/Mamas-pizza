@@ -157,9 +157,21 @@ app.get('/reviewList', async (req, res) => {
 });
 
 app.get('/panier', async (req, res) => {
-    res.render("pages/panier", { titrePage: "Panier", Authentification: isLoggedIn, LoggedInForm: loggedInForm });
-});
+    try{
+        const client = await operation.ConnectionDeMongodb();
+        const db = client.db("Resto_awt");
+        const items = db.collection("Items");
+        const itemList = await items.find({ cl_id: req.session.userId }).toArray();
 
+        res.render("pages/panier", { titrePage: "Panier", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Items: itemList });
+    } catch (err){
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+    }
+});
+app.get('/checkout', async (req, res) => {
+    res.render("pages/checkout", { titrePage: "Chekout", Authentification: isLoggedIn, LoggedInForm: loggedInForm });
+});
 
 /*
   Le post methode pour la page de Sign Up
@@ -373,31 +385,39 @@ app.post('/account', requireAuth, async (req, res) => {
    Methode post pour les items
 */
 app.post('/menu/:item', requireAuth, async (req, res) => {
-
-
     const id = req.params.item;
     const nom = req.body["nom"];
-    const quantite = req.body["quantite"];
-    const prix = req.body["prix"];
-    console.log(id);
-    console.log(nom);
-    console.log(quantite);
-    console.log(prix);
+    const quantite = parseInt(req.body["quantite"]);
+    const prix = parseFloat(req.body["prix"].slice(0, -1));
 
-    try{
+    try {
         const client = await operation.ConnectionDeMongodb();
         const db = client.db("Resto_awt");
         const items = db.collection("Items");
+        let itemDouble = await items.findOne({ cl_id: req.session.userId, prod_id: id });
 
-        const ItemForm = {
-            prod_id: id,
-            item_nom: nom,
-            item_quantite: quantite,
-            item_prix: prix
+        if(itemDouble){
+            const itemDoubleQuantite = parseInt(itemDouble.item_quantite);
+            const itemDoublePrix = parseFloat(itemDouble.item_prix);
+
+            itemDouble = {
+                item_quantite: quantite + itemDoubleQuantite,
+                item_prix: (prix + itemDoublePrix).toFixed(2)
+            }
+
+            await items.updateOne({ cl_id: req.session.userId, prod_id: id }, {$set: itemDouble});
+        } else {
+            const ItemForm = {
+                cl_id: req.session.userId,
+                prod_id: id,
+                item_nom: nom,
+                item_quantite: quantite,
+                item_prix: prix.toFixed(2)
+            }
+    
+            await items.insertOne(ItemForm);
         }
-
-        await items.insertOne(ItemForm);
-        res.redirect("/");
+        res.redirect("/menu");
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error');
