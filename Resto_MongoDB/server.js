@@ -167,9 +167,35 @@ app.get('/panier', async (req, res) => {
         const client = await operation.ConnectionDeMongodb();
         const db = client.db("Resto_awt");
         const items = db.collection("Items");
+        const produits = db.collection("Produit");
         const itemList = await items.find({ cl_id: req.session.userId }).toArray();
+        const produitList = await produits.find().toArray();
+        const taxeGST = 0.05; // Taxe 5%
+        const taxeQST = 0.09975; // Taxe 9.975%
 
-        res.render("pages/panier", { titrePage: "Panier", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Items: itemList, stripePublicKey: stripePublicKey });
+        let imageList = new Array();
+        let sousTotal = 0;
+        itemList.forEach(function (item) {
+            produitList.forEach(function (produit) {
+                if (item.prod_id == produit._id) {
+                    imageList.push(produit.prod_image);
+                }
+            })
+            sousTotal += parseFloat(item.item_prix);
+        })
+
+        let gst = sousTotal * taxeGST;
+        let qst = sousTotal * taxeQST;
+        let total = sousTotal + gst + qst;
+
+        panierForm = {
+            sousTotal: sousTotal.toFixed(2),
+            gst: gst.toFixed(2),
+            qst: qst.toFixed(2),
+            total: total.toFixed(2)
+        }
+
+        res.render("pages/panier", { titrePage: "Panier", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Items: itemList, PanierForm: panierForm, Images: imageList, stripePublicKey: stripePublicKey });
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error');
@@ -428,6 +454,11 @@ app.post('/menu/:item', requireAuth, async (req, res) => {
         console.error(err);
         res.status(500).send('Internal Server Error');
     }
+});
+
+
+app.post('/panier', requireAuth, async (req, res) => {
+    operation.purchaseClicked();
 });
 
 /*
