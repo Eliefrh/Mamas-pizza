@@ -76,6 +76,8 @@
               <%= PanierForm.total %>$
             </span>
           </div>
+
+          <!-- paiement paypal -->
           <div class="panier-payment-three">
             <form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
               <!-- Identify your business so that you can collect the payments. -->
@@ -86,13 +88,28 @@
               <input type="hidden" name="add" value="1">
 
               <!-- Specify details about the item that buyers will purchase. -->
-              <input type="hidden" name="item_name" value="Birthday - Cake and Candle">
-              <input type="hidden" name="amount" value="3.95">
-              <input type="hidden" name="currency_code" value="CAD">
 
-              <!-- Display the payment button. -->
-              <button type="submit" class="btn btn-secondary">Paypal</button>
-              <img alt="" width="1" height="1" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif">
+              <% for(let i=0; i < Items.length; i++) { %>
+                <tr id="panier-item-table-content">
+                  <td><img src="<%= Images[i] %>" id="panier-item-input-image"></td>
+                  <td id="panier-item-input-nom">
+                    <%= Items[i].item_nom %>
+                  </td>
+                  <td id="panier-item-input-quantite">
+                    <%= Items[i].item_quantite %>
+                  </td>
+                  <td id="panier-item-input-prix">
+                    <%= Items[i].item_prix %>$
+                  </td>
+                </tr>
+
+                <input type="hidden" name="item_name" value=<%=Items[i].item_nom %>>
+                <input type="hidden" name="amount" value=<%=Items[i].item_prix %>$>
+                <input type="hidden" name="currency_code" value="CAD">
+                <% } %>
+                  <!-- Display the payment button. -->
+                  <button type="submit" class="btn btn-secondary">Paypal</button>
+                  <img alt="" width="1" height="1" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif">
             </form>
             <br>
             <div>
