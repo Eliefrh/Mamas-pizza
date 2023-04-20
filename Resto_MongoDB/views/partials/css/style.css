@@ -51,8 +51,35 @@
 }
 
 .nos-special-div {
-    width: 100%;
+    margin-left: 5%;
+    width: 90%;
     float: none;
+}
+
+.nos-special-item {
+    height: 20pc;
+    width: 33.33%;
+    float: left;
+    margin-bottom: 3pc;
+    text-align: center;
+}
+
+.nos-special-item-txt {
+    font-size: 30px;
+    font-weight: lighter;
+    color: white;
+    font-family: cursive;
+}
+
+.nos-special-item-img {
+    width: 90%;
+    padding-left: 5%;
+}
+
+.nos-special-item-prix {
+    font-size: 20px;
+    font-weight: lighter;
+    color: white;
 }
 
 #nos-special-txt {
@@ -101,7 +128,7 @@
     font-style: italic;
 }
 
-#menu-button {
+#menu-button {    
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     border-color: white;
     background-color: transparent;

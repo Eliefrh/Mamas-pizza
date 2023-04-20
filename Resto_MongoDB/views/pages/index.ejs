@@ -28,19 +28,13 @@
                 <span id="nos-special-title">Nos Specials :</span>
             </div>
             <div class="nos-special-div"><br>
-                <div class="menu-categorie">
-                    <% NosSpecial.forEach(function(produit){ %>
-                            <div class="menu-item">
-                                <img class="menu-item-image" src="<%= NosSpecial.prod_image %>">
-                                <h3 class="menu-item-nom">
-                                    <%= NosSpecial.prod_nom %>
-                                </h3>
-                                <p class="menu-item-description">
-                                    <%= NosSpecial.prod_description %>
-                                </p>
-                            </div>
-                    <% }) %>
-                </div>
+                <% NosSpecial.forEach(function(produit){ %>
+                    <div class="nos-special-item">
+                        <span class="nos-special-item-txt"><%= produit.prod_nom %> </span>
+                        <img class="nos-special-item-img" src="<%= produit.prod_image %>">
+                        <span class="nos-special-item-prix"><%= produit.prod_prix %>$</span>
+                    </div>
+                <% }) %>
             </div>
         </div>
         <div class="nos-special-div">

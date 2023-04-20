@@ -69,7 +69,6 @@ app.get('/', async (req, res) => {
         const db = client.db("Resto_awt");
         const produits = db.collection("Produit");
         const NosSpecial = await produits.find().limit(3).toArray();
-
         res.render('pages/index', { titrePage: "Mamma's Pizza's", Authentification: isLoggedIn, LoggedInForm: loggedInForm, NosSpecial: NosSpecial });
     }
     catch (err) {
