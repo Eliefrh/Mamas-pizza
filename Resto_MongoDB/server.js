@@ -23,7 +23,6 @@ const { config } = require('dotenv');
 config();
 
 // Admin JS
-// const AdminJS = require('adminjs');
 
 module.exports = app;
 let isLoggedIn = false;
@@ -65,14 +64,6 @@ function requireAuth(req, res, next) {
         res.end();
     }
 }
-
-// const admin = new AdminJS({
-//     databases: [operation.ConnectionDeMongodb()],
-//     rootPath: '/admin'
-// });
-
-// const router = AdminJS.expressRouter();
-// app.use(admin.options.rootPath, router);
 
 // app.get('/panier', function (req, res) {
 //     res.render("pages/panier", { titrePage: "Panier", Authentification: isLoggedIn });
@@ -208,7 +199,7 @@ app.get('/panier', async (req, res) => {
             total: total.toFixed(2)
         }
 
-        res.render("pages/panier", { titrePage: "Panier", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Items: itemList, PanierForm: panierForm, Images: imageList });
+        res.render("pages/panier", { titrePage: "Panier", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Items: itemList, PanierForm: panierForm, Images: imageList , stripePublicKey: stripePublicKey});
     } catch (err){
         console.error(err);
         res.status(500).send('Internal Server Error');
