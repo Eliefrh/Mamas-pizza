@@ -201,9 +201,6 @@ app.get('/panier', async (req, res) => {
 
         res.render("pages/panier", { titrePage: "Panier", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Items: itemList, PanierForm: panierForm, Images: imageList , stripePublicKey: stripePublicKey});
     } catch (err){
-        res.render("pages/panier", { titrePage: "Panier", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Items: itemList, PanierForm: panierForm, Images: imageList, stripePublicKey: stripePublicKey });
-    } catch (err) {
-        console.error(err);
         res.status(500).send('Internal Server Error');
     }
 });
