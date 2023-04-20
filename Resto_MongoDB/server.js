@@ -11,6 +11,12 @@ const alert = require('node-notifier');
 import("dateformat");
 const now = new Date();
 
+//payement
+require('dotenv').config();
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+const stripePublicKey = process.env.STRIPE_PUBLIC_KEY;
+
+console.log(stripeSecretKey, stripePublicKey);
 const operation = require('./operation');
 
 const { config } = require('dotenv');
@@ -158,7 +164,7 @@ app.get('/reviewList', async (req, res) => {
 });
 
 app.get('/panier', async (req, res) => {
-    try{
+    try {
         const client = await operation.ConnectionDeMongodb();
         const db = client.db("Resto_awt");
         const items = db.collection("Items");
@@ -423,7 +429,7 @@ app.post('/menu/:item', requireAuth, async (req, res) => {
         const items = db.collection("Items");
         let itemDouble = await items.findOne({ cl_id: req.session.userId, prod_id: id });
 
-        if(itemDouble){
+        if (itemDouble) {
             const itemDoubleQuantite = parseInt(itemDouble.item_quantite);
             const itemDoublePrix = parseFloat(itemDouble.item_prix);
 
@@ -432,7 +438,7 @@ app.post('/menu/:item', requireAuth, async (req, res) => {
                 item_prix: (prix + itemDoublePrix).toFixed(2)
             }
 
-            await items.updateOne({ cl_id: req.session.userId, prod_id: id }, {$set: itemDouble});
+            await items.updateOne({ cl_id: req.session.userId, prod_id: id }, { $set: itemDouble });
         } else {
             const ItemForm = {
                 cl_id: req.session.userId,
@@ -441,7 +447,7 @@ app.post('/menu/:item', requireAuth, async (req, res) => {
                 item_quantite: quantite,
                 item_prix: prix.toFixed(2)
             }
-    
+
             await items.insertOne(ItemForm);
         }
         res.redirect("/menu");
