@@ -1,0 +1,10 @@
+{
+  "name": "deferral",
+  "version": "1.0.0",
+  "description": "tj/deferred as an NPM package",
+  "keywords": [],
+  "author": "Matthew Mueller <mattmuelle@gmail.com>",
+  "repository": { "type": "git", "url": "git://github.com/MatthewMueller/deferral.git" },
+  "dependencies": {},
+  "main": "index"
+}

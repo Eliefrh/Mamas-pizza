@@ -122,7 +122,7 @@ app.get('/menu', async (req, res) => {
         const produitList = await produits.find().toArray();
 
         const categorie = new Set();
-        produitList.forEach(function(produit){
+        produitList.forEach(function (produit) {
             categorie.add(produit.cat_nom);
         })
 
@@ -142,7 +142,7 @@ app.get('/menu/:item', async (req, res) => {
         const produitList = await produits.find().toArray();
 
         let produitSelectionne;
-        produitList.forEach(function(produit) {
+        produitList.forEach(function (produit) {
             if (produit._id == item) {
                 produitSelectionne = produit;
             }
@@ -179,9 +179,9 @@ app.get('/panier', async (req, res) => {
 
         let imageList = new Array();
         let sousTotal = 0;
-        itemList.forEach(function(item){
-            produitList.forEach(function(produit){
-                if(item.prod_id == produit._id){
+        itemList.forEach(function (item) {
+            produitList.forEach(function (produit) {
+                if (item.prod_id == produit._id) {
                     imageList.push(produit.prod_image);
                 }
             })
@@ -201,6 +201,8 @@ app.get('/panier', async (req, res) => {
 
         res.render("pages/panier", { titrePage: "Panier", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Items: itemList, PanierForm: panierForm, Images: imageList , stripePublicKey: stripePublicKey});
     } catch (err){
+        res.render("pages/panier", { titrePage: "Panier", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Items: itemList, PanierForm: panierForm, Images: imageList, stripePublicKey: stripePublicKey });
+    } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error');
     }
@@ -458,6 +460,11 @@ app.post('/menu/:item', requireAuth, async (req, res) => {
         console.error(err);
         res.status(500).send('Internal Server Error');
     }
+});
+
+
+app.post('/panier', requireAuth, async (req, res) => {
+    operation.purchaseClicked();
 });
 
 /*

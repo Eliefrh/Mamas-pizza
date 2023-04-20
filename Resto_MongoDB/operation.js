@@ -2,6 +2,12 @@ const MongoClient = require('mongodb').MongoClient;
 require('dotenv').config();
 const uri = process.env.DB_URi;
 
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+const stripePublicKey = process.env.STRIPE_PUBLIC_KEY;
+// const StripeCheckout = 'https://checkout.strip.com/checkout.ejs';
+const StripeCheckout = require('stripe-checkout');
+
+
 let mongoClient;
 
 // Connection MongoDB
@@ -120,6 +126,26 @@ async function CreateItem(collection, menuInput) {
     await collection.insertOne(menuInput);
 }
 
+
+
+//payement creditCard
+// const stripeHandler = new StripeCheckout({
+//     key: stripePublicKey,
+//     locale: 'en',
+//     token: function (token) {
+//     }
+// });
+
+// function purchaseClicked() {
+
+//     var priceElement = document.getElementsByClassName('cart-totale-price')[0]
+//     var price = parseFloat(priceElement.innerText.replace('$', '')) * 100
+//     stripeHandler.open({
+//         amount: price
+//     })
+// }
+
+
 module.exports = { SignupForm };
 module.exports = { LoginForm };
 module.exports = { ReservationForm };
@@ -127,3 +153,4 @@ module.exports = { ReviewForm };
 module.exports = { ShowMenuList };
 module.exports = { ItemsForm };
 module.exports = { ConnectionDeMongodb };
+// module.exports = { purchaseClicked };
