@@ -22,6 +22,8 @@ const operation = require('./operation');
 const { config } = require('dotenv');
 config();
 
+// Admin JS
+
 module.exports = app;
 let isLoggedIn = false;
 let successMessage = false;
@@ -41,6 +43,7 @@ app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 app.use('/css', express.static(__dirname + '/views/partials/css'));
 app.use('/img', express.static(__dirname + '/views/partials/img', { extensions: ['jpg', 'png'] }));
 app.use('/js', express.static(__dirname + '/views/partials/js'));
+app.use('/js', express.static(__dirname + '/node_modules/adminjs'));
 
 // Parse Data
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -196,9 +199,8 @@ app.get('/panier', async (req, res) => {
             total: total.toFixed(2)
         }
 
-        res.render("pages/panier", { titrePage: "Panier", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Items: itemList, PanierForm: panierForm, Images: imageList, stripePublicKey: stripePublicKey });
-    } catch (err) {
-        console.error(err);
+        res.render("pages/panier", { titrePage: "Panier", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Items: itemList, PanierForm: panierForm, Images: imageList , stripePublicKey: stripePublicKey});
+    } catch (err){
         res.status(500).send('Internal Server Error');
     }
 });
