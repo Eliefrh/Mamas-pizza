@@ -652,5 +652,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     border-spacing: 10px;
 }
 
-
-
+#panier-item-input-image {
+    width: 30%;
+    height: 30%;
+}

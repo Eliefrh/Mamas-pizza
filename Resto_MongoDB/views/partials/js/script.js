@@ -29,5 +29,3 @@ function incrementer(prixUnitaire){
     let prixTotal = quantite.value * prixUnitaire;
     prix.value = prixTotal.toFixed(2) + "$";
 }
-
-/* Panier page */
