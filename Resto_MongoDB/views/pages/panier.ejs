@@ -91,11 +91,16 @@
               <input type="hidden" name="currency_code" value="CAD">
 
               <!-- Display the payment button. -->
-              <button type="submit" class="btn btn-secondary">Proceder au payement</button>
+              <button type="submit" class="btn btn-secondary">Paypal</button>
               <img alt="" width="1" height="1" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif">
             </form>
+            <br>
+            <div>
+              <form action="https://localhost:29017/panier" method="post">
+                <button type="submit" class="btn btn-secondary">MasterCard or Visa</button>
+              </form>
+            </div>
           </div>
-        </div>
       </section>
 
       <%- include('../partials/bootstrap.ejs')%>
