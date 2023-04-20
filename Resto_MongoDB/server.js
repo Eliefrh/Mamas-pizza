@@ -22,6 +22,9 @@ const operation = require('./operation');
 const { config } = require('dotenv');
 config();
 
+// Admin JS
+// const AdminJS = require('adminjs');
+
 module.exports = app;
 let isLoggedIn = false;
 let successMessage = false;
@@ -40,6 +43,7 @@ app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 app.use('/css', express.static(__dirname + '/views/partials/css'));
 app.use('/img', express.static(__dirname + '/views/partials/img', { extensions: ['jpg', 'png'] }));
 app.use('/js', express.static(__dirname + '/views/partials/js'));
+app.use('/js', express.static(__dirname + '/node_modules/adminjs'));
 
 // Parse Data
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -60,6 +64,14 @@ function requireAuth(req, res, next) {
         res.end();
     }
 }
+
+// const admin = new AdminJS({
+//     databases: [operation.ConnectionDeMongodb()],
+//     rootPath: '/admin'
+// });
+
+// const router = AdminJS.expressRouter();
+// app.use(admin.options.rootPath, router);
 
 // app.get('/panier', function (req, res) {
 //     res.render("pages/panier", { titrePage: "Panier", Authentification: isLoggedIn });
