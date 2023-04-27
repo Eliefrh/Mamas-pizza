@@ -2,7 +2,7 @@ const express = require('express');
 const http = require('http');
 const mysql = require('mysql');
 const app = express();
-const ObjectId = require("mongodb");
+const { ObjectId } = require('mongodb');
 const bodyParser = require("body-parser");
 const { Module } = require('module');
 const cookieParser = require('cookie-parser');
@@ -11,7 +11,7 @@ const alert = require('node-notifier');
 import("dateformat");
 const now = new Date();
 
-//payement
+// Paiement
 require('dotenv').config();
 const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
 const stripePublicKey = process.env.STRIPE_PUBLIC_KEY;
@@ -83,7 +83,7 @@ app.get('/', async (req, res) => {
     }
     catch (err) {
         console.error(err);
-        res.status(500).send('Internal Server Error');
+        res.status(500).send('Erreur get accueil');
     }
 });
 
@@ -129,7 +129,7 @@ app.get('/menu', async (req, res) => {
         res.render('pages/menu', { titrePage: "Menu", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Produits: produitList, Categories: categorie });
     } catch (err) {
         console.error(err);
-        res.status(500).send('Internal Server Error');
+        res.status(500).send('Erreur get menu');
     }
 });
 
@@ -151,7 +151,7 @@ app.get('/menu/:item', async (req, res) => {
         res.render('pages/item', { titrePage: item, Authentification: isLoggedIn, LoggedInForm: loggedInForm, Item: produitSelectionne });
     } catch (err) {
         console.error(err);
-        res.status(500).send('Internal Server Error');
+        res.status(500).send('Erreur get item');
     }
 });
 
@@ -201,7 +201,7 @@ app.get('/panier', async (req, res) => {
 
         res.render("pages/panier", { titrePage: "Panier", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Items: itemList, PanierForm: panierForm, Images: imageList , stripePublicKey: stripePublicKey});
     } catch (err){
-        res.status(500).send('Internal Server Error');
+        res.status(500).send('Erreur get panier');
     }
 });
 app.get('/checkout', async (req, res) => {
@@ -263,7 +263,7 @@ app.post("/signup", async (req, res) => {
         res.redirect('/login');
     } catch (err) {
         console.error(err);
-        res.status(500).send('Erreur interne du serveur');
+        res.status(500).send('Erreur post signup');
     }
 });
 
@@ -301,7 +301,7 @@ app.post('/login', async (req, res) => {
         }
     } catch (err) {
         console.error(err);
-        res.status(500).send('Internal Server Error');
+        res.status(500).send('Erreur post login');
     }
 });
 
@@ -333,7 +333,7 @@ app.post('/reservation', requireAuth, async (req, res) => {
             res.redirect('/');
         } catch (err) {
             console.error(err);
-            res.status(500).send('Internal Server Error');
+            res.status(500).send('Erreur post reservation');
         }
     } else {
         return res.status(401).send('Date Invalid');
@@ -365,7 +365,7 @@ app.post('/review', requireAuth, async (req, res) => {
         res.redirect('/');
     } catch (err) {
         console.error(err);
-        res.status(500).send('Internal Server Error');
+        res.status(500).send('Erreur post review');
     }
 });
 
@@ -412,7 +412,7 @@ app.post('/account', requireAuth, async (req, res) => {
             res.redirect('/account');
         } catch (err) {
             console.error(err);
-            res.status(500).send('Internal Server Error');
+            res.status(500).send('Erreur post account');
         }
     }
 });
@@ -456,13 +456,24 @@ app.post('/menu/:item', requireAuth, async (req, res) => {
         res.redirect("/menu");
     } catch (err) {
         console.error(err);
-        res.status(500).send('Internal Server Error');
+        res.status(500).send('Erreur post item');
     }
 });
 
 
 app.post('/panier', requireAuth, async (req, res) => {
-    operation.purchaseClicked();
+    const itemId = req.body.id;
+    
+    try {
+        const client = await operation.ConnectionDeMongodb();
+        const db = client.db("Resto_awt");
+        const items = db.collection("Items");
+        await items.deleteOne({ _id: new ObjectId(itemId)});
+        res.redirect("/panier");
+    } catch (err){
+        console.error(err);
+        res.status(500).send('Erreur post panier');
+    }
 });
 
 /*

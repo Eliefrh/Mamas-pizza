@@ -26,7 +26,23 @@ async function ConnectionDeMongodb() {
     }
 }
 
-// Connection MongoDB dans admin
+// Menu
+async function ShowMenuList(){
+    try{
+        const db = client.db("Resto_awt");
+        const produits = db.collection("Produit");
+        return await produits.find().toArray();
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+
+
+
+
+
 
 
 async function SignupForm(formInput) {
