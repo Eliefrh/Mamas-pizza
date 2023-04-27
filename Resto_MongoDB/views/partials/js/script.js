@@ -29,3 +29,11 @@ function incrementer(prixUnitaire){
     let prixTotal = quantite.value * prixUnitaire;
     prix.value = prixTotal.toFixed(2) + "$";
 }
+
+function deleteItem(itemId) {
+    const deleteForm = document.getElementById('delete-form');
+    const deleteId = document.getElementById('delete-id');
+    deleteId.value = itemId;
+    deleteForm.action = 'http://localhost:29017/panier';
+    deleteForm.submit();
+  }

@@ -28,24 +28,23 @@
                   <th id="panier-item-table-nom">Nom</th>
                   <th id="panier-item-table-quantite">Quantité</th>
                   <th id="panier-item-table-prix">Prix</th>
+                  <th id="panier-item-table-button"></th>
                 </tr>
               </thead>
-              <tbody>
-                <% for(let i=0; i < Items.length; i++) { %>
-                  <tr id="panier-item-table-content">
-                    <td><img src="<%= Images[i] %>" id="panier-item-input-image"></td>
-                    <td id="panier-item-input-nom">
-                      <%= Items[i].item_nom %>
-                    </td>
-                    <td id="panier-item-input-quantite">
-                      <%= Items[i].item_quantite %>
-                    </td>
-                    <td id="panier-item-input-prix">
-                      <%= Items[i].item_prix %>$
-                    </td>
-                  </tr>
+              <form id="delete-form" method="post">
+                <input type="hidden" name="id" id="delete-id">
+              </form>
+                <tbody>
+                  <% for (let i = 0; i < Items.length; i++) { %>
+                    <tr id="panier-item-table-content">
+                      <td><img src="<%= Images[i] %>" id="panier-item-input-image"/></td>
+                      <td id="panier-item-input-nom"><%= Items[i].item_nom %></td>
+                      <td id="panier-item-input-quantite"><%= Items[i].item_quantite %></td>
+                      <td id="panier-item-input-prix"><%= Items[i].item_prix %></td>
+                      <td><button id="panier-item-input-button" onclick="deleteItem('<%= Items[i]._id %>')">Supprimer</button></td>
+                    </tr>
                   <% } %>
-              </tbody>
+                </tbody>
             </table>
           </div>
         </div>
