@@ -325,7 +325,8 @@ app.post('/reservation', requireAuth, async (req, res) => {
             const InputForm = {
                 num_siege: num_siege,
                 cl_id: req.session.userId,
-                date_reservation: datetime
+                date_reservation: datetime,
+                status_reservation: "false"
             }
 
             await reservation.insertOne(InputForm);
@@ -489,3 +490,26 @@ const server = app.listen(29017, function () {
 // app.post('/item', function (req, res) {
 //     res.send('Item submitted successfully!');
 // });
+
+
+
+
+
+
+// Admin section
+
+app.get('/admin/dashboard', async (req, res) => {
+    res.render('pages/admin/pages/dashboard', { titrePage: "Dashboard"});
+});
+
+app.get('/admin/dashboard/livraison', async (req, res) => {
+    res.render('pages/admin/pages/livraison', { titrePage: "Reservation"});
+});
+
+app.get('/admin/dashboard/emporter', async (req, res) => {
+    res.render('pages/admin/pages/emporter', { titrePage: "Reservation"});
+});
+
+app.get('/admin/dashboard/reservation', async (req, res) => {
+    res.render('pages/admin/pages/reservation', { titrePage: "Reservation"});
+});
