@@ -55,9 +55,16 @@ app.use(session({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 function requireAuth(req, res, next) {
     if (req.session && req.session.email && req.session.userId) {
+        return next();
+    } else {
+        res.writeHead(301, { Location: "http://localhost:29017/login" });
+        res.end();
+    }
+}
+function requireAdmin(req, res, next){
+    if (req.session && req.session.email=="Admin@Mammas.ca" && req.session.userId=="644cb2446946a71ea61952bf") {
         return next();
     } else {
         res.writeHead(301, { Location: "http://localhost:29017/login" });
@@ -297,7 +304,11 @@ app.post('/login', async (req, res) => {
             }
 
             isLoggedIn = true;
-            res.redirect('/');
+            if (req.session.email != "Admin@Mammas.ca") {
+                res.redirect('/');   
+            } else {
+                res.redirect('/admin/dashboard');
+            }
         }
     } catch (err) {
         console.error(err);
@@ -509,18 +520,18 @@ const server = app.listen(29017, function () {
 
 // Admin section
 
-app.get('/admin/dashboard', async (req, res) => {
+app.get('/admin/dashboard', requireAdmin, async (req, res) => {
     res.render('pages/admin/pages/dashboard', { titrePage: "Dashboard"});
 });
 
-app.get('/admin/dashboard/livraison', async (req, res) => {
+app.get('/admin/dashboard/livraison', requireAdmin, async (req, res) => {
     res.render('pages/admin/pages/livraison', { titrePage: "Reservation"});
 });
 
-app.get('/admin/dashboard/emporter', async (req, res) => {
+app.get('/admin/dashboard/emporter', requireAdmin, async (req, res) => {
     res.render('pages/admin/pages/emporter', { titrePage: "Reservation"});
 });
 
-app.get('/admin/dashboard/reservation', async (req, res) => {
+app.get('/admin/dashboard/reservation', requireAdmin, async (req, res) => {
     res.render('pages/admin/pages/reservation', { titrePage: "Reservation"});
 });
