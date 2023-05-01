@@ -36,4 +36,5 @@ function deleteItem(itemId) {
     deleteId.value = itemId;
     deleteForm.action = 'http://localhost:29017/panier';
     deleteForm.submit();
-  }
+}
+

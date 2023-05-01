@@ -52,15 +52,22 @@
           <div class="panier-payment-one">
             <span id="panier-payment-text">Sous-total : </span>
             <hr>
+            <span id="panier-payment-text">Livraison : </span>
+            <hr>
             <span id="panier-payment-text">GST : </span>
             <hr>
             <span id="panier-payment-text">QST : </span>
             <hr>
             <span id="panier-payment-text">Total : </span>
+            <hr>
           </div>
           <div class="panier-payment-two">
             <span id="panier-payment-amount">
               <%= PanierForm.sousTotal %>$
+            </span>
+            <hr>
+            <span id="panier-payment-amount">
+              0.00$
             </span>
             <hr>
             <span id="panier-payment-amount">
@@ -74,6 +81,11 @@
             <span id="panier-payment-amount">
               <%= PanierForm.total %>$
             </span>
+            <hr>
+          </div>
+          <div class="panier-payment-three">
+            <button id="panier-payment-emporter" onclick="calculerPrixLivraison()">Pour emporter</button> <!-- Pas de code postal -->
+            <button id="panier-payment-livraison" onclick="calculerPrixLivraison()">Livraison</button> <!-- Code postal pour calcul -->
           </div>
 
           <!-- paiement paypal
@@ -230,11 +242,8 @@
                     // Or go to another URL:  window.location.href = 'thank_you.html';
 
                   });
-
               }
-
             }).render('#paypal-button-container');
-
           </script>
 
 
@@ -242,7 +251,7 @@
         </div>
         </div>
       </section>
-
+    </h3>
       <%- include('../partials/bootstrap.ejs')%>
         <%- include('../partials/footer.ejs')%>
 </body>
