@@ -38,3 +38,6 @@ function deleteItem(itemId) {
     deleteForm.submit();
 }
 
+function commander(){
+    
+}
