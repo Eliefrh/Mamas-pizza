@@ -28,23 +28,24 @@
                   <th id="panier-item-table-nom">Nom</th>
                   <th id="panier-item-table-quantite">Quantité</th>
                   <th id="panier-item-table-prix">Prix</th>
-                  <th id="panier-item-table-button"></th>
                 </tr>
               </thead>
-              <form id="delete-form" method="post">
-                <input type="hidden" name="id" id="delete-id">
-              </form>
-                <tbody>
-                  <% for (let i = 0; i < Items.length; i++) { %>
-                    <tr id="panier-item-table-content">
-                      <td><img src="<%= Images[i] %>" id="panier-item-input-image"/></td>
-                      <td id="panier-item-input-nom"><%= Items[i].item_nom %></td>
-                      <td id="panier-item-input-quantite"><%= Items[i].item_quantite %></td>
-                      <td id="panier-item-input-prix"><%= Items[i].item_prix %></td>
-                      <td><button id="panier-item-input-button" onclick="deleteItem('<%= Items[i]._id %>')">Supprimer</button></td>
-                    </tr>
+              <tbody>
+                <% for(let i=0; i < Items.length; i++) { %>
+                  <tr id="panier-item-table-content">
+                    <td><img src="<%= Images[i] %>" id="panier-item-input-image"></td>
+                    <td id="panier-item-input-nom">
+                      <%= Items[i].item_nom %>
+                    </td>
+                    <td id="panier-item-input-quantite">
+                      <%= Items[i].item_quantite %>
+                    </td>
+                    <td id="panier-item-input-prix">
+                      <%= Items[i].item_prix %>$
+                    </td>
+                  </tr>
                   <% } %>
-                </tbody>
+              </tbody>
             </table>
           </div>
         </div>
@@ -52,22 +53,15 @@
           <div class="panier-payment-one">
             <span id="panier-payment-text">Sous-total : </span>
             <hr>
-            <span id="panier-payment-text">Livraison : </span>
-            <hr>
             <span id="panier-payment-text">GST : </span>
             <hr>
             <span id="panier-payment-text">QST : </span>
             <hr>
             <span id="panier-payment-text">Total : </span>
-            <hr>
           </div>
           <div class="panier-payment-two">
             <span id="panier-payment-amount">
               <%= PanierForm.sousTotal %>$
-            </span>
-            <hr>
-            <span id="panier-payment-amount">
-              0.00$
             </span>
             <hr>
             <span id="panier-payment-amount">
@@ -81,27 +75,22 @@
             <span id="panier-payment-amount">
               <%= PanierForm.total %>$
             </span>
-            <hr>
-          </div>
-          <div class="panier-payment-three">
-            <button id="panier-payment-emporter" onclick="calculerPrixLivraison()">Pour emporter</button> <!-- Pas de code postal -->
-            <button id="panier-payment-livraison" onclick="calculerPrixLivraison()">Livraison</button> <!-- Code postal pour calcul -->
           </div>
 
-          <!-- paiement paypal
+          <!-- paiement paypal-->
           <div class="panier-payment-three">
             <form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
-               Identify your business so that you can collect the payments. 
+              <!-- Identify your business so that you can collect the payments.  -->
               <input type="hidden" name="business" value="2067396@bdeb.qc.ca">
 
-               Specify a PayPal Shopping Cart Add to Cart button. 
+              <!-- Specify a PayPal Shopping Cart Add to Cart button.  -->
               <input type="hidden" name="cmd" value="_cart">
               <input type="hidden" name="add" value="1">
 
-               Specify details about the item that buyers will purchase. 
+              <!-- Specify details about the item that buyers will purchase.  -->
 
               <% for(let i=0; i < Items.length; i++) { %>
-                 <tr id="panier-item-table-content">
+                <tr id="panier-item-table-content">
                   <td><img src="<%= Images[i] %>" id="panier-item-input-image"></td>
                   <td id="panier-item-input-nom">
                     <%= Items[i].item_nom %>
@@ -112,13 +101,13 @@
                   <td id="panier-item-input-prix">
                     <%= Items[i].item_prix %>$
                   </td>
-                </tr> 
+                </tr>
 
                 <input type="hidden" name="item_name" value=<%=Items[i].item_nom %>>
                 <input type="hidden" name="amount" value=<%=Items[i].item_prix %>$>
                 <input type="hidden" name="currency_code" value="CAD">
                 <% } %>
-                   Display the payment button. 
+                  <!-- Display the payment button.  -->
                   <button type="submit" class="btn btn-secondary">Paypal</button>
                   <img alt="" width="1" height="1" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif">
             </form>
@@ -132,7 +121,7 @@
 
               <% for(let i=0; i < Items.length; i++) { %>
                 <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-                   Bouton PayPal 
+                  Bouton PayPal
                   <input type="hidden" name="cmd" value="_xclick">
                   <input type="hidden" name="business" value="2067396@bdeb.qc.ca">
                   <input type="hidden" name="item_name" value="<%= Items[i].item_nom %>">
@@ -143,115 +132,15 @@
                       name="submit" alt="Buy now with PayPal">
                     <%}%>
                 </form>
-                <% } %> -->
-
-          <!-- Replace "test" with your own sandbox Business account app client ID -->
-
-          <script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
-
-          <!-- Set up a container element for the button -->
-
-          <div id="paypal-button-container" style="margin-left: 30;"></div>
-
-          <script>
-
-            paypal.Buttons({
-
-              // Order is created on the server and the order id is returned
-
-              createOrder() {
-
-                return fetch("/my-server/create-paypal-order", {
-
-                  method: "POST",
-
-                  headers: {
-
-                    "Content-Type": "application/json",
-
-                  },
-
-                  // use the "body" param to optionally pass additional order information
-
-                  // like product skus and quantities
-
-                  body: JSON.stringify({
-
-                    cart: [
-
-                      {
-
-                        sku: "YOUR_PRODUCT_STOCK_KEEPING_UNIT",
-
-                        quantity: "YOUR_PRODUCT_QUANTITY",
-
-                      },
-
-                    ],
-
-                  }),
-
-                })
-
-                  .then((response) => response.json())
-
-                  .then((order) => order.id);
-
-              },
-
-              // Finalize the transaction on the server after payer approval
-
-              onApprove(data) {
-
-                return fetch("/my-server/capture-paypal-order", {
-
-                  method: "POST",
-
-                  headers: {
-
-                    "Content-Type": "application/json",
-
-                  },
-
-                  body: JSON.stringify({
-
-                    orderID: data.orderID
-
-                  })
-
-                })
-
-                  .then((response) => response.json())
-
-                  .then((orderData) => {
-
-                    // Successful capture! For dev/demo purposes:
-
-                    console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
-
-                    const transaction = orderData.purchase_units[0].payments.captures[0];
-
-                    alert(`Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`);
-
-                    // When ready to go live, remove the alert and show a success message within this page. For example:
-
-                    // const element = document.getElementById('paypal-button-container');
-
-                    // element.innerHTML = '<h3>Thank you for your payment!</h3>';
-
-                    // Or go to another URL:  window.location.href = 'thank_you.html';
-
-                  });
-              }
-            }).render('#paypal-button-container');
-          </script>
+                <% } %>
 
 
 
-        </div>
-        </div>
+
+            </div>
+          </div>
       </section>
-    </h3>
+
       <%- include('../partials/bootstrap.ejs')%>
         <%- include('../partials/footer.ejs')%>
 </body>
