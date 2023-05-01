@@ -63,8 +63,8 @@ function requireAuth(req, res, next) {
         res.end();
     }
 }
-function requireAdmin(req, res, next){
-    if (req.session && req.session.email=="Admin@Mammas.ca" && req.session.userId) {
+function requireAdmin(req, res, next) {
+    if (req.session && req.session.email == "Admin@Mammas.ca" && req.session.userId == "644cb2446946a71ea61952bf") {
         return next();
     } else {
         res.writeHead(301, { Location: "http://localhost:29017/login" });
@@ -206,8 +206,8 @@ app.get('/panier', async (req, res) => {
             total: total.toFixed(2)
         }
 
-        res.render("pages/panier", { titrePage: "Panier", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Items: itemList, PanierForm: panierForm, Images: imageList , stripePublicKey: stripePublicKey});
-    } catch (err){
+        res.render("pages/panier", { titrePage: "Panier", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Items: itemList, PanierForm: panierForm, Images: imageList, stripePublicKey: stripePublicKey });
+    } catch (err) {
         res.status(500).send('Erreur get panier');
     }
 });
@@ -305,7 +305,7 @@ app.post('/login', async (req, res) => {
 
             isLoggedIn = true;
             if (req.session.email != "Admin@Mammas.ca") {
-                res.redirect('/');   
+                res.redirect('/');
             } else {
                 res.redirect('/admin/dashboard');
             }
@@ -474,14 +474,14 @@ app.post('/menu/:item', requireAuth, async (req, res) => {
 
 app.post('/panier', requireAuth, async (req, res) => {
     const itemId = req.body.id;
-    
+
     try {
         const client = await operation.ConnectionDeMongodb();
         const db = client.db("Resto_awt");
         const items = db.collection("Items");
-        await items.deleteOne({ _id: new ObjectId(itemId)});
+        await items.deleteOne({ _id: new ObjectId(itemId) });
         res.redirect("/panier");
-    } catch (err){
+    } catch (err) {
         console.error(err);
         res.status(500).send('Erreur post panier');
     }
@@ -546,11 +546,11 @@ app.get('/admin/dashboard', requireAdmin, async (req, res) => {
 });
 
 app.get('/admin/dashboard/nosproduit', requireAdmin, async (req, res) => {
-    res.render('pages/admin/pages/produit', { titrePage: "Nos Produit"});
+    res.render('pages/admin/pages/produit', { titrePage: "Nos Produit" });
 });
 
 app.get('/admin/dashboard/ajoutproduit', requireAdmin, async (req, res) => {
-    res.render('pages/admin/pages/add-produit', { titrePage: "Ajout Produit"});
+    res.render('pages/admin/pages/add-produit', { titrePage: "Ajout Produit" });
 });
 
 app.get('/admin/dashboard/livraison', requireAdmin, async (req, res) => {

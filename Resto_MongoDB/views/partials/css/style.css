@@ -562,10 +562,6 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     margin-right: 5pc;
 }
 
-.panier-item-section {
-
-}
-
 .panier-item-div {
     height: auto;
     background-color: whitesmoke;
@@ -577,10 +573,9 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 }
 
 .panier-payment-div {
-    height: 8pc;
+    height: 20pc;
     width: 90%;
     display: flex;
-    flex-wrap: wrap;
     margin-bottom: 5pc;
     margin-left: 5.5pc;
     margin-right: 5pc;
@@ -588,22 +583,17 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 }
 
 .panier-payment-one {
-    float: left;
-    width: 50%;
+    width: 40%;
 }
 
 .panier-payment-two {
-    float: left;
-    width: 17%;
+    width: 40%;
     text-align: right;
 }
 
 .panier-payment-three {
-    float: left;
-    width: 33%;
-    text-align: right;
+    width: 20%;
     text-align: center;
-    padding-top: 7pc;
 }
 
 #panier-payment-text {
@@ -614,10 +604,6 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 #panier-payment-amount {
     font-size: 18px;
     font-weight: lighter;
-}
-
-.panier-item-content {
-    
 }
 
 .panier-item-table {
