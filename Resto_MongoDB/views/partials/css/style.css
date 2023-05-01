@@ -839,8 +839,8 @@ body {
 }
 
 .content-recent-cmd {
-    width: 80%;
-    margin-left: 10%;
+    width: 90%;
+    margin-left: 5%;
     margin-top: 1pc;
     margin-bottom: 1pc;
 }
@@ -849,4 +849,179 @@ body {
     font-size: 22px;
     font-family: cursive;
     color: gray;
+}
+
+.recent-cmd-line {
+    width: 100%;
+    display: flex;
+    height: auto;
+    margin-bottom: 0.5pc;
+}
+
+.recent-cmd-id-line {
+    width: 15%;
+    height: 2.5pc;
+    text-align: center;
+    padding-top: 0.5pc;
+}
+
+.recent-cmd-name-line {
+    width: 30%;
+    height: 2.5pc;
+    text-align: center;
+    padding-top: 0.5pc;
+}
+
+.recent-cmd-date-line {
+    width: 30%;
+    height: 2.5pc;
+    text-align: center;
+    padding-top: 0.5pc;
+}
+
+.recent-cmd-status-line {
+    width: 25%;
+    height: 2.5pc;
+    text-align: center;
+    padding-top: 0.5pc;
+}
+
+.recent-cmd-header-txt {
+    font-size: 15px;
+    font-family: cursive;
+    color: gray;
+    font-weight: bold;
+}
+
+.recent-cmd-id {
+    font-size: 14px;
+    font-family: cursive;
+    color: gray;
+}
+
+.recent-cmd-name {
+    font-size: 14px;
+    font-family: cursive;
+    color: gray;
+}
+
+.recent-cmd-date {
+    font-size: 14px;
+    font-family: cursive;
+    color: gray;
+}
+
+.recent-cmd-status {
+    font-size: 14px;
+    font-family: cursive;
+    color: gray;
+}
+
+/* Page admin nos produit */
+
+.section-nos-produit {
+    height: auto;
+    margin-left: 3pc;
+    margin-right: 3pc;
+    margin-top: 2pc;
+    margin-bottom: 2pc;
+}
+
+.category-nos-produit {
+    font-size: 20px;
+    font-weight: 100;
+    font-family: cursive;
+    margin-top: 0.5pc;
+    margin-bottom: 0.5pc;
+    width: 100%;
+    color: gray;
+}
+
+.nos-produit-line {
+    width: 100%;
+    margin-bottom: 1pc;
+    display: flex;
+}
+
+.nos-produit-img-line {
+    width: 10%;
+    height: 5pc;
+    text-align: center;
+    padding-top: 0.5pc;
+}
+
+.nos-produit-img {
+    width: 65px;
+    height: 65px;
+}
+
+.nos-produit-id-line {
+    width: 30%;
+    height: 5pc;
+    text-align: center;
+    padding-top: 1.8pc;
+}
+
+.nos-produit-id {
+    font-size: 14px;
+    font-family: cursive;
+    color: gray;
+}
+
+.nos-produit-name-line {
+    width: 30%;
+    height: 5pc;
+    text-align: center;
+    padding-top: 1.8pc;
+}
+
+.nos-produit-name {
+    font-size: 14px;
+    font-family: cursive;
+    color: gray;
+}
+
+.nos-produit-prix-line {
+    width: 12%;
+    height: 5pc;
+    text-align: center;
+    padding-top: 1.9pc;
+}
+
+.nos-produit-prix {
+    font-size: 12px;
+    font-family: cursive;
+    color: gray;
+}
+
+.nos-produit-btn-line {
+    width: 18%;
+    height: 5pc;
+    display: flex;
+}
+
+.nos-produit-btn-edit {
+    width: 4.5pc;
+    height: 2pc;
+    margin-top: 1.6pc;
+    margin-left: 0.4pc;
+    border-radius: 10px;
+    background-color: blue;
+    color: white;
+    font-weight: 600;
+    border-color: blue;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.nos-produit-btn-del {
+    width: 4.5pc;
+    height: 2pc;
+    margin-top: 1.6pc;
+    margin-left: 0.7pc;
+    border-radius: 10px;
+    background-color: red;
+    color: white;
+    font-weight: 600;
+    border-color: red;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }

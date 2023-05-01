@@ -524,6 +524,14 @@ app.get('/admin/dashboard', requireAdmin, async (req, res) => {
     res.render('pages/admin/pages/dashboard', { titrePage: "Dashboard"});
 });
 
+app.get('/admin/dashboard/nosproduit', requireAdmin, async (req, res) => {
+    res.render('pages/admin/pages/produit', { titrePage: "Nos Produit"});
+});
+
+app.get('/admin/dashboard/ajoutproduit', requireAdmin, async (req, res) => {
+    res.render('pages/admin/pages/add-produit', { titrePage: "Ajout Produit"});
+});
+
 app.get('/admin/dashboard/livraison', requireAdmin, async (req, res) => {
     res.render('pages/admin/pages/livraison', { titrePage: "Reservation"});
 });
