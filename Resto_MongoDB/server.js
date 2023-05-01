@@ -64,7 +64,7 @@ function requireAuth(req, res, next) {
     }
 }
 function requireAdmin(req, res, next){
-    if (req.session && req.session.email=="Admin@Mammas.ca" && req.session.userId=="644cb2446946a71ea61952bf") {
+    if (req.session && req.session.email=="Admin@Mammas.ca" && req.session.userId) {
         return next();
     } else {
         res.writeHead(301, { Location: "http://localhost:29017/login" });
@@ -521,7 +521,28 @@ const server = app.listen(29017, function () {
 // Admin section
 
 app.get('/admin/dashboard', requireAdmin, async (req, res) => {
-    res.render('pages/admin/pages/dashboard', { titrePage: "Dashboard"});
+    try {
+        const mongo = await operation.ConnectionDeMongodb();
+        const db = mongo.db("Resto_awt");
+
+        const produit = db.collection("Produit");
+        const client = db.collection("Client");
+        const reservation = db.collection("Reservation");
+        const commande = db.collection("Commande");
+        const items = db.collection("Items")
+
+        const numProduit = await produit.countDocuments();
+        const numClient = await client.countDocuments();
+        const numCommande = await commande.countDocuments();
+        const numReservation = await reservation.countDocuments();
+
+        const mostCommande = await commande.find().sort({date: -1}).limit(4).toArray();
+
+        res.render('pages/admin/pages/dashboard', { titrePage: "Dashboard", numProduit: numProduit, numClient: numClient, numCommande: numCommande, numReservation: numReservation, mostCommande: mostCommande});
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
 });
 
 app.get('/admin/dashboard/nosproduit', requireAdmin, async (req, res) => {
@@ -533,13 +554,26 @@ app.get('/admin/dashboard/ajoutproduit', requireAdmin, async (req, res) => {
 });
 
 app.get('/admin/dashboard/livraison', requireAdmin, async (req, res) => {
-    res.render('pages/admin/pages/livraison', { titrePage: "Reservation"});
+    res.render('pages/admin/pages/livraison', { titrePage: "Livraison"});
 });
 
 app.get('/admin/dashboard/emporter', requireAdmin, async (req, res) => {
-    res.render('pages/admin/pages/emporter', { titrePage: "Reservation"});
+    res.render('pages/admin/pages/emporter', { titrePage: "Emportement"});
 });
 
 app.get('/admin/dashboard/reservation', requireAdmin, async (req, res) => {
-    res.render('pages/admin/pages/reservation', { titrePage: "Reservation"});
+    try {
+        const mongo = await operation.ConnectionDeMongodb();
+        const db = mongo.db("Resto_awt");
+
+        const reservation = db.collection("Reservation");
+        const client = db.collection("Client");
+
+        const listReservation = await reservation.find().toArray();
+        const listClient = await client.find().toArray();
+        res.render('pages/admin/pages/reservation', { titrePage: "Reservation", listReservation:listReservation, listClient:listClient});
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
 });

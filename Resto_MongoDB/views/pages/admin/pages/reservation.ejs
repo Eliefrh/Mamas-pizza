@@ -13,6 +13,64 @@
         <div class="line-dashboard">
             <span id="titre-dashboard">List de Reservation<hr></span>
         </div>
+        <section class="section-reservation">
+            <div class="div-arrived-reservation">
+                <span class="div-reservation-titre">Non Arriver<hr></span>
+                <div class="header-reservation-line">
+                    <div class="reservation-name-line">
+                        <span class="reservation-name">Name</span>
+                    </div>
+                    <div class="reservation-siege-line">
+                        <span class="reservation-siege">Siege</span>
+                    </div>
+                    <div class="reservation-date-line">
+                        <span class="reservation-date">Date</span>
+                    </div>
+                    <div class="reservation-btn-line">
+                    </div>
+                </div>
+
+                <% for (let i = 0; i < listReservation.length; i++) { %>
+                <% if (listReservation[i].status_reservation=="false") { %>
+                <div class="not-arrived-reservation-line">
+                    <div class="reservation-name-line">
+                    <% for (let j = 0; j < listClient.length; j++) { %>
+                        <% if (listClient[j]._id.toString() == listReservation[i].cl_id) { %>
+                        <span class="reservation-name"><%= listClient[j].cl_nom %> <%= listClient[j].cl_prenom %></span>
+                        <% } %>
+                    <% } %>
+                    </div>
+                    <div class="reservation-siege-line">
+                        <span class="reservation-siege">><%= listReservation[i].num_siege %></span>
+                    </div>
+                    <div class="reservation-date-line">
+                        <span class="reservation-date">><%= listReservation[i].date_reservation %></span>
+                    </div>
+                    <div class="reservation-btn-line">
+                        <button class="reservation-btn">Arriver</button>
+                    </div>
+                </div>
+                <% } %>
+                <% } %>
+            </div>
+            <div class="div-arrived-reservation">
+                <span class="div-reservation-titre">Arriver<hr></span>
+                <div class="arrived-reservation-line">
+                    <div class="reservation-name-line">
+                        <span class="reservation-name">Test Bot</span>
+                    </div>
+                    <div class="reservation-siege-line">
+                        <span class="reservation-siege">5 Siege</span>
+                    </div>
+                    <div class="reservation-date-line">
+                        <span class="reservation-date">4345-ndsf-4535</span>
+                    </div>
+                    <div class="reservation-btn-line">
+                        <button class="reservation-btn-true" disabled>Arriver</button>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
 

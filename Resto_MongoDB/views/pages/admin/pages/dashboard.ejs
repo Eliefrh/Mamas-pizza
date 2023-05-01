@@ -16,19 +16,19 @@
 
         <Section class="section-statistique">
             <div class="div-statistique">
-                <span class="num-statistique-card">50</span><br>
+                <span class="num-statistique-card"><%= numClient %></span><br>
                 <span class="name-statistique-card">Utilisateurs</span>
             </div>
             <div class="div-statistique">
-                <span class="num-statistique-card">50</span><br>
+                <span class="num-statistique-card"><%= numProduit %></span><br>
                 <span class="name-statistique-card">Produits</span>
             </div>
             <div class="div-statistique">
-                <span class="num-statistique-card">50</span><br>
+                <span class="num-statistique-card"><%= numCommande %></span><br>
                 <span class="name-statistique-card">Commandes</span>
             </div>
             <div class="div-statistique">
-                <span class="num-statistique-card">50</span><br>
+                <span class="num-statistique-card"><%= numReservation %></span><br>
                 <span class="name-statistique-card">Reservations</span>
             </div>
         </Section>
@@ -86,34 +86,17 @@
                         <div class="recent-cmd-id-line"><span class="recent-cmd-header-txt">Id</span></div>
                         <div class="recent-cmd-name-line"><span class="recent-cmd-header-txt">Name</span></div>
                         <div class="recent-cmd-date-line"><span class="recent-cmd-header-txt">Date</span></div>
-                        <div class="recent-cmd-status-line"><span class="recent-cmd-header-txt">Status</span></div>
+                        <div class="recent-cmd-status-line"><span class="recent-cmd-header-txt">Prix</span></div>
                     </div> 
                     <hr>
-
+                    <% for (let i = 0; i < mostCommande.length; i++) { %>
                     <div class="recent-cmd-line">
-                        <div class="recent-cmd-id-line"><span class="recent-cmd-id">et4grd</span></div>
-                        <div class="recent-cmd-name-line"><span class="recent-cmd-name">Test Bot</span></div>
-                        <div class="recent-cmd-date-line"><span class="recent-cmd-date">4 Mai 9324</span></div>
-                        <div class="recent-cmd-status-line"><span class="recent-cmd-status">Not Completed</span></div>
+                        <div class="recent-cmd-id-line"><span class="recent-cmd-id"><%= mostCommande[i]._id.toString().substr(-6) %></span></div>
+                        <div class="recent-cmd-name-line"><span class="recent-cmd-name"><%= mostCommande[i].cl_id %></span></div>
+                        <div class="recent-cmd-date-line"><span class="recent-cmd-date"><%= mostCommande[i].date_commande %></span></div>
+                        <div class="recent-cmd-status-line"><span class="recent-cmd-status"><%= mostCommande[i].fac_total %></span></div>
                     </div>
-                    <div class="recent-cmd-line">
-                        <div class="recent-cmd-id-line"><span class="recent-cmd-id">et4grd</span></div>
-                        <div class="recent-cmd-name-line"><span class="recent-cmd-name">Test Bot</span></div>
-                        <div class="recent-cmd-date-line"><span class="recent-cmd-date">4 Mai 9324</span></div>
-                        <div class="recent-cmd-status-line"><span class="recent-cmd-status">Not Completed</span></div>
-                    </div>
-                    <div class="recent-cmd-line">
-                        <div class="recent-cmd-id-line"><span class="recent-cmd-id">et4grd</span></div>
-                        <div class="recent-cmd-name-line"><span class="recent-cmd-name">Test Bot</span></div>
-                        <div class="recent-cmd-date-line"><span class="recent-cmd-date">4 Mai 9324</span></div>
-                        <div class="recent-cmd-status-line"><span class="recent-cmd-status">Not Completed</span></div>
-                    </div>
-                    <div class="recent-cmd-line">
-                        <div class="recent-cmd-id-line"><span class="recent-cmd-id">et4grd</span></div>
-                        <div class="recent-cmd-name-line"><span class="recent-cmd-name">Test Bot</span></div>
-                        <div class="recent-cmd-date-line"><span class="recent-cmd-date">4 Mai 9324</span></div>
-                        <div class="recent-cmd-status-line"><span class="recent-cmd-status">Not Completed</span></div>
-                    </div>
+                    <% } %>
 
                 </div>
             </div>

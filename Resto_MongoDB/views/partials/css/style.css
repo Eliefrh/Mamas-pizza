@@ -1025,3 +1025,103 @@ body {
     border-color: red;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
+
+/* page admin reservation */
+
+.section-reservation {
+    margin-left: 3pc;
+    margin-right: 3pc;
+    height: auto;
+}
+
+.div-reservation-titre {
+    width: 100%;
+    height: auto;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: cursive;
+    color: gray;
+}
+
+.div-arrived-reservation {
+    margin-top: 2pc;
+    margin-bottom: 2pc;
+}
+
+.header-reservation-line {
+    height: 3pc;
+    width: 100%;
+    display: flex;
+    margin-bottom: 0.5pc;
+    font-family: cursive;
+    text-align: center;
+    color: white;
+    background-color: gray;
+}
+
+.not-arrived-reservation-line {
+    height: 3pc;
+    width: 100%;
+    display: flex;
+    margin-bottom: 1pc;
+    text-align: left;
+    font-family: cursive;
+    color: gray;
+}
+
+.reservation-name-line {
+    width: 30%;
+    height: auto;
+    padding-top: 0.8pc;
+}
+
+.reservation-siege-line {
+    width: 20%;
+    height: auto;
+    padding-top: 0.8pc;
+}
+
+.reservation-date-line {
+    width: 40%;
+    height: auto;
+    padding-top: 0.8pc;
+}
+
+.reservation-btn-line {
+    width: 10%;
+    height: auto;
+    padding-top: 0.5pc;
+}
+
+.reservation-btn {
+    width: 4.5pc;
+    height: 2pc;
+    border-radius: 10px;
+    background-color:green;
+    color: white;
+    font-weight: 600;
+    border-color: green;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.arrived-reservation-line {
+    height: 3pc;
+    width: 100%;
+    display: flex;
+    margin-bottom: 1pc;
+    text-align: left;
+    font-family: cursive;
+    color: gray;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.reservation-btn-true {
+    width: 4.5pc;
+    height: 2pc;
+    border-radius: 10px;
+    background-color:grey;
+    color: white;
+    font-weight: 600;
+    border-color: gray;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
