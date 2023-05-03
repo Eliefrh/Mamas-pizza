@@ -36,15 +36,15 @@
                     <div class="reservation-name-line">
                     <% for (let j = 0; j < listClient.length; j++) { %>
                         <% if (listClient[j]._id.toString() == listReservation[i].cl_id) { %>
-                        <span class="reservation-name"><%= listClient[j].cl_nom %> <%= listClient[j].cl_prenom %></span>
+                        <span class="reservation-name"><%= listClient[j].cl_prenom %> <%= listClient[j].cl_nom %></span>
                         <% } %>
                     <% } %>
                     </div>
                     <div class="reservation-siege-line">
-                        <span class="reservation-siege">><%= listReservation[i].num_siege %></span>
+                        <span class="reservation-siege"><%= listReservation[i].num_siege %></span>
                     </div>
                     <div class="reservation-date-line">
-                        <span class="reservation-date">><%= listReservation[i].date_reservation %></span>
+                        <span class="reservation-date"><%= listReservation[i].date_reservation %></span>
                     </div>
                     <div class="reservation-btn-line">
                         <button class="reservation-btn">Arriver</button>
@@ -55,20 +55,29 @@
             </div>
             <div class="div-arrived-reservation">
                 <span class="div-reservation-titre">Arriver<hr></span>
+
+                <% for (let i = 0; i < listReservation.length; i++) { %>
+                <% if (listReservation[i].status_reservation=="true") { %>
                 <div class="arrived-reservation-line">
                     <div class="reservation-name-line">
-                        <span class="reservation-name">Test Bot</span>
+                    <% for (let j = 0; j < listClient.length; j++) { %>
+                        <% if (listClient[j]._id.toString() == listReservation[i].cl_id) { %>
+                        <span class="reservation-name"><%= listClient[j].cl_prenom %> <%= listClient[j].cl_nom %></span>
+                        <% } %>
+                    <% } %>
                     </div>
                     <div class="reservation-siege-line">
-                        <span class="reservation-siege">5 Siege</span>
+                        <span class="reservation-siege"><%= listReservation[i].num_siege %></span>
                     </div>
                     <div class="reservation-date-line">
-                        <span class="reservation-date">4345-ndsf-4535</span>
+                        <span class="reservation-date"><%= listReservation[i].date_reservation %></span>
                     </div>
                     <div class="reservation-btn-line">
                         <button class="reservation-btn-true" disabled>Arriver</button>
                     </div>
                 </div>
+                <% } %>
+                <% } %>
             </div>
         </section>
     </main>

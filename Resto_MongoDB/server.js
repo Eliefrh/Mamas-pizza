@@ -62,8 +62,7 @@ function requireAuth(req, res, next) {
         res.writeHead(301, { Location: "http://localhost:29017/login" });
         res.end();
     }
-}
-function requireAdmin(req, res, next) {
+}function requireAdmin(req, res, next) {
     if (req.session && req.session.email == "Admin@Mammas.ca" && req.session.userId == "644cb2446946a71ea61952bf") {
         return next();
     } else {
@@ -516,11 +515,9 @@ const server = app.listen(29017, function () {
 
 
 
-
-
 // Admin section
 
-app.get('/admin/dashboard', requireAdmin, async (req, res) => {
+app.get('/admin/dashboard', async (req, res) => {
     try {
         const mongo = await operation.ConnectionDeMongodb();
         const db = mongo.db("Resto_awt");
@@ -545,23 +542,23 @@ app.get('/admin/dashboard', requireAdmin, async (req, res) => {
     }
 });
 
-app.get('/admin/dashboard/nosproduit', requireAdmin, async (req, res) => {
+app.get('/admin/dashboard/nosproduit', async (req, res) => {
     res.render('pages/admin/pages/produit', { titrePage: "Nos Produit" });
 });
 
-app.get('/admin/dashboard/ajoutproduit', requireAdmin, async (req, res) => {
+app.get('/admin/dashboard/ajoutproduit', async (req, res) => {
     res.render('pages/admin/pages/add-produit', { titrePage: "Ajout Produit" });
 });
 
-app.get('/admin/dashboard/livraison', requireAdmin, async (req, res) => {
+app.get('/admin/dashboard/livraison', async (req, res) => {
     res.render('pages/admin/pages/livraison', { titrePage: "Livraison"});
 });
 
-app.get('/admin/dashboard/emporter', requireAdmin, async (req, res) => {
+app.get('/admin/dashboard/emporter', async (req, res) => {
     res.render('pages/admin/pages/emporter', { titrePage: "Emportement"});
 });
 
-app.get('/admin/dashboard/reservation', requireAdmin, async (req, res) => {
+app.get('/admin/dashboard/reservation', async (req, res) => {
     try {
         const mongo = await operation.ConnectionDeMongodb();
         const db = mongo.db("Resto_awt");
@@ -571,9 +568,17 @@ app.get('/admin/dashboard/reservation', requireAdmin, async (req, res) => {
 
         const listReservation = await reservation.find().toArray();
         const listClient = await client.find().toArray();
-        res.render('pages/admin/pages/reservation', { titrePage: "Reservation", listReservation:listReservation, listClient:listClient});
+        res.render('/pages/admin/pages/reservation', { titrePage: "Reservation", listReservation: listReservation, listClient: listClient});
+        console.log("going to see the reservation")
     } catch (err) {
         console.error(err);
         res.status(500).send('Server Error');
     }
+});
+
+app.get('/admin/dashboard/logout', async (req, res) => {
+    isLoggedIn = false;
+    req.session.userId = null;
+    req.session.email = null;
+    res.redirect('/');
 });
