@@ -17,7 +17,7 @@ require('dotenv').config();
 const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
 const stripePublicKey = process.env.STRIPE_PUBLIC_KEY;
 
-//console.log(stripeSecretKey, stripePublicKey);
+console.log(stripeSecretKey, stripePublicKey);
 const operation = require('./operation');
 
 const { config } = require('dotenv');
@@ -657,7 +657,7 @@ app.post('/admin/dashboard/reservations', async (req, res) => {
     }
 });
 
-app.post('/admin/dashboard/nosproduits' ,async (req, res) => {
+app.post('/admin/dashboard/nosproduits', async (req, res) => {
     const produitId = req.body.id;
     try {  
         const client = await operation.ConnectionDeMongodb();
@@ -672,3 +672,22 @@ app.post('/admin/dashboard/nosproduits' ,async (req, res) => {
     }
 });
 
+app.post('/admin/dashboard/editproduit/:prd', async (req, res) => {
+    
+    try {  
+        const client = await operation.ConnectionDeMongodb();
+        const db = client.db("Resto_awt");
+        const produit = db.collection("Produit");
+
+
+
+        await produit.deleteOne({ _id: new ObjectId(produitId) });
+
+
+
+        res.redirect("/admin/dashboard/editproduit/:prd");
+    } catch(err) {
+        console.log(err);
+        res.status(500).send('Server Error');
+    }
+});
