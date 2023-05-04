@@ -1,3 +1,5 @@
+const { set } = require("adminjs/types/src/utils/flat/set");
+
 /* Menu page */
 function redirectLogin() {
     window.location.href = `/login`;
@@ -40,4 +42,29 @@ function deleteItem(itemId) {
 
 function commander(){
     
+}
+
+
+// Page reservation dans la section admin
+
+function setArrivedReservation(reservationID) {
+    const reservationForm = document.getElementById('setArrived-form');
+    const reservationId = document.getElementById('setArrived-id');
+    reservationId.value = reservationID;
+    reservationForm.action = 'http://localhost:29017/admin/dashboard/reservations';
+    reservationForm.submit(); 
+}
+
+// Page nos produit dans la section admin
+
+function deleteProduit(produitID) {
+    const produitForm = document.getElementById('produit-form');
+    const produitId = document.getElementById('produit-id');
+    produitId.value = produitID;
+    produitForm.action = 'http://localhost:29017/admin/dashboard/nosproduits';
+    produitForm.submit();
+}
+
+function editProduit(prd) {
+    window.location.href = `/admin/dashboard/editproduit/${prd}`;
 }

@@ -30,6 +30,9 @@
                     </div>
                 </div>
 
+                <form id="setArrived-form" method="post">
+                    <input type="hidden" name="id" id="setArrived-id">
+                </form>
                 <% for (let i = 0; i < listReservation.length; i++) { %>
                 <% if (listReservation[i].status_reservation=="false") { %>
                 <div class="not-arrived-reservation-line">
@@ -47,7 +50,7 @@
                         <span class="reservation-date"><%= listReservation[i].date_reservation %></span>
                     </div>
                     <div class="reservation-btn-line">
-                        <button class="reservation-btn">Arriver</button>
+                        <button class="reservation-btn" onclick="setArrivedReservation('<%= listReservation[i]._id %>')">Arriver</button>
                     </div>
                 </div>
                 <% } %>

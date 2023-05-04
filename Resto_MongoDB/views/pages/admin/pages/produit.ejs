@@ -13,27 +13,36 @@
         <div class="line-dashboard">
             <span id="titre-dashboard">Nos Produit<hr></span>
         </div>
-        <section class="section-nos-produit">
-            <span class="category-nos-produit">Category<hr></span>
         
+        <section class="section-nos-produit">
+            <form id="produit-form" method="post">
+                <input type="hidden" name="id" id="produit-id">
+            </form>
+            <% for (let categorie of categories){ %>
+            <span class="category-nos-produit"><%= categorie %><hr></span>
+            <% for (let i = 0; i < listProduit.length; i++) { %>
+            <% if(listProduit[i].cat_nom == categorie){ %>
             <div class="nos-produit-line">
                 <div class="nos-produit-img-line">
-                    <img class="nos-produit-img">
+                    <img class="nos-produit-img" src="/<%= listProduit[i].prod_image %>">
                 </div>
                 <div class="nos-produit-id-line">
-                    <span class="nos-produit-id">JDnb2un4j45</span>
+                    <span class="nos-produit-id"><%= listProduit[i]._id.toString() %></span>
                 </div>
                 <div class="nos-produit-name-line">
-                    <span class="nos-produit-name">Produit</span>
+                    <span class="nos-produit-name"><%= listProduit[i].prod_nom %></span>
                 </div>
                 <div class="nos-produit-prix-line">
-                    <span class="nos-produit-prix">24.00$</span>
+                    <span class="nos-produit-prix"><%= listProduit[i].prod_prix %></span>
                 </div>
                 <div class="nos-produit-btn-line">
-                    <button class="nos-produit-btn-del">Delete</button>
-                    <button class="nos-produit-btn-edit">Edit</button>
+                    <button class="nos-produit-btn-del" onclick="deleteProduit('<%= listProduit[i]._id %>')">Delete</button>
+                    <button class="nos-produit-btn-edit" onclick="editProduit('<%= listProduit[i]._id %>')">Edit</button>
                 </div>
             </div>
+            <% } %>
+            <% } %>
+            <% } %>
         </section>
     </main>
 
