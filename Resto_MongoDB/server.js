@@ -475,7 +475,6 @@ app.post('/menu/:item', requireAuth, async (req, res) => {
 
 app.post('/panier', requireAuth, async (req, res) => {
     const itemId = req.body.id;
-
     try {
         const client = await operation.ConnectionDeMongodb();
         const db = client.db("Resto_awt");
@@ -566,8 +565,32 @@ app.get('/admin/dashboard', async (req, res) => {
     }
 });
 
-app.get('/admin/dashboard/nosproduit', async (req, res) => {
-    res.render('pages/admin/pages/produit', { titrePage: "Nos Produit" });
+app.get('/admin/dashboard/nosproduits', async (req, res) => {
+    try {
+        const mongo = await operation.ConnectionDeMongodb();
+        const db = mongo.db("Resto_awt");
+
+        const produit = db.collection("Produit");
+        const listProduit = await produit.find().toArray();
+
+        const categories = new Set();
+        listProduit.forEach(function (produit) {
+            categories.add(produit.cat_nom);
+        }); 
+
+        res.render('./pages/admin/pages/produit', { titrePage: "Nos Produit" , Authentification: isLoggedIn, listProduit: listProduit, categories:categories});
+    } catch(err) {
+        console.log(err);
+        res.status(500).send('Server Error');
+    }
+});
+
+app.get('/admin/dashboard/nosproduits/editer', async (req, res) => {
+    res.redirect('')
+});
+
+app.get('/admin/dashboard/editproduit/:prd', async (req, res) => {
+    res.render('pages/admin/pages/edit-produit', { titrePage: "Ajout Produit" });
 });
 
 app.get('/admin/dashboard/ajoutproduit', async (req, res) => {
@@ -582,7 +605,7 @@ app.get('/admin/dashboard/emporter', async (req, res) => {
     res.render('pages/admin/pages/emporter', { titrePage: "Emportement" });
 });
 
-app.get('/admin/dashboard/reservation', async (req, res) => {
+app.get('/admin/dashboard/reservations', async (req, res) => {
     try {
         const mongo = await operation.ConnectionDeMongodb();
         const db = mongo.db("Resto_awt");
@@ -592,8 +615,7 @@ app.get('/admin/dashboard/reservation', async (req, res) => {
 
         const listReservation = await reservation.find().toArray();
         const listClient = await client.find().toArray();
-        res.render('/pages/admin/pages/reservation', { titrePage: "Reservation", listReservation: listReservation, listClient: listClient });
-        console.log("going to see the reservation")
+        res.render('./pages/admin/pages/reservation', { titrePage: "Reservation", Authentification: isLoggedIn, listReservation: listReservation, listClient: listClient});
     } catch (err) {
         console.error(err);
         res.status(500).send('Server Error');
@@ -606,3 +628,38 @@ app.get('/admin/dashboard/logout', async (req, res) => {
     req.session.email = null;
     res.redirect('/');
 });
+
+app.post('/admin/dashboard/reservations', async (req, res) => {
+    const reservationId = req.body.id;
+    try {
+        const client = await operation.ConnectionDeMongodb();
+        const db = client.db("Resto_awt");
+        const reservation = db.collection("Reservation");
+
+        const reservationObject = await reservation.findOne({ _id: new ObjectId(reservationId) });
+        Object.assign(reservationObject, {status_reservation:"true"});
+
+        const reservationUpdate = await reservation.updateOne({ _id: new ObjectId(reservationId) }, { $set: reservationObject });
+        
+        res.redirect("/admin/dashboard/reservations");
+    } catch(err) {
+        console.log(err);
+        res.status(500).send('Server Error');
+    }
+});
+
+app.post('/admin/dashboard/nosproduits' ,async (req, res) => {
+    const produitId = req.body.id;
+    try {  
+        const client = await operation.ConnectionDeMongodb();
+        const db = client.db("Resto_awt");
+        const produit = db.collection("Produit");
+
+        await produit.deleteOne({ _id: new ObjectId(produitId) });
+        res.redirect("/admin/dashboard/nosproduits");
+    } catch(err) {
+        console.log(err);
+        res.status(500).send('Server Error');
+    }
+});
+
