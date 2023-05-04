@@ -1112,3 +1112,20 @@ body {
     border-color: gray;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
+
+/* Editer produit page admin */
+
+.admin-edit-container{
+    display: flex;
+    /*height: auto;*/
+    margin: 2pc 3pc 2pc 3pc;
+    gap: 8pc;
+}
+
+.admin-edit-image{
+    width: 40%;
+}
+
+.admin-edit-infos{
+    width: 60%;
+}
