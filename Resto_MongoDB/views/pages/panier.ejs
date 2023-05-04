@@ -3,9 +3,9 @@
 
 <head>
   <%- include('../partials/head.ejs')%>
-    <script src="https://checkout.strip.com/checkout.ejs" defer></script>
+    <!-- <script src="https://checkout.strip.com/checkout.ejs" defer></script> -->
     <script>
-      var stripPublicKey = '<%= stripePublicKey %>'
+      // var stripPublicKey = '<%= stripePublicKey %>'
 
     </script>
     <script src="panier.ejs" defer></script>
@@ -34,17 +34,24 @@
               <form id="delete-form" method="post">
                 <input type="hidden" name="id" id="delete-id">
               </form>
-                <tbody>
-                  <% for (let i = 0; i < Items.length; i++) { %>
-                    <tr id="panier-item-table-content">
-                      <td><img src="<%= Images[i] %>" id="panier-item-input-image"/></td>
-                      <td id="panier-item-input-nom"><%= Items[i].item_nom %></td>
-                      <td id="panier-item-input-quantite"><%= Items[i].item_quantite %></td>
-                      <td id="panier-item-input-prix"><%= Items[i].item_prix %></td>
-                      <td><button id="panier-item-input-button" onclick="deleteItem('<%= Items[i]._id %>')">Supprimer</button></td>
-                    </tr>
+              <tbody>
+                <% for (let i=0; i < Items.length; i++) { %>
+                  <tr id="panier-item-table-content">
+                    <td><img src="<%= Images[i] %>" id="panier-item-input-image" /></td>
+                    <td id="panier-item-input-nom">
+                      <%= Items[i].item_nom %>
+                    </td>
+                    <td id="panier-item-input-quantite">
+                      <%= Items[i].item_quantite %>
+                    </td>
+                    <td id="panier-item-input-prix">
+                      <%= Items[i].item_prix %>
+                    </td>
+                    <td><button id="panier-item-input-button"
+                        onclick="deleteItem('<%= Items[i]._id %>')">Supprimer</button></td>
+                  </tr>
                   <% } %>
-                </tbody>
+              </tbody>
             </table>
           </div>
         </div>
@@ -84,9 +91,12 @@
             <hr>
           </div>
           <div class="panier-payment-three">
-            <button id="panier-payment-emporter" onclick="calculerPrixLivraison()">Pour emporter</button> <!-- Pas de code postal -->
-            <button id="panier-payment-livraison" onclick="calculerPrixLivraison()">Livraison</button> <!-- Code postal pour calcul -->
-            <button id="panier-payment-commander" onclick="commander()">Commande</button> <!-- Commander les items (Cheatcode) -->
+            <button id="panier-payment-emporter" onclick="calculerPrixLivraison()">Pour emporter</button>
+            <!-- Pas de code postal -->
+            <button id="panier-payment-livraison" onclick="calculerPrixLivraison()">Livraison</button>
+            <!-- Code postal pour calcul -->
+            <button id="panier-payment-commander" onclick="commander()">Commande</button>
+            <!-- Commander les items (Cheatcode) -->
           </div>
 
           <!-- paiement paypal
@@ -148,104 +158,77 @@
 
           <!-- Replace "test" with your own sandbox Business account app client ID -->
 
-          <script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
 
+
+          <script
+            src="https://www.paypal.com/sdk/js?client-id=ARHgKV2EzB8KkGjSyUFh_3Mybrg5a8P2MUAzxDzoldPzcVYnJwBMk82zG7lcTRFz4PPnsgSJ2p_UiinF&currency=CAD"></script>
           <!-- Set up a container element for the button -->
+          <div id="paypal-button-container"></div>
+          <script>
+            paypal
+              .Buttons({
+                // Sets up the transaction when a payment button is clicked
+                createOrder: function () {
+                  return fetch("/my-server/create-paypal-order", {
+                    method: "post",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    // use the "body" param to optionally pass additional order information
+                    // like product skus and quantities
+                    body: JSON.stringify({
+                      cart: [
+                        {
+                          sku: "YOUR_PRODUCT_STOCK_KEEPING_UNIT",
+                          quantity: "YOUR_PRODUCT_QUANTITY",
+                        },
+                      ],
+                    }),
+                  })
+                    .then((response) => response.json())
+                    .then((order) => order.id);
+                },
+                // Finalize the transaction after payer approval
+                onApprove: function (data) {
+                  return fetch("/my-server/capture-paypal-order", {
+                    method: "post",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      orderID: data.orderID,
+                    }),
+                  })
+                    .then((response) => response.json())
+                    .then((orderData) => {
+                      // Successful capture! For dev/demo purposes:
+                      console.log(
+                        "Capture result",
+                        orderData,
+                        JSON.stringify(orderData, null, 2)
+                      );
+                      const transaction = orderData.purchase_units[0].payments.captures[0];
+                      alert(
+                        "Transaction " +
+                        transaction.status +
+                        ": " +
+                        transaction.id +
+                        "\n\nSee console for all available details"
+                      );
+                      // When ready to go live, remove the alert and show a success message within this page. For example:
+                      // var element = document.getElementById('paypal-button-container');
+                      // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                      // Or go to another URL:  actions.redirect('thank_you.html');
+                    });
+                },
+              })
+              .render("#paypal-button-container");
+
+          </script>
 
           <div id="paypal-button-container" style="margin-left: 30;"></div>
 
-          <script>
 
-            paypal.Buttons({
-
-              // Order is created on the server and the order id is returned
-
-              createOrder() {
-
-                return fetch("/my-server/create-paypal-order", {
-
-                  method: "POST",
-
-                  headers: {
-
-                    "Content-Type": "application/json",
-
-                  },
-
-                  // use the "body" param to optionally pass additional order information
-
-                  // like product skus and quantities
-
-                  body: JSON.stringify({
-
-                    cart: [
-
-                      {
-
-                        sku: "YOUR_PRODUCT_STOCK_KEEPING_UNIT",
-
-                        quantity: "YOUR_PRODUCT_QUANTITY",
-
-                      },
-
-                    ],
-
-                  }),
-
-                })
-
-                  .then((response) => response.json())
-
-                  .then((order) => order.id);
-
-              },
-
-              // Finalize the transaction on the server after payer approval
-
-              onApprove(data) {
-
-                return fetch("/my-server/capture-paypal-order", {
-
-                  method: "POST",
-
-                  headers: {
-
-                    "Content-Type": "application/json",
-
-                  },
-
-                  body: JSON.stringify({
-
-                    orderID: data.orderID
-
-                  })
-
-                })
-
-                  .then((response) => response.json())
-
-                  .then((orderData) => {
-
-                    // Successful capture! For dev/demo purposes:
-
-                    console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
-
-                    const transaction = orderData.purchase_units[0].payments.captures[0];
-
-                    alert(`Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`);
-
-                    // When ready to go live, remove the alert and show a success message within this page. For example:
-
-                    // const element = document.getElementById('paypal-button-container');
-
-                    // element.innerHTML = '<h3>Thank you for your payment!</h3>';
-
-                    // Or go to another URL:  window.location.href = 'thank_you.html';
-
-                  });
-              }
-            }).render('#paypal-button-container');
-          </script>
 
 
 
@@ -253,8 +236,11 @@
         </div>
       </section>
     </h3>
-      <%- include('../partials/bootstrap.ejs')%>
-        <%- include('../partials/footer.ejs')%>
+
+
+
+    <%- include('../partials/bootstrap.ejs')%>
+      <%- include('../partials/footer.ejs')%>
 </body>
 
 </html>
