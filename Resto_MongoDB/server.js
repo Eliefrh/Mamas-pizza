@@ -585,12 +585,21 @@ app.get('/admin/dashboard/nosproduits', async (req, res) => {
     }
 });
 
-app.get('/admin/dashboard/nosproduits/editer', async (req, res) => {
-    res.redirect('')
-});
+app.get('/admin/dashboard/nosproduits/editer', async (req, res) => {});
 
 app.get('/admin/dashboard/editproduit/:prd', async (req, res) => {
-    res.render('pages/admin/pages/edit-produit', { titrePage: "Ajout Produit" });
+    try {
+        const id = req.params.prd;
+        const mongo = await operation.ConnectionDeMongodb();
+        const db = mongo.db("Resto_awt");
+
+        const produit = db.collection("Produit");
+        const OneProduit = await produit.findOne({ _id: new ObjectId(id) });
+        res.render('pages/admin/pages/edit-produit', { titrePage: "Éditer ProduitS", OneProduit: OneProduit });
+    } catch(err) {
+        console.log(err);
+        res.status(500).send('Server Error');
+    }
 });
 
 app.get('/admin/dashboard/ajoutproduit', async (req, res) => {
