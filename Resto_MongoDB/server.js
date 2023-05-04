@@ -10,6 +10,7 @@ const session = require('express-session');
 const alert = require('node-notifier');
 import("dateformat");
 const now = new Date();
+const paypal = require('./paypal-api.js')
 
 // Paiement
 require('dotenv').config();
@@ -20,6 +21,7 @@ console.log(stripeSecretKey, stripePublicKey);
 const operation = require('./operation');
 
 const { config } = require('dotenv');
+const { debug } = require('console');
 config();
 
 // Admin JS
@@ -62,7 +64,7 @@ function requireAuth(req, res, next) {
         res.writeHead(301, { Location: "http://localhost:29017/login" });
         res.end();
     }
-}function requireAdmin(req, res, next) {
+} function requireAdmin(req, res, next) {
     if (req.session && req.session.email == "Admin@Mammas.ca" && req.session.userId == "644cb2446946a71ea61952bf") {
         return next();
     } else {
@@ -485,6 +487,28 @@ app.post('/panier', requireAuth, async (req, res) => {
     }
 });
 
+// parse post params sent in body in json format
+app.use(express.json());
+
+app.post("/my-server/create-paypal-order", async (req, res) => {
+    try {
+        const order = await paypal.createOrder();
+        res.json(order);
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+});
+
+app.post("/my-server/capture-paypal-order", async (req, res) => {
+    const { orderID } = req.body;
+    try {
+        const captureData = await paypal.capturePayment(orderID);
+        res.json(captureData);
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+});
+
 /*
   Le post methode pour logout
 */
@@ -532,9 +556,9 @@ app.get('/admin/dashboard', async (req, res) => {
         const numCommande = await commande.countDocuments();
         const numReservation = await reservation.countDocuments();
 
-        const mostCommande = await commande.find().sort({date: -1}).limit(4).toArray();
+        const mostCommande = await commande.find().sort({ date: -1 }).limit(4).toArray();
 
-        res.render('pages/admin/pages/dashboard', { titrePage: "Dashboard", numProduit: numProduit, numClient: numClient, numCommande: numCommande, numReservation: numReservation, mostCommande: mostCommande});
+        res.render('pages/admin/pages/dashboard', { titrePage: "Dashboard", numProduit: numProduit, numClient: numClient, numCommande: numCommande, numReservation: numReservation, mostCommande: mostCommande });
     } catch (err) {
         console.error(err);
         res.status(500).send('Server Error');
@@ -574,11 +598,11 @@ app.get('/admin/dashboard/ajoutproduit', async (req, res) => {
 });
 
 app.get('/admin/dashboard/livraison', async (req, res) => {
-    res.render('pages/admin/pages/livraison', { titrePage: "Livraison"});
+    res.render('pages/admin/pages/livraison', { titrePage: "Livraison" });
 });
 
 app.get('/admin/dashboard/emporter', async (req, res) => {
-    res.render('pages/admin/pages/emporter', { titrePage: "Emportement"});
+    res.render('pages/admin/pages/emporter', { titrePage: "Emportement" });
 });
 
 app.get('/admin/dashboard/reservations', async (req, res) => {
