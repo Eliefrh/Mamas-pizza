@@ -14,6 +14,33 @@
             <span id="titre-dashboard">Éditer Produit<hr></span>
         </div>
 
+        <form class="admin-edit-container" method="post" action="/admin/dashboard/editproduit/:prd">
+            <div class="admin-edit-image">
+                <div class="form-group">
+                    <input type="image" class="form-control" id="admin-edit-image" src="/img/Ailes.png">
+                </div>
+            </div>
+            <div class="admin-edit-infos">
+                <div class="form-group">
+                    <label>Nom du produit: </label>
+                    <input type="text" class="form-control" id="admin-edit-nom" value=""> <!-- Mettre EJS value -->
+                </div>
+                <div class="form-group">
+                    <label>Prix: </label>
+                    <input type="text" class="form-control" id="admin-edit-prix" value=""> <!-- Mettre EJS value -->
+                </div>
+                <div class="form-group">
+                    <label>Catégorie: </label>
+                    <input type="text" class="form-control" id="admin-edit-categorie" value=""> <!-- Mettre EJS value -->
+                </div>
+                <div class="form-group">
+                    <label>Description: </label>
+                    <textarea type="text" class="form-control" id="admin-edit-description" value="" rows="5"></textarea> <!-- Mettre EJS value -->
+                </div>
+                <button type="submit" class="btn btn-primary">Éditer</button>
+            </div>
+        </form>
+
         
     </main>
 
