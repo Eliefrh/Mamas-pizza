@@ -20,6 +20,7 @@ console.log(stripeSecretKey, stripePublicKey);
 const operation = require('./operation');
 
 const { config } = require('dotenv');
+const { debug } = require('console');
 config();
 
 // Admin JS

@@ -13,7 +13,6 @@
 
 <body>
   <%- include('../partials/navbar.ejs')%>
-
     <h3 id="panier-title">
       Panier de la commande
       <hr>
@@ -84,8 +83,8 @@
             <hr>
           </div>
           <div class="panier-payment-three">
-            <button id="panier-payment-emporter" onclick="calculerPrixLivraison()">Pour emporter</button> <!-- Pas de code postal -->
-            <button id="panier-payment-livraison" onclick="calculerPrixLivraison()">Livraison</button> <!-- Code postal pour calcul -->
+            <button id="panier-payment-emporter" onclick="emporter()">Pour emporter</button>
+            <button id="panier-payment-livraison" onclick="calculerPrixLivraison('<%= LoggedInForm.cl_code_postal %>')">Livraison</button>
             <button id="panier-payment-commander" onclick="commander()">Commande</button> <!-- Commander les items (Cheatcode) -->
           </div>
 

@@ -38,6 +38,14 @@ function deleteItem(itemId) {
     deleteForm.submit();
 }
 
+function emporter(){
+    
+}
+
+function calculerPrixLivraison(codePostal){
+
+}
+
 function commander(){
     
 }
