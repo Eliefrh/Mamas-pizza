@@ -673,19 +673,16 @@ app.post('/admin/dashboard/nosproduits', async (req, res) => {
 });
 
 app.post('/admin/dashboard/editproduit/:prd', async (req, res) => {
-    
+    const nom = get.body['admin-edit-nom'];
+    const prix = get.body['admin-edit-prix'];
+    const categorie = get.body['admin-edit-categorie'];
+    const description = get.body['admin-edit-description'];
     try {  
         const client = await operation.ConnectionDeMongodb();
         const db = client.db("Resto_awt");
         const produit = db.collection("Produit");
 
-
-
-        await produit.deleteOne({ _id: new ObjectId(produitId) });
-
-
-
-        res.redirect("/admin/dashboard/editproduit/:prd");
+        res.redirect("/admin/dashboard/nosproduits");
     } catch(err) {
         console.log(err);
         res.status(500).send('Server Error');
