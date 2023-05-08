@@ -14,13 +14,14 @@ const multer = require('multer');
 import("dateformat");
 const now = new Date();
 const paypal = require('./paypal-api.js')
+const bcrypt = require("bcryptjs");
 
 // Paiement
 require('dotenv').config();
 const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
 const stripePublicKey = process.env.STRIPE_PUBLIC_KEY;
 
-console.log(stripeSecretKey, stripePublicKey);
+// console.log(stripeSecretKey, stripePublicKey);
 const operation = require('./operation');
 
 const { config } = require('dotenv');
@@ -232,32 +233,36 @@ app.post("/signup", async (req, res) => {
         failedMessage = true;
         statusMessage = "Le mot de passe doit être inférieur à 50 caractères";
         return res.status(400).send('Le mot de passe doit être inférieur à 50 caractères');
-    } else if (password !== repassword) {
+    } else if (password != repassword) {
         failedMessage = true;
         statusMessage = "Les mots de passe ne correspondent pas";
         return res.status(400).send('Les mots de passe ne correspondent pas');
-    }
-
-    const nom = req.body['sign-up-form-nom'];
-    const prenom = req.body['sign-up-form-prenom'];
-    const email = req.body['sign-up-form-email'];
-    const tel = req.body['sign-up-form-tel'];
-    const ville = req.body['sign-up-form-ville'];
-    const province = req.body['sign-up-form-province'];
-    const address = ville + ' ' + province;
-    const zip = req.body['sign-up-form-zip'];
-
-    const client = {
-        cl_nom: nom,
-        cl_prenom: prenom,
-        cl_courriel: email,
-        cl_telephone: tel,
-        cl_address: address,
-        cl_code_postal: zip,
-        cl_password: password
-    };
+    } 
 
     try {
+        const saltRounds = 10;
+        const salt = await bcrypt.genSalt(saltRounds);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        const nom = req.body['sign-up-form-nom'];
+        const prenom = req.body['sign-up-form-prenom'];
+        const email = req.body['sign-up-form-email'];
+        const tel = req.body['sign-up-form-tel'];
+        const ville = req.body['sign-up-form-ville'];
+        const province = req.body['sign-up-form-province'];
+        const address = ville + ' ' + province;
+        const zip = req.body['sign-up-form-zip'];
+    
+        const client = {
+            cl_nom: nom,
+            cl_prenom: prenom,
+            cl_courriel: email,
+            cl_telephone: tel,
+            cl_address: address,
+            cl_code_postal: zip,
+            cl_password: hashedPassword
+        };
+
         const dbClient = await operation.ConnectionDeMongodb();
         const db = dbClient.db("Resto_awt");
         const users = db.collection("Client");
@@ -291,30 +296,36 @@ app.post('/login', async (req, res) => {
         const client = await operation.ConnectionDeMongodb();
         const db = client.db("Resto_awt");
         const users = db.collection("Client");
-        const user = await users.findOne({ cl_courriel: email, cl_password: password });
+        const user = await users.findOne({ cl_courriel: email });
 
         if (!user) {
             return res.status(401).send('Invalid username or password');
+        }
+
+        const isPasswordValid = await bcrypt.compare(password, user.cl_password);
+
+        if (!isPasswordValid) {
+            return res.status(401).send('Invalid username or password');
+        }
+
+        req.session.email = email;
+        req.session.userId = user._id.toString();
+
+        loggedInForm = {
+            cl_nom: user.cl_nom,
+            cl_prenom: user.cl_prenom,
+            cl_courriel: email,
+            cl_telephone: user.cl_telephone,
+            cl_address: user.cl_address,
+            cl_code_postal: user.cl_code_postal,
+            cl_password: user.cl_password
+        }
+
+        isLoggedIn = true;
+        if (req.session.email != "Admin@Mammas.ca") {
+            res.redirect('/');
         } else {
-            req.session.email = email;
-            req.session.userId = user._id.toString();
-
-            loggedInForm = {
-                cl_nom: user.cl_nom,
-                cl_prenom: user.cl_prenom,
-                cl_courriel: email,
-                cl_telephone: user.cl_telephone,
-                cl_address: user.cl_address,
-                cl_code_postal: user.cl_code_postal,
-                cl_password: password
-            }
-
-            isLoggedIn = true;
-            if (req.session.email != "Admin@Mammas.ca") {
-                res.redirect('/');
-            } else {
-                res.redirect('/admin/dashboard');
-            }
+            res.redirect('/admin/dashboard');
         }
     } catch (err) {
         console.error(err);
@@ -391,8 +402,9 @@ app.post('/review', requireAuth, async (req, res) => {
 */
 app.post('/account', requireAuth, async (req, res) => {
     const conf_cl_password = req.body["account-form-conformation-password"];
+    const isPasswordValid = await bcrypt.compare(conf_cl_password, loggedInForm.cl_password);
 
-    if (conf_cl_password == loggedInForm.cl_password) {
+    if (isPasswordValid) {
         const new_cl_prenom = req.body["account-form-prenom"];
         const new_cl_nom = req.body["account-form-nom"];
         const new_cl_courriel = req.body["account-form-email"];
@@ -408,7 +420,10 @@ app.post('/account', requireAuth, async (req, res) => {
             const users = db.collection("Client");
 
             if ((new_cl_password == new_cl_repassword) && (new_cl_password != loggedInForm.cl_password)) {
-                Object.assign(loggedInForm, { cl_password: new_cl_password })
+                const saltRounds = 10;
+                const salt = await bcrypt.genSalt(saltRounds);
+                const hashedPassword = await bcrypt.hash(new_cl_password, salt);
+                Object.assign(loggedInForm, { cl_password: hashedPassword })
             }
             if ((loggedInForm.cl_courriel != new_cl_courriel) || (loggedInForm.cl_telephone != new_cl_telephone)) {
                 const existingCourriel = await users.findOne({ cl_courriel: new_cl_courriel });
