@@ -1,38 +1,59 @@
 <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
     <div class="position-sticky">
       <div class="list-group list-group-flush mx-3 mt-4">
-        <a class="list-group-item list-group-item-action py-2 ripple disabled" aria-current="true">
-          <i class="fas fa-tachometer-alt fa-fw me-3"></i><span class="title-navbar">Admin</span>
-        </a>
-        <a href="/" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
-            <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Allez au Site Web</span>
-        </a>
-        <a href="/admin/dashboard" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
-            <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Dashboard</span>
-        </a>
-        <a href="/admin/dashboard/livraison" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
-            <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Livraison</span>
-        </a>
-        <a href="/admin/dashboard/emporter" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
-            <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Emporter</span>
-        </a>
-        <a href="/admin/dashboard/reservations" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
-            <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Reservation</span>
-        </a>
-        <a href="#" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
-            <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Utilisateurs</span>
-        </a>
-        <a href="#" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
-            <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Statistiques</span>
-        </a>
-        <a href="/admin/dashboard/nosproduits" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
-            <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Nos Produit</span>
-        </a>
-        <a href="/admin/dashboard/ajoutproduit" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
-            <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Ajout Produit</span>
-        </a>
-        <a href="/admin/dashboard/logout" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
-            <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Logout</span>
-        </a>
+        <% if (Privilege == 'admin') { %>
+            <a class="list-group-item list-group-item-action py-2 ripple disabled" aria-current="true">
+                <i class="fas fa-tachometer-alt fa-fw me-3"></i><span class="title-navbar">Admin</span>
+              </a>
+              <a href="/" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                  <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Allez au Site Web</span>
+              </a>
+              <a href="/admin/dashboard" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                  <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Dashboard</span>
+              </a>
+              <a href="/admin/dashboard/livraison" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                  <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Livraison</span>
+              </a>
+              <a href="/admin/dashboard/emporter" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                  <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Emporter</span>
+              </a>
+              <a href="/admin/dashboard/reservations" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                  <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Reservation</span>
+              </a>
+              <a href="/admin/dashboard/utilisateurs" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                  <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Utilisateurs</span>
+              </a>
+              <a href="#" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                  <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Statistiques</span>
+              </a>
+              <a href="/admin/dashboard/nosproduits" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                  <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Nos Produit</span>
+              </a>
+              <a href="/admin/dashboard/ajoutproduit" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                  <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Ajout Produit</span>
+              </a>
+              <a href="/admin/dashboard/logout" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                  <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Logout</span>
+              </a>
+        <% } else { %>
+            <a class="list-group-item list-group-item-action py-2 ripple disabled" aria-current="true">
+                <i class="fas fa-tachometer-alt fa-fw me-3"></i><span class="title-navbar">Employé</span>
+              </a>
+              <a href="/employe/dashboard" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                  <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Dashboard</span>
+              </a>
+              <a href="/admin/dashboard/livraison" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                  <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Livraison</span>
+              </a>
+              <a href="/admin/dashboard/emporter" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                  <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Emporter</span>
+              </a>
+              <a href="/admin/dashboard/reservations" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                  <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Reservation</span>
+              </a>
+              <a href="/admin/dashboard/logout" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                  <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Logout</span>
+              </a>
+        <% } %>
     </div>
 </nav>

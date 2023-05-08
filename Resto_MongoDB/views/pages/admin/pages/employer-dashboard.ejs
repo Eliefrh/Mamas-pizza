@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head.ejs')%>
+</head>
+
+<body>
+    <%- include('../partials/navbar.ejs')%>
+    <main style="margin-top: 6pc;">
+        <div class="line-dashboard">
+            <span id="titre-dashboard">Dashboard<hr></span>
+        </div>
+
+        <Section class="section-statistique">
+            <div class="div-statistique">
+                <span class="num-statistique-card"><%= numClient %></span><br>
+                <span class="name-statistique-card">Utilisateurs</span>
+            </div>
+            <div class="div-statistique">
+                <span class="num-statistique-card"><%= numProduit %></span><br>
+                <span class="name-statistique-card">Produits</span>
+            </div>
+            <div class="div-statistique">
+                <span class="num-statistique-card"><%= numCommande %></span><br>
+                <span class="name-statistique-card">Commandes</span>
+            </div>
+            <div class="div-statistique">
+                <span class="num-statistique-card"><%= numReservation %></span><br>
+                <span class="name-statistique-card">Reservations</span>
+            </div>
+        </Section>
+        <section class="section-prd-cmd">
+            <div class="div-most-prod">
+                <div class="content-most-prod">
+                    <span class="most-prod-titre">Produit plus vendu<hr></span>
+                    <div class="most-prod-line">
+                        <div class="most-prod-img-line">
+                            <div class="most-prod-img"></div>
+                        </div>
+                        <div class="most-prod-name-line">
+                            <span id="most-prod-name">Produit</span>
+                        </div>
+                    </div>
+                    
+                    <div class="most-prod-line">
+                        <div class="most-prod-img-line">
+                            <div class="most-prod-img"></div>
+                        </div>
+                        <div class="most-prod-name-line">
+                            <span id="most-prod-name">Produit</span>
+                        </div>
+                    </div>
+                    <div class="most-prod-line">
+                        <div class="most-prod-img-line">
+                            <div class="most-prod-img"></div>
+                        </div>
+                        <div class="most-prod-name-line">
+                            <span id="most-prod-name">Produit</span>
+                        </div>
+                    </div>
+                    <div class="most-prod-line">
+                        <div class="most-prod-img-line">
+                            <div class="most-prod-img"></div>
+                        </div>
+                        <div class="most-prod-name-line">
+                            <span id="most-prod-name">Produit</span>
+                        </div>
+                    </div>
+                    <div class="most-prod-line">
+                        <div class="most-prod-img-line">
+                            <div class="most-prod-img"></div>
+                        </div>
+                        <div class="most-prod-name-line">
+                            <span id="most-prod-name">Produit</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="div-recent-cmd">
+                <div class="content-recent-cmd">
+                    <span class="recent-cmd-titre">Commande récente<hr></span>
+                    <div class="recent-cmd-line">
+                        <div class="recent-cmd-id-line"><span class="recent-cmd-header-txt">Id</span></div>
+                        <div class="recent-cmd-name-line"><span class="recent-cmd-header-txt">Name</span></div>
+                        <div class="recent-cmd-date-line"><span class="recent-cmd-header-txt">Date</span></div>
+                        <div class="recent-cmd-status-line"><span class="recent-cmd-header-txt">Prix</span></div>
+                    </div> 
+                    <hr>
+                    <% for (let i = 0; i < mostCommande.length; i++) { %>
+                    <div class="recent-cmd-line">
+                        <div class="recent-cmd-id-line"><span class="recent-cmd-id"><%= mostCommande[i]._id.toString().substr(-6) %></span></div>
+                        <div class="recent-cmd-name-line"><span class="recent-cmd-name"><%= mostCommande[i].cl_id %></span></div>
+                        <div class="recent-cmd-date-line"><span class="recent-cmd-date"><%= mostCommande[i].date_commande %></span></div>
+                        <div class="recent-cmd-status-line"><span class="recent-cmd-status"><%= mostCommande[i].fac_total %></span></div>
+                    </div>
+                    <% } %>
+
+                </div>
+            </div>
+        </section>
+    </main>
+    <%- include('../partials/bootstrap.ejs')%>
+</body>
+
+</html>

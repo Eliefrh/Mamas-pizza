@@ -992,11 +992,6 @@ body {
     margin-top: 1.6pc;
     margin-left: 0.4pc;
     border-radius: 10px;
-    background-color: blue;
-    color: white;
-    font-weight: 600;
-    border-color: blue;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .nos-produit-btn-del {
@@ -1005,11 +1000,6 @@ body {
     margin-top: 1.6pc;
     margin-left: 0.7pc;
     border-radius: 10px;
-    background-color: red;
-    color: white;
-    font-weight: 600;
-    border-color: red;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 /* page admin reservation */
@@ -1084,11 +1074,6 @@ body {
     width: 4.5pc;
     height: 2pc;
     border-radius: 10px;
-    background-color:green;
-    color: white;
-    font-weight: 600;
-    border-color: green;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .arrived-reservation-line {
@@ -1106,11 +1091,6 @@ body {
     width: 4.5pc;
     height: 2pc;
     border-radius: 10px;
-    background-color:grey;
-    color: white;
-    font-weight: 600;
-    border-color: gray;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 /* Editer produit page admin */
@@ -1129,3 +1109,54 @@ body {
 .admin-edit-infos{
     width: 60%;
 }
+
+/* page list des utilisateurs admin */
+
+.utilisateur-section {
+
+}
+
+.utilisateur-header {
+    display: flex;
+    height: 3pc;
+    background-color: grey;
+    padding-left: 3pc;
+    padding-right: 3pc;
+    padding-top: 0.8pc;
+    text-align: center;
+    color: white;
+}
+
+.Utilisateur-line {
+    display: flex;
+    height: 3pc;
+    margin-left: 3pc;
+    margin-right: 3pc;
+    margin-bottom: 1pc;
+    padding-top: 0.8pc;
+}
+
+.utilisateur-line-name {
+    width: 10%;
+}
+
+.utilisateur-line-email {
+    width: 15%;
+}
+
+.utilisateur-line-number {
+    width: 20%;
+}   
+
+.utilisateur-line-address {
+    width: 20%;
+}
+
+.utilisateur-line-zip {
+    width: 10%;
+}
+
+.utilisateur-line-password {
+    width: 20%;
+}   
+

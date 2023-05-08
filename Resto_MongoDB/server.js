@@ -8,16 +8,20 @@ const { Module } = require('module');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const alert = require('node-notifier');
+const fs = require('fs');
+const path = require('path');
+const multer = require('multer');
 import("dateformat");
 const now = new Date();
 const paypal = require('./paypal-api.js')
+const bcrypt = require("bcryptjs");
 
 // Paiement
 require('dotenv').config();
 const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
 const stripePublicKey = process.env.STRIPE_PUBLIC_KEY;
 
-//console.log(stripeSecretKey, stripePublicKey);
+// console.log(stripeSecretKey, stripePublicKey);
 const operation = require('./operation');
 
 const { config } = require('dotenv');
@@ -25,6 +29,8 @@ const { debug } = require('console');
 config();
 
 // Admin JS
+const ImgPath = __dirname + '/views/partials/img';
+const upload = multer({ dest: ImgPath });
 
 module.exports = app;
 let isLoggedIn = false;
@@ -33,6 +39,7 @@ let failedMessage = false;
 let statusMessage;
 let loggedInForm;
 let panierForm;
+let privilege;
 
 app.set('views', './views');
 app.set('view engine', 'ejs');
@@ -64,14 +71,26 @@ function requireAuth(req, res, next) {
         res.writeHead(301, { Location: "http://localhost:29017/login" });
         res.end();
     }
-} function requireAdmin(req, res, next) {
-    if (req.session && req.session.email == "Admin@Mammas.ca" && req.session.userId == "644cb2446946a71ea61952bf") {
+}
+function requireAdmin(req, res, next) {
+    if (req.session && req.session.email == "Admin@Mammas.ca" && req.session.userId) {
+        privilege = 'admin';
         return next();
     } else {
         res.writeHead(301, { Location: "http://localhost:29017/login" });
         res.end();
     }
 }
+function requireEmployer(req, res, next) {
+    if (req.session && req.session.email == "Employer@Mammas.ca" && req.session.userI) {
+        privilege = 'employer';
+        return next();
+    } else {
+        res.writeHead(301, { Location: "http://localhost:29017/login" });
+        res.end();
+    }
+}
+
 
 // app.get('/panier', function (req, res) {
 //     res.render("pages/panier", { titrePage: "Panier", Authentification: isLoggedIn });
@@ -234,32 +253,36 @@ app.post("/signup", async (req, res) => {
         failedMessage = true;
         statusMessage = "Le mot de passe doit être inférieur à 50 caractères";
         return res.status(400).send('Le mot de passe doit être inférieur à 50 caractères');
-    } else if (password !== repassword) {
+    } else if (password != repassword) {
         failedMessage = true;
         statusMessage = "Les mots de passe ne correspondent pas";
         return res.status(400).send('Les mots de passe ne correspondent pas');
     }
 
-    const nom = req.body['sign-up-form-nom'];
-    const prenom = req.body['sign-up-form-prenom'];
-    const email = req.body['sign-up-form-email'];
-    const tel = req.body['sign-up-form-tel'];
-    const ville = req.body['sign-up-form-ville'];
-    const province = req.body['sign-up-form-province'];
-    const address = ville + ' ' + province;
-    const zip = req.body['sign-up-form-zip'];
-
-    const client = {
-        cl_nom: nom,
-        cl_prenom: prenom,
-        cl_courriel: email,
-        cl_telephone: tel,
-        cl_address: address,
-        cl_code_postal: zip,
-        cl_password: password
-    };
-
     try {
+        const saltRounds = 10;
+        const salt = await bcrypt.genSalt(saltRounds);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        const nom = req.body['sign-up-form-nom'];
+        const prenom = req.body['sign-up-form-prenom'];
+        const email = req.body['sign-up-form-email'];
+        const tel = req.body['sign-up-form-tel'];
+        const ville = req.body['sign-up-form-ville'];
+        const province = req.body['sign-up-form-province'];
+        const address = ville + ' ' + province;
+        const zip = req.body['sign-up-form-zip'];
+
+        const client = {
+            cl_nom: nom,
+            cl_prenom: prenom,
+            cl_courriel: email,
+            cl_telephone: tel,
+            cl_address: address,
+            cl_code_postal: zip,
+            cl_password: hashedPassword
+        };
+
         const dbClient = await operation.ConnectionDeMongodb();
         const db = dbClient.db("Resto_awt");
         const users = db.collection("Client");
@@ -293,30 +316,41 @@ app.post('/login', async (req, res) => {
         const client = await operation.ConnectionDeMongodb();
         const db = client.db("Resto_awt");
         const users = db.collection("Client");
-        const user = await users.findOne({ cl_courriel: email, cl_password: password });
+        const user = await users.findOne({ cl_courriel: email });
 
         if (!user) {
             return res.status(401).send('Invalid username or password');
-        } else {
-            req.session.email = email;
-            req.session.userId = user._id.toString();
+        }
 
-            loggedInForm = {
-                cl_nom: user.cl_nom,
-                cl_prenom: user.cl_prenom,
-                cl_courriel: email,
-                cl_telephone: user.cl_telephone,
-                cl_address: user.cl_address,
-                cl_code_postal: user.cl_code_postal,
-                cl_password: password
-            }
+        const isPasswordValid = await bcrypt.compare(password, user.cl_password);
 
-            isLoggedIn = true;
-            if (req.session.email != "Admin@Mammas.ca") {
-                res.redirect('/');
-            } else {
-                res.redirect('/admin/dashboard');
-            }
+        if (!isPasswordValid) {
+            return res.status(401).send('Invalid username or password');
+        }
+
+        req.session.email = email;
+        req.session.userId = user._id.toString();
+
+        loggedInForm = {
+            cl_nom: user.cl_nom,
+            cl_prenom: user.cl_prenom,
+            cl_courriel: email,
+            cl_telephone: user.cl_telephone,
+            cl_address: user.cl_address,
+            cl_code_postal: user.cl_code_postal,
+            cl_password: user.cl_password
+        }
+
+        isLoggedIn = true;
+        if (req.session.email == "Admin@Mammas.ca") {
+            res.redirect('/admin/dashboard');
+            privilege = 'admin';
+        } else if (req.session.email == "Employe@Mammas.ca") {
+            res.redirect('/admin/dashboard');
+            privilege = 'employer';
+        }
+        else {
+            res.redirect('/');
         }
     } catch (err) {
         console.error(err);
@@ -393,8 +427,9 @@ app.post('/review', requireAuth, async (req, res) => {
 */
 app.post('/account', requireAuth, async (req, res) => {
     const conf_cl_password = req.body["account-form-conformation-password"];
+    const isPasswordValid = await bcrypt.compare(conf_cl_password, loggedInForm.cl_password);
 
-    if (conf_cl_password == loggedInForm.cl_password) {
+    if (isPasswordValid) {
         const new_cl_prenom = req.body["account-form-prenom"];
         const new_cl_nom = req.body["account-form-nom"];
         const new_cl_courriel = req.body["account-form-email"];
@@ -410,7 +445,10 @@ app.post('/account', requireAuth, async (req, res) => {
             const users = db.collection("Client");
 
             if ((new_cl_password == new_cl_repassword) && (new_cl_password != loggedInForm.cl_password)) {
-                Object.assign(loggedInForm, { cl_password: new_cl_password })
+                const saltRounds = 10;
+                const salt = await bcrypt.genSalt(saltRounds);
+                const hashedPassword = await bcrypt.hash(new_cl_password, salt);
+                Object.assign(loggedInForm, { cl_password: hashedPassword })
             }
             if ((loggedInForm.cl_courriel != new_cl_courriel) || (loggedInForm.cl_telephone != new_cl_telephone)) {
                 const existingCourriel = await users.findOne({ cl_courriel: new_cl_courriel });
@@ -565,7 +603,7 @@ app.get('/admin/dashboard', async (req, res) => {
 
         const mostCommande = await commande.find().sort({ date: -1 }).limit(4).toArray();
 
-        res.render('pages/admin/pages/dashboard', { titrePage: "Dashboard", numProduit: numProduit, numClient: numClient, numCommande: numCommande, numReservation: numReservation, mostCommande: mostCommande });
+        res.render('pages/admin/pages/dashboard', { titrePage: "Dashboard", numProduit: numProduit, numClient: numClient, numCommande: numCommande, numReservation: numReservation, mostCommande: mostCommande, Privilege: privilege });
     } catch (err) {
         console.error(err);
         res.status(500).send('Server Error');
@@ -610,15 +648,15 @@ app.get('/admin/dashboard/editproduit/:prd', async (req, res) => {
 });
 
 app.get('/admin/dashboard/ajoutproduit', async (req, res) => {
-    res.render('pages/admin/pages/add-produit', { titrePage: "Ajout Produit" });
+    res.render('pages/admin/pages/add-produit', { titrePage: "Ajout Produit", Privilege: privilege });
 });
 
 app.get('/admin/dashboard/livraison', async (req, res) => {
-    res.render('pages/admin/pages/livraison', { titrePage: "Livraison" });
+    res.render('pages/admin/pages/livraison', { titrePage: "Livraison", Privilege: privilege });
 });
 
 app.get('/admin/dashboard/emporter', async (req, res) => {
-    res.render('pages/admin/pages/emporter', { titrePage: "Emportement" });
+    res.render('pages/admin/pages/emporter', { titrePage: "Emportement", Privilege: privilege });
 });
 
 app.get('/admin/dashboard/reservations', async (req, res) => {
@@ -643,6 +681,11 @@ app.get('/admin/dashboard/logout', async (req, res) => {
     req.session.userId = null;
     req.session.email = null;
     res.redirect('/');
+});
+
+app.get('/admin/dashboard/utilisateurs', async (req, res) => {
+
+    res.render('pages/admin/pages/user-list', { titrePage: "Ajout Produit", Privilege: privilege });
 });
 
 app.post('/admin/dashboard/reservations', async (req, res) => {
@@ -679,3 +722,81 @@ app.post('/admin/dashboard/nosproduits', async (req, res) => {
     }
 });
 
+app.post('/admin/dashboard/editproduit/:prd', async (req, res) => {
+    const produitId = req.params.prd;
+    const nom = req.body['admin-edit-nom'];
+    const prix = req.body['admin-edit-prix'];
+    const categorie = req.body['admin-edit-categorie'];
+    const description = req.body['admin-edit-description'];
+    const image = req.body['admin-edit-input-image'];
+    try {
+        const client = await operation.ConnectionDeMongodb();
+        const db = client.db("Resto_awt");
+        const produit = db.collection("Produit");
+
+        if (image == "") {
+            productForm = {
+                prod_nom: nom,
+                prod_description: description,
+                prod_prix: prix,
+                cat_nom: categorie
+            }
+
+            await produit.updateOne({ _id: new ObjectId(produitId) }, { $set: productForm });
+            res.redirect("/admin/dashboard/nosproduits");
+        } else {
+
+            new_image = "img/" + image;
+
+            productForm = {
+                prod_nom: nom,
+                prod_description: description,
+                prod_prix: prix,
+                prod_image: new_image,
+                cat_nom: categorie
+            }
+
+            await produit.updateOne({ _id: new ObjectId(produitId) }, { $set: productForm });
+            res.redirect("/admin/dashboard/nosproduits");
+        }
+    } catch (err) {
+        console.log(err);
+        res.status(500).send('Server Error');
+    }
+});
+
+app.post('/admin/dashboard/ajoutproduit', async (req, res) => {
+    const nom = req.body['ajout-nom'];
+    const prix = req.body['ajout-prix'];
+    const categorie = req.body['ajout-categorie'];
+    const description = req.body['ajout-description'];
+    const image = req.body['ajout-input-image'];
+    try {
+        const client = await operation.ConnectionDeMongodb();
+        const db = client.db("Resto_awt");
+        const produit = db.collection("Produit");
+
+        new_image = "img/" + image;
+
+        productForm = {
+            prod_nom: nom,
+            prod_description: description,
+            prod_prix: prix,
+            prod_image: new_image,
+            cat_nom: categorie
+        }
+
+        await produit.insertOne(productForm);
+        res.redirect('/admin/dashboard/nosproduits');
+    } catch (err) {
+        console.log(err);
+        res.status(500).send('Server Error');
+    }
+});
+
+
+// Employer section dans le admin 
+
+app.get('/employe/dashboard', async (req, res) => {
+
+});
