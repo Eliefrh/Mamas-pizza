@@ -38,6 +38,7 @@ let failedMessage = false;
 let statusMessage;
 let loggedInForm;
 let panierForm;
+let privilege;
 
 app.set('views', './views');
 app.set('view engine', 'ejs');
@@ -69,14 +70,26 @@ function requireAuth(req, res, next) {
         res.writeHead(301, { Location: "http://localhost:29017/login" });
         res.end();
     }
-} function requireAdmin(req, res, next) {
-    if (req.session && req.session.email == "Admin@Mammas.ca" && req.session.userId == "644cb2446946a71ea61952bf") {
+} 
+function requireAdmin(req, res, next) {
+    if (req.session && req.session.email == "Admin@Mammas.ca" && req.session.userId) {
+        privilege = 'admin';
         return next();
     } else {
         res.writeHead(301, { Location: "http://localhost:29017/login" });
         res.end();
     }
 }
+function requireEmployer(req, res, next) {
+    if (req.session && req.session.email == "Employer@Mammas.ca" && req.session.userI) {
+        privilege = 'employer';
+        return next();
+    } else {
+        res.writeHead(301, { Location: "http://localhost:29017/login" });
+        res.end();
+    }
+}
+
 
 // app.get('/panier', function (req, res) {
 //     res.render("pages/panier", { titrePage: "Panier", Authentification: isLoggedIn });
@@ -310,10 +323,15 @@ app.post('/login', async (req, res) => {
             }
 
             isLoggedIn = true;
-            if (req.session.email != "Admin@Mammas.ca") {
-                res.redirect('/');
-            } else {
+            if (req.session.email == "Admin@Mammas.ca") {
                 res.redirect('/admin/dashboard');
+                privilege = 'admin';
+            } else if (req.session.email == "Employe@Mammas.ca")  {
+                res.redirect('/admin/dashboard');
+                privilege = 'employer';
+            }
+            else {
+                res.redirect('/');
             }
         }
     } catch (err) {
@@ -563,7 +581,7 @@ app.get('/admin/dashboard', async (req, res) => {
 
         const mostCommande = await commande.find().sort({ date: -1 }).limit(4).toArray();
 
-        res.render('pages/admin/pages/dashboard', { titrePage: "Dashboard", numProduit: numProduit, numClient: numClient, numCommande: numCommande, numReservation: numReservation, mostCommande: mostCommande });
+        res.render('pages/admin/pages/dashboard', { titrePage: "Dashboard", numProduit: numProduit, numClient: numClient, numCommande: numCommande, numReservation: numReservation, mostCommande: mostCommande, Privilege: privilege });
     } catch (err) {
         console.error(err);
         res.status(500).send('Server Error');
@@ -583,7 +601,7 @@ app.get('/admin/dashboard/nosproduits', async (req, res) => {
             categories.add(produit.cat_nom);
         }); 
 
-        res.render('./pages/admin/pages/produit', { titrePage: "Nos Produit" , Authentification: isLoggedIn, listProduit: listProduit, categories:categories});
+        res.render('./pages/admin/pages/produit', { titrePage: "Nos Produit" , Authentification: isLoggedIn, listProduit: listProduit, categories:categories, Privilege: privilege});
     } catch(err) {
         console.log(err);
         res.status(500).send('Server Error');
@@ -600,7 +618,7 @@ app.get('/admin/dashboard/editproduit/:prd', async (req, res) => {
 
         const produit = db.collection("Produit");
         const OneProduit = await produit.findOne({ _id: new ObjectId(id) });
-        res.render('pages/admin/pages/edit-produit', { titrePage: "Éditer Produits", OneProduit: OneProduit });
+        res.render('pages/admin/pages/edit-produit', { titrePage: "Éditer Produits", OneProduit: OneProduit, Privilege: privilege });
     } catch(err) {
         console.log(err);
         res.status(500).send('Server Error');
@@ -608,15 +626,15 @@ app.get('/admin/dashboard/editproduit/:prd', async (req, res) => {
 });
 
 app.get('/admin/dashboard/ajoutproduit', async (req, res) => {
-    res.render('pages/admin/pages/add-produit', { titrePage: "Ajout Produit" });
+    res.render('pages/admin/pages/add-produit', { titrePage: "Ajout Produit", Privilege: privilege });
 });
 
 app.get('/admin/dashboard/livraison', async (req, res) => {
-    res.render('pages/admin/pages/livraison', { titrePage: "Livraison" });
+    res.render('pages/admin/pages/livraison', { titrePage: "Livraison" , Privilege: privilege});
 });
 
 app.get('/admin/dashboard/emporter', async (req, res) => {
-    res.render('pages/admin/pages/emporter', { titrePage: "Emportement" });
+    res.render('pages/admin/pages/emporter', { titrePage: "Emportement", Privilege: privilege });
 });
 
 app.get('/admin/dashboard/reservations', async (req, res) => {
@@ -629,7 +647,7 @@ app.get('/admin/dashboard/reservations', async (req, res) => {
 
         const listReservation = await reservation.find().toArray();
         const listClient = await client.find().toArray();
-        res.render('./pages/admin/pages/reservation', { titrePage: "Reservation", Authentification: isLoggedIn, listReservation: listReservation, listClient: listClient});
+        res.render('./pages/admin/pages/reservation', { titrePage: "Reservation", Authentification: isLoggedIn, listReservation: listReservation, listClient: listClient, Privilege: privilege});
     } catch (err) {
         console.error(err);
         res.status(500).send('Server Error');
@@ -641,6 +659,11 @@ app.get('/admin/dashboard/logout', async (req, res) => {
     req.session.userId = null;
     req.session.email = null;
     res.redirect('/');
+});
+
+app.get('/admin/dashboard/utilisateurs', async (req, res) => {
+    
+    res.render('pages/admin/pages/user-list', { titrePage: "Ajout Produit", Privilege: privilege });
 });
 
 app.post('/admin/dashboard/reservations', async (req, res) => {
@@ -747,4 +770,11 @@ app.post('/admin/dashboard/ajoutproduit', async (req, res) => {
         console.log(err);
         res.status(500).send('Server Error');
     }
+});
+
+
+// Employer section dans le admin 
+
+app.get('/employe/dashboard', async (req, res) => {
+
 });
