@@ -1,78 +1,34 @@
 [{
   "_id": {
-    "$oid": "640f7b2a8b33ff40ca78b268"
+    "$oid": "645965bc064979910f1e247f"
   },
-  "cl_id": "1",
-  "cl_courriel": "asdfg@vsdhjkbf.com",
-  "cl_password": "d",
-  "resto_id": "0"
+  "cl_nom": "Admin",
+  "cl_prenom": "Admin",
+  "cl_courriel": "Admin@Mammas.ca",
+  "cl_telephone": "5143341579",
+  "cl_address": "Montreal Quebec",
+  "cl_code_postal": "H4L 3W6",
+  "cl_password": "$2a$10$vc2YXox/fViZkCV9MzmpPubP/6KM2WX2yu8nt/DFqC4vD0Z0yNnGW"
 },{
   "_id": {
-    "$oid": "640f7b2a8b33ff40ca78b269"
+    "$oid": "6459663a064979910f1e2480"
   },
-  "cl_id": "31569",
-  "cl_nom": "singh",
-  "cl_prenom": "gaurav",
-  "cl_telephone": "4384561324",
-  "cl_courriel": "2215536@bdeb.qc.ca",
-  "cl_code_postal": "h1ll1h",
-  "cl_address": "10500 boul de l'acadie, montreal",
-  "cl_password": "1111",
-  "resto_id": "2645"
+  "cl_nom": "Employé",
+  "cl_prenom": "Employé",
+  "cl_courriel": "Employe@Mammas.ca",
+  "cl_telephone": "5143341579",
+  "cl_address": "Montreal Quebec",
+  "cl_code_postal": "H4L 3W6",
+  "cl_password": "$2a$10$1dt3TUqA0iAwMD1Qeg9yHOVbP/K.Jk.V1Sn/0kIuNrN4yx0x6NY5m"
 },{
   "_id": {
-    "$oid": "640f7b2a8b33ff40ca78b26a"
+    "$oid": "645966d2064979910f1e2481"
   },
-  "cl_id": "56513",
-  "cl_nom": "alfrieh",
-  "cl_prenom": "elie",
-  "cl_telephone": "5144155145",
-  "cl_courriel": "2067396@bdeb.qc.ca",
-  "cl_code_postal": "h4nn4h",
-  "cl_address": "10500 bois de boulogne , montreal",
-  "cl_password": "0000",
-  "resto_id": "2645"
-},{
-  "_id": {
-    "$oid": "640f7b2a8b33ff40ca78b26b"
-  },
-  "cl_id": "64587",
-  "cl_nom": "hua",
-  "cl_prenom": "anthony",
-  "cl_telephone": "5144567894",
-  "cl_courriel": "2183423@bdeb.qc.ca",
-  "cl_code_postal": "h1zz1h",
-  "cl_address": "1500 cote vertu, montreal",
-  "cl_password": "2222",
-  "resto_id": "2645"
-},{
-  "_id": {
-    "$oid": "640f7b2a8b33ff40ca78b26c"
-  },
-  "cl_id": "64588",
-  "cl_courriel": "dgfhdershgf@ksdfgkjds.com",
-  "cl_password": "dgfshsfhgsgfh",
-  "resto_id": "0"
-},{
-  "_id": {
-    "$oid": "640f7b2a8b33ff40ca78b26d"
-  },
-  "cl_id": "64589",
-  "cl_nom": "fhgvnfersgffd",
-  "cl_courriel": "dgfhdershgf@ksdfgkjds.com",
-  "cl_password": "dgfshsfhgsgfh",
-  "resto_id": "0"
-},{
-  "_id": {
-    "$oid": "640f7b2a8b33ff40ca78b26e"
-  },
-  "cl_id": "64590",
   "cl_nom": "Bot",
   "cl_prenom": "Test",
-  "cl_telephone": "1111111111",
-  "cl_courriel": "TestBot@Testing.com",
-  "cl_code_postal": "TEST12",
-  "cl_address": "Test Testing",
-  "cl_password": "123456",
-  "resto_id": "0"
+  "cl_courriel": "TestBot@gmail.com",
+  "cl_telephone": "5147452325",
+  "cl_address": "Montreal Quebec",
+  "cl_code_postal": "H4K 2M2",
+  "cl_password": "$2a$10$uFEZATAW7YmMrb3BwTVaRuPGmtL4n8BDlJFh8nJcMuKGe9wlTWkzO"
 }]
