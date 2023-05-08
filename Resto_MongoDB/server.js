@@ -114,6 +114,9 @@ app.get('/review', async (req, res) => {
 app.get('/account', async (req, res) => {
     res.render('pages/account', { titrePage: "Account", Authentification: isLoggedIn, LoggedInForm: loggedInForm });
 });
+// app.get('/paiement', async (req, res) => {
+//     res.render('pages/paiement.html', { titrePage: "Paiement" });
+// });
 
 app.get('/logout', async (req, res) => {
     isLoggedIn = false;
@@ -214,6 +217,10 @@ app.get('/panier', async (req, res) => {
 });
 app.get('/checkout', async (req, res) => {
     res.render("pages/checkout", { titrePage: "Chekout", Authentification: isLoggedIn, LoggedInForm: loggedInForm });
+});
+
+app.get('/paiement.html', (req, res) => {
+    res.sendFile('./views/pages/paiement.html');
 });
 
 /*
@@ -576,16 +583,16 @@ app.get('/admin/dashboard/nosproduits', async (req, res) => {
         const categories = new Set();
         listProduit.forEach(function (produit) {
             categories.add(produit.cat_nom);
-        }); 
+        });
 
-        res.render('./pages/admin/pages/produit', { titrePage: "Nos Produit" , Authentification: isLoggedIn, listProduit: listProduit, categories:categories});
-    } catch(err) {
+        res.render('./pages/admin/pages/produit', { titrePage: "Nos Produit", Authentification: isLoggedIn, listProduit: listProduit, categories: categories });
+    } catch (err) {
         console.log(err);
         res.status(500).send('Server Error');
     }
 });
 
-app.get('/admin/dashboard/nosproduits/editer', async (req, res) => {});
+app.get('/admin/dashboard/nosproduits/editer', async (req, res) => { });
 
 app.get('/admin/dashboard/editproduit/:prd', async (req, res) => {
     try {
@@ -596,7 +603,7 @@ app.get('/admin/dashboard/editproduit/:prd', async (req, res) => {
         const produit = db.collection("Produit");
         const OneProduit = await produit.findOne({ _id: new ObjectId(id) });
         res.render('pages/admin/pages/edit-produit', { titrePage: "Éditer ProduitS", OneProduit: OneProduit });
-    } catch(err) {
+    } catch (err) {
         console.log(err);
         res.status(500).send('Server Error');
     }
@@ -624,7 +631,7 @@ app.get('/admin/dashboard/reservations', async (req, res) => {
 
         const listReservation = await reservation.find().toArray();
         const listClient = await client.find().toArray();
-        res.render('./pages/admin/pages/reservation', { titrePage: "Reservation", Authentification: isLoggedIn, listReservation: listReservation, listClient: listClient});
+        res.render('./pages/admin/pages/reservation', { titrePage: "Reservation", Authentification: isLoggedIn, listReservation: listReservation, listClient: listClient });
     } catch (err) {
         console.error(err);
         res.status(500).send('Server Error');
@@ -646,27 +653,27 @@ app.post('/admin/dashboard/reservations', async (req, res) => {
         const reservation = db.collection("Reservation");
 
         const reservationObject = await reservation.findOne({ _id: new ObjectId(reservationId) });
-        Object.assign(reservationObject, {status_reservation:"true"});
+        Object.assign(reservationObject, { status_reservation: "true" });
 
         const reservationUpdate = await reservation.updateOne({ _id: new ObjectId(reservationId) }, { $set: reservationObject });
-        
+
         res.redirect("/admin/dashboard/reservations");
-    } catch(err) {
+    } catch (err) {
         console.log(err);
         res.status(500).send('Server Error');
     }
 });
 
-app.post('/admin/dashboard/nosproduits' ,async (req, res) => {
+app.post('/admin/dashboard/nosproduits', async (req, res) => {
     const produitId = req.body.id;
-    try {  
+    try {
         const client = await operation.ConnectionDeMongodb();
         const db = client.db("Resto_awt");
         const produit = db.collection("Produit");
 
         await produit.deleteOne({ _id: new ObjectId(produitId) });
         res.redirect("/admin/dashboard/nosproduits");
-    } catch(err) {
+    } catch (err) {
         console.log(err);
         res.status(500).send('Server Error');
     }

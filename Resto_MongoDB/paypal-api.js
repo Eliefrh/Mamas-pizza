@@ -21,7 +21,7 @@ async function createOrder() {
             purchase_units: [
                 {
                     amount: {
-                        currency_code: "USD",
+                        currency_code: "CAD",
                         value: "100.00",
                     },
                 },

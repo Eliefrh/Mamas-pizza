@@ -27,8 +27,8 @@ async function ConnectionDeMongodb() {
 }
 
 // Menu
-async function ShowMenuList(){
-    try{
+async function ShowMenuList() {
+    try {
         const db = client.db("Resto_awt");
         const produits = db.collection("Produit");
         return await produits.find().toArray();

@@ -10,11 +10,11 @@
     "mongodb": "^5.1.0",
     "mysql": "^2.18.1",
     "node": "^19.6.0",
-    "node-fetch": "^3.2.1",
     "node-notifier": "^10.0.1",
     "paypal": "^1.0.1",
     "strip": "^3.0.0",
-    "stripe-checkout": "^1.0.9"
+    "stripe-checkout": "^1.0.9",
+    "node-fetch": "^3.2.1"
   },
   "devDependencies": {
     "dotenv": "^16.0.3"

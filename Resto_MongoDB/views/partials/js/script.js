@@ -1,5 +1,3 @@
-const { set } = require("adminjs/types/src/utils/flat/set");
-
 /* Menu page */
 function redirectLogin() {
     window.location.href = `/login`;
@@ -10,12 +8,12 @@ function redirectToItem(item) {
 }
 
 /* Item page */
-function decrementer(prixUnitaire){
+function decrementer(prixUnitaire) {
     const quantite = document.getElementById("item-quantite");
     const prix = document.getElementById("item-prix");
     let compteur = quantite.value;
 
-    if(compteur > 1){
+    if (compteur > 1) {
         compteur--;
         quantite.value--;
         let prixTotal = quantite.value * prixUnitaire;
@@ -23,7 +21,7 @@ function decrementer(prixUnitaire){
     }
 }
 
-function incrementer(prixUnitaire){
+function incrementer(prixUnitaire) {
     const quantite = document.getElementById("item-quantite");
     const prix = document.getElementById("item-prix");
 
@@ -40,16 +38,16 @@ function deleteItem(itemId) {
     deleteForm.submit();
 }
 
-function emporter(){
-    
-}
-
-function calculerPrixLivraison(codePostal){
+function emporter() {
 
 }
 
-function commander(){
-    
+function calculerPrixLivraison(codePostal) {
+
+}
+
+function commander() {
+
 }
 
 
@@ -60,7 +58,7 @@ function setArrivedReservation(reservationID) {
     const reservationId = document.getElementById('setArrived-id');
     reservationId.value = reservationID;
     reservationForm.action = 'http://localhost:29017/admin/dashboard/reservations';
-    reservationForm.submit(); 
+    reservationForm.submit();
 }
 
 // Page nos produit dans la section admin
@@ -75,4 +73,8 @@ function deleteProduit(produitID) {
 
 function editProduit(prd) {
     window.location.href = `/admin/dashboard/editproduit/${prd}`;
+}
+
+function paiement() {
+    window.location.href = `/paiement`;
 }
