@@ -36,8 +36,8 @@
                     <span class="nos-produit-prix"><%= listProduit[i].prod_prix %></span>
                 </div>
                 <div class="nos-produit-btn-line">
-                    <button class="nos-produit-btn-del" onclick="deleteProduit('<%= listProduit[i]._id %>')">Delete</button>
-                    <button class="nos-produit-btn-edit" onclick="editProduit('<%= listProduit[i]._id %>')">Edit</button>
+                    <button class="nos-produit-btn-del btn-danger" onclick="deleteProduit('<%= listProduit[i]._id %>')">Delete</button>
+                    <button class="nos-produit-btn-edit btn-primary" onclick="editProduit('<%= listProduit[i]._id %>')">Edit</button>
                 </div>
             </div>
             <% } %>

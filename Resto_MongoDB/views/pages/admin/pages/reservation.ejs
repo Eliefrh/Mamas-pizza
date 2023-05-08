@@ -50,7 +50,7 @@
                         <span class="reservation-date"><%= listReservation[i].date_reservation %></span>
                     </div>
                     <div class="reservation-btn-line">
-                        <button class="reservation-btn" onclick="setArrivedReservation('<%= listReservation[i]._id %>')">Arriver</button>
+                        <button class="reservation-btn btn-success" onclick="setArrivedReservation('<%= listReservation[i]._id %>')">Arriver</button>
                     </div>
                 </div>
                 <% } %>
@@ -76,7 +76,7 @@
                         <span class="reservation-date"><%= listReservation[i].date_reservation %></span>
                     </div>
                     <div class="reservation-btn-line">
-                        <button class="reservation-btn-true" disabled>Arriver</button>
+                        <button class="reservation-btn-true btn-secondary" disabled>Arriver</button>
                     </div>
                 </div>
                 <% } %>

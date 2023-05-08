@@ -8,6 +8,9 @@ const { Module } = require('module');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const alert = require('node-notifier');
+const fs = require('fs');
+const path = require('path');
+const multer = require('multer');
 import("dateformat");
 const now = new Date();
 const paypal = require('./paypal-api.js')
@@ -25,6 +28,8 @@ const { debug } = require('console');
 config();
 
 // Admin JS
+const ImgPath = __dirname + '/views/partials/img';
+const upload = multer({ dest: ImgPath });
 
 module.exports = app;
 let isLoggedIn = false;
@@ -673,16 +678,71 @@ app.post('/admin/dashboard/nosproduits', async (req, res) => {
 });
 
 app.post('/admin/dashboard/editproduit/:prd', async (req, res) => {
-    const nom = get.body['admin-edit-nom'];
-    const prix = get.body['admin-edit-prix'];
-    const categorie = get.body['admin-edit-categorie'];
-    const description = get.body['admin-edit-description'];
+    const produitId = req.params.prd;
+    const nom = req.body['admin-edit-nom'];
+    const prix = req.body['admin-edit-prix'];
+    const categorie = req.body['admin-edit-categorie'];
+    const description = req.body['admin-edit-description'];
+    const image = req.body['admin-edit-input-image'];
     try {  
         const client = await operation.ConnectionDeMongodb();
         const db = client.db("Resto_awt");
         const produit = db.collection("Produit");
 
-        res.redirect("/admin/dashboard/nosproduits");
+        if (image=="") {
+            productForm = {
+                prod_nom: nom,
+                prod_description: description,
+                prod_prix: prix,
+                cat_nom: categorie
+            }
+
+            await produit.updateOne({_id: new ObjectId(produitId)}, {$set: productForm});
+            res.redirect("/admin/dashboard/nosproduits");
+        } else {
+
+            new_image = "img/" + image;
+
+            productForm = {
+                prod_nom: nom,
+                prod_description: description,
+                prod_prix: prix,
+                prod_image: new_image,
+                cat_nom: categorie
+            }
+            
+            await produit.updateOne({_id: new ObjectId(produitId)}, {$set: productForm});
+            res.redirect("/admin/dashboard/nosproduits");
+        }
+    } catch(err) {
+        console.log(err);
+        res.status(500).send('Server Error');
+    }
+});
+
+app.post('/admin/dashboard/ajoutproduit', async (req, res) => {
+    const nom = req.body['ajout-nom'];
+    const prix = req.body['ajout-prix'];
+    const categorie = req.body['ajout-categorie'];
+    const description = req.body['ajout-description'];
+    const image = req.body['ajout-input-image'];
+    try {
+        const client = await operation.ConnectionDeMongodb();
+        const db = client.db("Resto_awt");
+        const produit = db.collection("Produit");
+
+        new_image = "img/" + image;
+
+        productForm = {
+            prod_nom: nom,
+            prod_description: description,
+            prod_prix: prix,
+            prod_image: new_image,
+            cat_nom: categorie
+        }
+
+        await produit.insertOne(productForm);
+        res.redirect('/admin/dashboard/nosproduits');
     } catch(err) {
         console.log(err);
         res.status(500).send('Server Error');

@@ -14,7 +14,32 @@
             <span id="titre-dashboard">Ajouter Produit<hr></span>
         </div>
 
-        
+        <form class="admin-edit-container" method="post">
+            <div class="admin-edit-image">
+                <div class="form-group">
+                    <input type="file" class="form-control" id="ajout-input-image" name="ajout-input-image">
+                </div>
+            </div>
+            <div class="admin-edit-infos">
+                <div class="form-group">
+                    <label>Nom du produit: </label>
+                    <input type="text" class="form-control" id="ajout-nom" name="ajout-nom">
+                </div>
+                <div class="form-group">
+                    <label>Prix: </label>
+                    <input type="number" class="form-control" id="ajout-prix" name="ajout-prix">
+                </div>
+                <div class="form-group">
+                    <label>Catégorie: </label>
+                    <input type="text" class="form-control" id="ajout-categorie" name="ajout-categorie">
+                </div>
+                <div class="form-group">
+                    <label>Description: </label>
+                    <textarea type="text" class="form-control" id="ajout-description" name="ajout-description"  rows="5"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Ajouter</button>
+            </div>
+        </form>
     </main>
 
 
