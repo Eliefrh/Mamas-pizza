@@ -1062,42 +1062,48 @@ body {
 }
 
 .utilisateur-header {
-    display: flex;
     height: 3pc;
-    background-color: grey;
-    padding: 0.8pc 3pc 0 3pc;
+    width: 100%;
+    display: flex;
+    margin: 0 0 0 0.5pc;
+    font-family: cursive;
     text-align: center;
     color: white;
+    background-color: gray;
 }
 
-.Utilisateur-line {
-    display: flex;
+.utilisateur-line {
     height: 3pc;
-    margin: 0 3pc 1pc 3pc;
-    padding: 0.8pc 0 0 0;
+    width: 100%;
+    display: flex;
+    margin: 0 0 0 0.5pc;
+    text-align: left;
+    font-family: cursive;
+    color: gray;
+    text-align: center;
 }
 
 .utilisateur-line-name {
-    width: 10%;
+    width: 15%;
+    height: auto;
 }
 
 .utilisateur-line-email {
-    width: 15%;
+    width: 25%;
+    height: auto;
 }
 
 .utilisateur-line-number {
-    width: 20%;
+    width: 25%;
+    height: auto;
 }   
 
 .utilisateur-line-address {
-    width: 20%;
+    width: 25%;
+    height: auto;
 }
 
 .utilisateur-line-zip {
     width: 10%;
+    height: auto;
 }
-
-.utilisateur-line-password {
-    width: 20%;
-}   
-

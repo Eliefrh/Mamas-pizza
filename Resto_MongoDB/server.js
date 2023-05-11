@@ -106,7 +106,7 @@ app.get('/', async (req, res) => {
         const db = client.db("Resto_awt");
         const produits = db.collection("Produit");
         const NosSpecial = await produits.find().limit(3).toArray();
-        res.render('pages/index', { titrePage: "Mamma's Pizza's", Authentification: isLoggedIn, LoggedInForm: loggedInForm, NosSpecial: NosSpecial });
+        res.render('pages/index', { titrePage: "Mamma's Pizza's", Authentification: isLoggedIn, LoggedInForm: loggedInForm, NosSpecial: NosSpecial, Privilege: privilege });
     }
     catch (err) {
         console.error(err);
@@ -115,23 +115,23 @@ app.get('/', async (req, res) => {
 });
 
 app.get('/login', async (req, res) => {
-    res.render('pages/login', { titrePage: "Login", Authentification: isLoggedIn, LoggedInForm: loggedInForm });
+    res.render('pages/login', { titrePage: "Login", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Privilege: privilege  });
 });
 
 app.get('/signup', async (req, res) => {
-    res.render('pages/signup', { titrePage: "signup", Authentification: isLoggedIn, successMessage: successMessage, failedMessage: failedMessage, StatusMessage: statusMessage, LoggedInForm: loggedInForm });
+    res.render('pages/signup', { titrePage: "signup", Authentification: isLoggedIn, successMessage: successMessage, failedMessage: failedMessage, StatusMessage: statusMessage, LoggedInForm: loggedInForm, Privilege: privilege  });
 });
 
 app.get('/reservation', async (req, res) => {
-    res.render("pages/reservation", { titrePage: "Reservation", Authentification: isLoggedIn, LoggedInForm: loggedInForm });
+    res.render("pages/reservation", { titrePage: "Reservation", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Privilege: privilege  });
 });
 
 app.get('/review', async (req, res) => {
-    res.render("pages/review", { titrePage: "Review", Authentification: isLoggedIn, LoggedInForm: loggedInForm });
+    res.render("pages/review", { titrePage: "Review", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Privilege: privilege  });
 });
 
 app.get('/account', async (req, res) => {
-    res.render('pages/account', { titrePage: "Account", Authentification: isLoggedIn, LoggedInForm: loggedInForm });
+    res.render('pages/account', { titrePage: "Account", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Privilege: privilege  });
 });
 // app.get('/paiement', async (req, res) => {
 //     res.render('pages/paiement.html', { titrePage: "Paiement" });
@@ -156,7 +156,7 @@ app.get('/menu', async (req, res) => {
             categorie.add(produit.cat_nom);
         })
 
-        res.render('pages/menu', { titrePage: "Menu", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Produits: produitList, Categories: categorie });
+        res.render('pages/menu', { titrePage: "Menu", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Produits: produitList, Categories: categorie, Privilege: privilege  });
     } catch (err) {
         console.error(err);
         res.status(500).send('Erreur get menu');
@@ -178,7 +178,7 @@ app.get('/menu/:item', async (req, res) => {
             }
         })
 
-        res.render('pages/item', { titrePage: item, Authentification: isLoggedIn, LoggedInForm: loggedInForm, Item: produitSelectionne });
+        res.render('pages/item', { titrePage: item, Authentification: isLoggedIn, LoggedInForm: loggedInForm, Item: produitSelectionne, Privilege: privilege  });
     } catch (err) {
         console.error(err);
         res.status(500).send('Erreur get item');
@@ -193,7 +193,7 @@ app.get('/reviewList', async (req, res) => {
     reviews.forEach(element => {
         //  console.log(element);
     });
-    res.render('pages/reviewList', { titrePage: "Reviews", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Reviews: reviews });
+    res.render('pages/reviewList', { titrePage: "Reviews", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Reviews: reviews, Privilege: privilege  });
 });
 
 app.get('/panier', async (req, res) => {
@@ -229,13 +229,13 @@ app.get('/panier', async (req, res) => {
             total: total.toFixed(2)
         }
 
-        res.render("pages/panier", { titrePage: "Panier", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Items: itemList, PanierForm: panierForm, Images: imageList, stripePublicKey: stripePublicKey });
+        res.render("pages/panier", { titrePage: "Panier", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Items: itemList, PanierForm: panierForm, Images: imageList, stripePublicKey: stripePublicKey, Privilege: privilege  });
     } catch (err) {
         res.status(500).send('Erreur get panier');
     }
 });
 app.get('/checkout', async (req, res) => {
-    res.render("pages/checkout", { titrePage: "Chekout", Authentification: isLoggedIn, LoggedInForm: loggedInForm });
+    res.render("pages/checkout", { titrePage: "Chekout", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Privilege: privilege  });
 });
 
 app.get('/paiement.html', (req, res) => {
