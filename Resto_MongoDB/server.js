@@ -74,16 +74,16 @@ function requireAuth(req, res, next) {
 }
 function requireAdmin(req, res, next) {
     if (req.session && req.session.email == "Admin@Mammas.ca" && req.session.userId) {
-        privilege = 'admin';
+        privilege = "admin";
         return next();
     } else {
         res.writeHead(301, { Location: "http://localhost:29017/login" });
         res.end();
     }
 }
-function requireEmployer(req, res, next) {
-    if (req.session && req.session.email == "Employer@Mammas.ca" && req.session.userI) {
-        privilege = 'employer';
+function requireEmploye(req, res, next) {
+    if (req.session && req.session.email == "Employe@Mammas.ca" && req.session.userId) {
+        privilege = "employé";
         return next();
     } else {
         res.writeHead(301, { Location: "http://localhost:29017/login" });
@@ -343,11 +343,11 @@ app.post('/login', async (req, res) => {
 
         isLoggedIn = true;
         if (req.session.email == "Admin@Mammas.ca") {
+            privilege = "admin";
             res.redirect('/admin/dashboard');
-            privilege = 'admin';
         } else if (req.session.email == "Employe@Mammas.ca") {
+            privilege = "employé";
             res.redirect('/admin/dashboard');
-            privilege = 'employer';
         }
         else {
             res.redirect('/');
@@ -623,7 +623,7 @@ app.get('/admin/dashboard/nosproduits', async (req, res) => {
             categories.add(produit.cat_nom);
         });
 
-        res.render('./pages/admin/pages/produit', { titrePage: "Nos Produit", Authentification: isLoggedIn, listProduit: listProduit, categories: categories });
+        res.render('./pages/admin/pages/produit', { titrePage: "Nos Produit", Authentification: isLoggedIn, listProduit: listProduit, categories: categories, Privilege: privilege});
     } catch (err) {
         console.log(err);
         res.status(500).send('Server Error');
@@ -669,7 +669,7 @@ app.get('/admin/dashboard/reservations', async (req, res) => {
 
         const listReservation = await reservation.find().toArray();
         const listClient = await client.find().toArray();
-        res.render('./pages/admin/pages/reservation', { titrePage: "Reservation", Authentification: isLoggedIn, listReservation: listReservation, listClient: listClient });
+        res.render('./pages/admin/pages/reservation', { titrePage: "Reservation", Authentification: isLoggedIn, listReservation: listReservation, listClient: listClient, Privilege: privilege });
     } catch (err) {
         console.error(err);
         res.status(500).send('Server Error');

@@ -1,7 +1,7 @@
 <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
     <div class="position-sticky">
       <div class="list-group list-group-flush mx-3 mt-4">
-        <% if (Privilege == 'admin') { %>
+        <% if (Privilege == "admin") { %>
             <a class="list-group-item list-group-item-action py-2 ripple disabled" aria-current="true">
                 <i class="fas fa-tachometer-alt fa-fw me-3"></i><span class="title-navbar">Admin</span>
               </a>
@@ -35,7 +35,7 @@
               <a href="/admin/dashboard/logout" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
                   <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Logout</span>
               </a>
-        <% } else { %>
+        <% } if (Privilege == "employé") { %>
             <a class="list-group-item list-group-item-action py-2 ripple disabled" aria-current="true">
                 <i class="fas fa-tachometer-alt fa-fw me-3"></i><span class="title-navbar">Employé</span>
               </a>
