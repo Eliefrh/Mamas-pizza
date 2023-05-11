@@ -640,7 +640,7 @@ app.get('/admin/dashboard/editproduit/:prd', async (req, res) => {
 
         const produit = db.collection("Produit");
         const OneProduit = await produit.findOne({ _id: new ObjectId(id) });
-        res.render('pages/admin/pages/edit-produit', { titrePage: "Éditer ProduitS", OneProduit: OneProduit });
+        res.render('pages/admin/pages/edit-produit', { titrePage: "Éditer ProduitS", OneProduit: OneProduit, Privilege: privilege  });
     } catch (err) {
         console.log(err);
         res.status(500).send('Server Error');

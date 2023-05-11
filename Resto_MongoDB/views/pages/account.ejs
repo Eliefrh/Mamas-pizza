@@ -9,37 +9,37 @@
   <%- include('../partials/navbar.ejs')%>
   <br>
   <br>
-  <span id="account-form-title">Account : <%= LoggedInForm.cl_nom %>, <%= LoggedInForm.cl_prenom %></span>
+  <span id="account-form-title">Compte : <%= LoggedInForm.cl_nom %>, <%= LoggedInForm.cl_prenom %></span>
     <section class="account-form-section">
       <div id="account-form-div">
         <form method="post" action="http://localhost:29017/account"> 
           <div class="form-group">
-            <label for="account-form-new-prenom">Nouveau Prénom :</label>
+            <label for="account-form-new-prenom">Prénom :</label>
             <input type="text" class="form-control" id="account-form-new-prenom" name="account-form-prenom" value="<%= LoggedInForm.cl_prenom %>">
           </div>
           <div class="form-group">
-            <label for="account-form-new-nom">Nouveau Nom :</label>
+            <label for="account-form-new-nom">Nom :</label>
             <input type="text" class="form-control" id="account-form-new-nom" name="account-form-nom" value="<%= LoggedInForm.cl_nom %>">
           </div>
           <div class="form-group">
-            <label for="account-form-new-email">Nouveau Addresse Courriel :</label>
+            <label for="account-form-new-email">Adresse courriel :</label>
             <input type="email" class="form-control" id="account-form-new-email" name="account-form-email" value="<%= LoggedInForm.cl_courriel %>">
           </div>
           <div class="form-group">
-            <label for="account-form-new-phone">Nouveau Téléphone :</label>
+            <label for="account-form-new-phone">Téléphone :</label>
             <input type="tel" class="form-control" id="account-form-new-phone" name="account-form-phone" value="<%= LoggedInForm.cl_telephone %>">
           </div>
           <div class="form-group">
-            <label for="account-form-new-address">Nouveau Address :</label>
+            <label for="account-form-new-address">Adresse :</label>
             <input type="text" class="form-control" id="account-form-new-address" name="account-form-address" value="<%= LoggedInForm.cl_address %>">
           </div>
           <div class="form-group">
-            <label for="account-form-new-zip">Nouveau Code Postal :</label>
+            <label for="account-form-new-zip">Code Postal :</label>
             <input type="text" class="form-control" id="account-form-new-zip" name="account-form-zip" value="<%= LoggedInForm.cl_code_postal %>">
           </div>
           <div class="form-row">
             <div class="col">
-                <label for="account-form-new-password">Nouveau Mot de Passe :</label>
+                <label for="account-form-new-password">Mot de passe :</label>
                 <input type="password" class="form-control" id="account-form-new-password" name="account-form-password" value="" placeholder="Mot de Passe" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
             </div>
             <div class="col">
@@ -48,7 +48,7 @@
             </div>
           </div><br>
           <div class="form-group">
-            <label for="account-form-conformation-password">Mot de Passe de Confirmation : (votre vieux mot de passe)</label>
+            <label for="account-form-conformation-password">Mot de passe de confirmation : (votre vieux mot de passe)</label>
             <input type="password" class="form-control" id="account-form-conformation-password" name="account-form-conformation-password" placeholder="Mot de Passe" required>
           </div>
           <button type="submit" class="btn btn-secondary">Soumettre</button>

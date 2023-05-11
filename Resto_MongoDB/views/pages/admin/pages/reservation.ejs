@@ -11,17 +11,17 @@
     
     <main style="margin-top: 6pc;">
         <div class="line-dashboard">
-            <span id="titre-dashboard">List de Reservation<hr></span>
+            <span id="titre-dashboard">Liste de réservations<hr></span>
         </div>
         <section class="section-reservation">
             <div class="div-arrived-reservation">
-                <span class="div-reservation-titre">Non Arriver<hr></span>
+                <span class="div-reservation-titre">Non Arrivée<hr></span>
                 <div class="header-reservation-line">
                     <div class="reservation-name-line">
-                        <span class="reservation-name">Name</span>
+                        <span class="reservation-name">Nom</span>
                     </div>
                     <div class="reservation-siege-line">
-                        <span class="reservation-siege">Siege</span>
+                        <span class="reservation-siege">Sièges</span>
                     </div>
                     <div class="reservation-date-line">
                         <span class="reservation-date">Date</span>
@@ -57,7 +57,7 @@
                 <% } %>
             </div>
             <div class="div-arrived-reservation">
-                <span class="div-reservation-titre">Arriver<hr></span>
+                <span class="div-reservation-titre">Arrivée<hr></span>
 
                 <% for (let i = 0; i < listReservation.length; i++) { %>
                 <% if (listReservation[i].status_reservation=="true") { %>
