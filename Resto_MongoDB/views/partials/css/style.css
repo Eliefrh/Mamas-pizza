@@ -4,7 +4,6 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-
 /* Index Page */
 
 .front-header {
@@ -21,7 +20,7 @@
 }
 
 #front-header-text {
-    padding-top: 150px;
+    padding: 150px 0 0 0;
 }
 
 #front-header-small-text {
@@ -38,8 +37,7 @@
 }
 
 #front-header-img {
-    padding-top: 25px;
-    padding-left: 2.5%;
+    padding: 25px 0 0 2.5%;
 }
 
 .nos-special-section {
@@ -51,7 +49,7 @@
 }
 
 .nos-special-div {
-    margin-left: 5%;
+    margin: 0 0 0 5%;
     width: 90%;
     float: none;
 }
@@ -60,7 +58,7 @@
     height: 20pc;
     width: 33.33%;
     float: left;
-    margin-bottom: 3pc;
+    margin: 0 0 3pc 0;
     text-align: center;
 }
 
@@ -73,7 +71,7 @@
 
 .nos-special-item-img {
     width: 90%;
-    padding-left: 5%;
+    padding: 0 0 0 5%;
 }
 
 .nos-special-item-prix {
@@ -83,8 +81,7 @@
 }
 
 #nos-special-txt {
-    padding-top: 20px;
-    padding-left: 20px;
+    padding: 20px 0 0 20px;
 }
 
 #nos-special-title {
@@ -118,8 +115,6 @@
     float: left;
 }
 
-
-
 #menu-paragraphe {
     font-size: 20px;
     padding: 2.5pc;
@@ -133,8 +128,7 @@
     border-color: white;
     background-color: transparent;
     border-radius: 10px;
-    margin-top: 50px;
-    margin-left: 20%;
+    margin: 50px 0 0 20%;
     height: 30%;
     display: flex;
     width: 60%;
@@ -171,8 +165,7 @@
     border-color: white;
     background-color: transparent;
     border-radius: 10px;
-    margin-top: 50px;
-    margin-left: 20%;
+    margin: 50px 0 0 20%;
     height: 50%;
     display: flex;
     width: 60%;
@@ -228,7 +221,7 @@
 }
 
 #maps {
-    padding-left: 5%;
+    padding: 0 0 0 5%;
     height: 350px;
     width: 90%;
     border-radius: 10px;
@@ -240,16 +233,13 @@
 .login-form {
     height: auto;
     background-color: whitesmoke;
-    margin-left: 5pc;
-    margin-bottom: 5pc;
-    margin-right: 5pc;
+    margin: 0 5pc 5pc 5pc;
     border-radius: 10px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 #login-form-titre {
-    margin-left: 5pc;
-    margin-top: 5pc;
+    margin: 5pc 0 0 5pc;
     font-size: 30px;
 }
 
@@ -263,16 +253,13 @@
 .sign-up-form-section {
     height: auto;
     background-color: whitesmoke;
-    margin-left: 5pc;
-    margin-bottom: 5pc;
-    margin-right: 5pc;
+    margin: 0 5pc 5pc 5pc;
     border-radius: 10px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 #sign-up-form-titre {
-    margin-left: 5pc;
-    margin-top: 5pc;
+    margin: 5pc 0 0 5pc;
     font-size: 30px;
 }
 
@@ -291,7 +278,7 @@
 
 #reservation-header-div {
     text-align: center;
-    padding-top: 100px;
+    padding: 100px 0 0 0;
 }
 
 #reservation-header-title {
@@ -312,14 +299,11 @@
 #reservation-form-div {
     width: 50%;
     float: left;
-    padding-left: 4%;
-    padding-right: 4%;
-    padding-top: 4%;
+    padding: 4% 4% 0 4%;
 }
 
-#resservation-form-titre {
-    margin-left: 4%;
-    margin-top: 10%;
+#reservation-form-titre {
+    margin: 10% 0 0 4%;
     font-size: 30px;
 }
 
@@ -331,7 +315,7 @@
     height: 250px;
     display: flex;
     justify-content: center;
-    margin-bottom: 3%;
+    margin: 0 0 3% 0;
 }
 
 #menu-titre {
@@ -347,20 +331,20 @@
     gap: 25px;
     flex-wrap: wrap;
     text-align: center;
-    margin-bottom: 2%;
+    margin: 0 0 2% 0;
 }
 
 .menu-categorie-titre {
     font-size: 2em;
     text-align: center;
-    padding-bottom: 1%;
+    padding: 0 0 1% 0;
 }
 
 .menu-item {
     border-radius: 10px;
     width: 20%;
     background-color: whitesmoke;
-    padding-bottom: 2%;
+    padding: 0 0 2% 0;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
 
@@ -371,8 +355,7 @@
 
 .menu-item-description {
     width: 90%;
-    padding-left: 5%;
-    padding-bottom: 2%;
+    padding: 0 0 2% 5%;
 }
 
 .menu-commander {
@@ -456,7 +439,7 @@
     background-color: rgb(194, 105, 105);
     color: white;
     font-size: 20px;
-    margin-bottom: 5%;
+    margin: 0 0 5% 0;
 }
 
 #item-ajouter-panier:hover {
@@ -495,47 +478,35 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 /* Account Page */
 
 #account-form-title {
-    margin-left: 5pc;
-    margin-top: 5pc;
+    margin: 5pc 0 0 5pc;
     font-size: 30px;
 }
 
 .account-form-section {
     height: 850px;
     background-color: whitesmoke;
-    margin-left: 5pc;
-    margin-bottom: 5pc;
-    margin-right: 5pc;
+    margin: 0 5pc 5pc 5pc;
     border-radius: 10px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 #account-form-div {
-    padding-left: 4%;
-    padding-right: 4%;
-    padding-top: 4%;
+    padding: 4% 4% 0 4%;
 }
 
 /* Review list page */
 
 .reviewer-section {
-    margin-left: 5pc;
-    margin-bottom: 5pc;
-    margin-right: 5pc;
+    margin: 0 5pc 5pc 5pc;
 }
 
 #reviewer-div {
     height: auto;
     background-color: whitesmoke;
-    padding-left: 4%;
-    padding-right: 4%;
-    padding-top: 2%;
-    padding-bottom: 2%;
+    padding: 2% 4% 2% 4%;
     border-radius: 10px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-    margin-left: 5pc;
-    margin-bottom: 5pc;
-    margin-right: 5pc;
+    margin: 0 5pc 5pc 5pc;
 }
 
 #reviewer-name {
@@ -557,9 +528,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 /* Panier Page */
 
 #panier-title {
-    margin-top: 3%;
-    margin-left: 5pc;
-    margin-right: 5pc;
+    margin: 3% 5pc 0 5pc;
 }
 
 .panier-item-div {
@@ -568,18 +537,14 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     padding: 2% 4% 2% 4%;
     border-radius: 10px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-    margin-left: 5pc;
-    margin-right: 5pc;
+    margin: 0 5pc 0 5pc;
 }
 
 .panier-payment-div {
     height: 20pc;
     width: 90%;
     display: flex;
-    margin-bottom: 5pc;
-    margin-left: 5.5pc;
-    margin-right: 5pc;
-    margin-top: 1.5pc;
+    margin: 1.5pc 5pc 5pc 5.5pc;
 }
 
 .panier-payment-one {
@@ -650,7 +615,7 @@ body {
 }
 @media (min-width: 991.98px) {
     main {
-        padding-left: 240px;
+        padding: 0 0 0 240px;
     }
 }
     
@@ -660,7 +625,7 @@ body {
     top: 0;
     bottom: 0;
     left: 0;
-    padding: 58px 0 0;
+    padding: 58px 0 0 0;
     box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
     width: 240px;
     z-index: 600;
@@ -680,7 +645,7 @@ body {
     position: relative;
     top: 0;
     height: calc(100vh - 48px);
-    padding-top: 0.5rem;
+    padding: 0.5rem 0 0 0;
     overflow-x: hidden;
     overflow-y: auto; 
 }
@@ -708,8 +673,7 @@ body {
 /* Dashboard */
 
 .line-dashboard {
-    margin-left: 3pc;
-    margin-right: 3pc;
+    margin: 0 3pc 0 3pc;
 }
 
 #titre-dashboard {
@@ -719,18 +683,14 @@ body {
 
 .section-statistique {
     height: 15pc;
-    margin-left: 3pc;
-    margin-right: 3pc;
+    margin: 2pc 3pc 2pc 3pc;
     display: flex;
-    margin-top: 2pc;
-    margin-bottom: 2pc;
 }
 
 .div-statistique {
     height: 80%;
     width: 20%;
-    margin-left: 4%;
-    margin-top: 1.5pc;
+    margin: 1.5pc 0 0 4%;
     border-radius: 10px;
     background-color: whitesmoke;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
@@ -753,17 +713,14 @@ body {
 
 .section-prd-cmd {
     height: 25pc;
-    margin-left: 3pc;
-    margin-right: 3pc;
-    margin-bottom: 2pc;
+    margin: 0 3pc 2pc 3pc;
     display: flex;
 }
 
 .div-most-prod {
     height: 90%;
     width: 30%;
-    margin-top: 1.4pc;
-    margin-left: 3.33%;
+    margin: 1.4pc 0 0 3.33%;
     border-radius: 10px;
     background-color: whitesmoke;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
@@ -771,9 +728,7 @@ body {
 
 .content-most-prod {
     width: 80%;
-    margin-left: 10%;
-    margin-top: 1pc;
-    margin-bottom: 1pc;
+    margin: 1pc 0 1pc 10%;
 }
 
 
@@ -787,7 +742,7 @@ body {
     width: 100%;
     display: flex;
     height: auto;
-    margin-bottom: 0.5pc;
+    margin: 0 0 0.5pc 0;
 }
 
 .most-prod-img-line {
@@ -799,12 +754,12 @@ body {
     height: 45px; 
     width: 50px; 
     background-color: gray; 
-    margin-left: 0.5pc;
+    margin: 0 0 0 0.5pc;
 }
 
 .most-prod-name-line {
     width: 70%;
-    padding-top: 0.7pc;
+    padding: 0.7pc 0 0 0;
     text-align: center;
 }
 
@@ -817,8 +772,7 @@ body {
 .div-recent-cmd {
     height: 90%;
     width: 60%;
-    margin-top: 1.4pc;
-    margin-left: 3.33%;
+    margin: 1.4pc 0 0 3.33%;
     border-radius: 10px;
     background-color: whitesmoke;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
@@ -826,9 +780,7 @@ body {
 
 .content-recent-cmd {
     width: 90%;
-    margin-left: 5%;
-    margin-top: 1pc;
-    margin-bottom: 1pc;
+    margin: 1pc 0 1pc 5%;
 }
 
 .recent-cmd-titre {
@@ -841,35 +793,35 @@ body {
     width: 100%;
     display: flex;
     height: auto;
-    margin-bottom: 0.5pc;
+    margin: 0 0 0 0.5pc;
 }
 
 .recent-cmd-id-line {
     width: 15%;
     height: 2.5pc;
     text-align: center;
-    padding-top: 0.5pc;
+    padding: 0.5pc 0 0 0;
 }
 
 .recent-cmd-name-line {
     width: 30%;
     height: 2.5pc;
     text-align: center;
-    padding-top: 0.5pc;
+    padding: 0.5pc 0 0 0;
 }
 
 .recent-cmd-date-line {
     width: 30%;
     height: 2.5pc;
     text-align: center;
-    padding-top: 0.5pc;
+    padding: 0.5pc 0 0 0;
 }
 
 .recent-cmd-status-line {
     width: 25%;
     height: 2.5pc;
     text-align: center;
-    padding-top: 0.5pc;
+    padding: 0.5pc 0 0 0;
 }
 
 .recent-cmd-header-txt {
@@ -907,25 +859,21 @@ body {
 
 .section-nos-produit {
     height: auto;
-    margin-left: 3pc;
-    margin-right: 3pc;
-    margin-top: 2pc;
-    margin-bottom: 2pc;
+    margin: 2pc 3pc 2pc 3pc;
 }
 
 .category-nos-produit {
     font-size: 20px;
     font-weight: 100;
     font-family: cursive;
-    margin-top: 0.5pc;
-    margin-bottom: 0.5pc;
+    margin: 0.5pc 0 0.5pc 0;
     width: 100%;
     color: gray;
 }
 
 .nos-produit-line {
     width: 100%;
-    margin-bottom: 1pc;
+    margin: 0 0 0 1pc;
     display: flex;
 }
 
@@ -933,7 +881,7 @@ body {
     width: 10%;
     height: 5pc;
     text-align: center;
-    padding-top: 0.5pc;
+    padding: 0.5pc 0 0 0;
 }
 
 .nos-produit-img {
@@ -945,7 +893,7 @@ body {
     width: 30%;
     height: 5pc;
     text-align: center;
-    padding-top: 1.8pc;
+    padding: 1.8pc 0 0 0;
 }
 
 .nos-produit-id {
@@ -958,7 +906,7 @@ body {
     width: 30%;
     height: 5pc;
     text-align: center;
-    padding-top: 1.8pc;
+    padding: 1.8pc 0 0 0;
 }
 
 .nos-produit-name {
@@ -971,7 +919,7 @@ body {
     width: 12%;
     height: 5pc;
     text-align: center;
-    padding-top: 1.9pc;
+    padding: 1.9pc 0 0 0;
 }
 
 .nos-produit-prix {
@@ -989,24 +937,21 @@ body {
 .nos-produit-btn-edit {
     width: 4.5pc;
     height: 2pc;
-    margin-top: 1.6pc;
-    margin-left: 0.4pc;
+    margin: 1.6pc 0 0 0.4pc;
     border-radius: 10px;
 }
 
 .nos-produit-btn-del {
     width: 4.5pc;
     height: 2pc;
-    margin-top: 1.6pc;
-    margin-left: 0.7pc;
+    margin: 1.6pc 0 0 0.7pc;
     border-radius: 10px;
 }
 
 /* page admin reservation */
 
 .section-reservation {
-    margin-left: 3pc;
-    margin-right: 3pc;
+    margin: 0 3pc 0 3pc;
     height: auto;
 }
 
@@ -1020,15 +965,14 @@ body {
 }
 
 .div-arrived-reservation {
-    margin-top: 2pc;
-    margin-bottom: 2pc;
+    margin: 2pc 0 2pc 0;
 }
 
 .header-reservation-line {
     height: 3pc;
     width: 100%;
     display: flex;
-    margin-bottom: 0.5pc;
+    margin: 0 0 0 0.5pc;
     font-family: cursive;
     text-align: center;
     color: white;
@@ -1039,35 +983,35 @@ body {
     height: 3pc;
     width: 100%;
     display: flex;
-    margin-bottom: 1pc;
+    margin: 0 0 0 0.5pc;
     text-align: left;
     font-family: cursive;
     color: gray;
+    text-align: center;
 }
 
 .reservation-name-line {
     width: 30%;
     height: auto;
-    padding-top: 0.8pc;
-    padding-left: 0.2pc;
+    padding: 0.8pc 0 0 0;
 }
 
 .reservation-siege-line {
     width: 20%;
     height: auto;
-    padding-top: 0.8pc;
+    padding: 0.8pc 0 0 0;
 }
 
 .reservation-date-line {
     width: 40%;
     height: auto;
-    padding-top: 0.8pc;
+    padding: 0.8pc 0 0 0;
 }
 
 .reservation-btn-line {
     width: 10%;
     height: auto;
-    padding-top: 0.5pc;
+    padding: 0.5pc 0 0 0;
 }
 
 .reservation-btn {
@@ -1080,11 +1024,12 @@ body {
     height: 3pc;
     width: 100%;
     display: flex;
-    margin-bottom: 1pc;
+    margin: 0 0 0 0.5pc;
     text-align: left;
     font-family: cursive;
     color: gray;
     background-color: rgba(0, 0, 0, 0.2);
+    text-align: center;
 }
 
 .reservation-btn-true {
@@ -1120,9 +1065,7 @@ body {
     display: flex;
     height: 3pc;
     background-color: grey;
-    padding-left: 3pc;
-    padding-right: 3pc;
-    padding-top: 0.8pc;
+    padding: 0.8pc 3pc 0 3pc;
     text-align: center;
     color: white;
 }
@@ -1130,10 +1073,8 @@ body {
 .Utilisateur-line {
     display: flex;
     height: 3pc;
-    margin-left: 3pc;
-    margin-right: 3pc;
-    margin-bottom: 1pc;
-    padding-top: 0.8pc;
+    margin: 0 3pc 1pc 3pc;
+    padding: 0.8pc 0 0 0;
 }
 
 .utilisateur-line-name {
