@@ -53,6 +53,10 @@ app.use('/css', express.static(__dirname + '/views/partials/css'));
 app.use('/img', express.static(__dirname + '/views/partials/img', { extensions: ['jpg', 'png'] }));
 app.use('/js', express.static(__dirname + '/views/partials/js'));
 app.use('/js', express.static(__dirname + '/node_modules/adminjs'));
+app.use('/html', express.static(__dirname + '/public'));
+
+app.use(express.static('views/pages'));
+
 
 // Parse Data
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -238,9 +242,9 @@ app.get('/checkout', async (req, res) => {
     res.render("pages/checkout", { titrePage: "Chekout", Authentification: isLoggedIn, LoggedInForm: loggedInForm });
 });
 
-app.get('/paiement.html', (req, res) => {
-    res.sendFile('./views/pages/paiement.html');
-});
+// app.get('/paiement.html', (req, res) => {
+//     res.sendFile('./views/pages/paiement.html');
+// });
 
 /*
   Le post methode pour la page de Sign Up
@@ -536,8 +540,9 @@ app.post('/panier', requireAuth, async (req, res) => {
 app.use(express.json());
 
 app.post("/my-server/create-paypal-order", async (req, res) => {
+    console.log('paypal');
     try {
-        const order = await paypal.createOrder();
+        const order = await createOrder();
         res.json(order);
     } catch (err) {
         res.status(500).send(err.message);
@@ -547,7 +552,7 @@ app.post("/my-server/create-paypal-order", async (req, res) => {
 app.post("/my-server/capture-paypal-order", async (req, res) => {
     const { orderID } = req.body;
     try {
-        const captureData = await paypal.capturePayment(orderID);
+        const captureData = await capturePayment(orderID);
         res.json(captureData);
     } catch (err) {
         res.status(500).send(err.message);
@@ -623,7 +628,7 @@ app.get('/admin/dashboard/nosproduits', async (req, res) => {
             categories.add(produit.cat_nom);
         });
 
-        res.render('./pages/admin/pages/produit', { titrePage: "Nos Produit", Authentification: isLoggedIn, listProduit: listProduit, categories: categories, Privilege: privilege});
+        res.render('./pages/admin/pages/produit', { titrePage: "Nos Produit", Authentification: isLoggedIn, listProduit: listProduit, categories: categories, Privilege: privilege });
     } catch (err) {
         console.log(err);
         res.status(500).send('Server Error');
@@ -640,7 +645,7 @@ app.get('/admin/dashboard/editproduit/:prd', async (req, res) => {
 
         const produit = db.collection("Produit");
         const OneProduit = await produit.findOne({ _id: new ObjectId(id) });
-        res.render('pages/admin/pages/edit-produit', { titrePage: "Éditer ProduitS", OneProduit: OneProduit, Privilege: privilege  });
+        res.render('pages/admin/pages/edit-produit', { titrePage: "Éditer ProduitS", OneProduit: OneProduit, Privilege: privilege });
     } catch (err) {
         console.log(err);
         res.status(500).send('Server Error');
@@ -794,6 +799,77 @@ app.post('/admin/dashboard/ajoutproduit', async (req, res) => {
     }
 });
 
+let fetch;
+import('node-fetch')
+    .then(nodeFetch => {
+        fetch = nodeFetch.default;
+    });
+
+const { CLIENT_ID, APP_SECRET } = process.env;
+const base = "https://api-m.sandbox.paypal.com";
+
+async function createOrder() {
+    console.log("create orderrrrr")
+    const accessToken = await generateAccessToken();
+    const url = `${base}/v2/checkout/orders`;
+    const response = await fetch(url, {
+        method: "post",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+            intent: "CAPTURE",
+            purchase_units: [
+                {
+                    amount: {
+                        currency_code: "USD",
+                        value: "100.00",
+                    },
+                },
+            ],
+        }),
+    });
+
+    return handleResponse(response);
+}
+
+async function capturePayment(orderId) {
+    const accessToken = await generateAccessToken();
+    const url = `${base}/v2/checkout/orders/${orderId}/capture`;
+    const response = await fetch(url, {
+        method: "post",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+        },
+    });
+
+    return handleResponse(response);
+}
+
+async function generateAccessToken() {
+    const auth = Buffer.from(CLIENT_ID + ":" + APP_SECRET).toString("base64");
+    const response = await fetch(`${base}/v1/oauth2/token`, {
+        method: "post",
+        body: "grant_type=client_credentials",
+        headers: {
+            Authorization: `Basic ${auth}`,
+        },
+    });
+
+    const jsonData = await handleResponse(response);
+    return jsonData.access_token;
+}
+
+async function handleResponse(response) {
+    if (response.status === 200 || response.status === 201) {
+        return response.json();
+    }
+
+    const errorMessage = await response.text();
+    throw new Error(errorMessage);
+}
 
 // Employer section dans le admin 
 
