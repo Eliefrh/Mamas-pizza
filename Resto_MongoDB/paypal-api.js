@@ -8,6 +8,7 @@ const { CLIENT_ID, APP_SECRET } = process.env;
 const base = "https://api-m.sandbox.paypal.com";
 
 async function createOrder() {
+    console.log("create orderrrrr")
     const accessToken = await generateAccessToken();
     const url = `${base}/v2/checkout/orders`;
     const response = await fetch(url, {
@@ -21,7 +22,7 @@ async function createOrder() {
             purchase_units: [
                 {
                     amount: {
-                        currency_code: "CAD",
+                        currency_code: "USD",
                         value: "100.00",
                     },
                 },
@@ -68,6 +69,8 @@ async function handleResponse(response) {
     const errorMessage = await response.text();
     throw new Error(errorMessage);
 }
+
+module.exports = { createOrder, capturePayment, generateAccessToken };
 
 module.exports = { createOrder };
 module.exports = { capturePayment };

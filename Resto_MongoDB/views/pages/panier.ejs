@@ -11,10 +11,24 @@
     <script src="panier.ejs" defer></script>
 
     <script>
-      const myButton = document.getElementById('myButton');
-      myButton.addEventListener('click', function () {
-        window.location.href = './views/pages/paiement.html';
-      });
+      // const myButton = document.getElementById('myButton');
+      // myButton.addEventListener('click', function () {
+      //   window.location.href = './views/pages/paiement.html';
+      // });
+
+
+      // const button = document.querySelector('#myButton');
+      // if (button !== null) {
+      //   button.addEventListener('click', function () {
+      //     window.location.href = './views/pages/paiement.html';
+      //   });
+      // }
+
+      function redirectToPayment() {
+        // window.alert("sdhfkjdsfkjdshfskdf");
+        console.log("button");
+        window.location.href = '/html/index.html';
+      }
     </script>
 </head>
 
@@ -165,11 +179,7 @@
 
           <button id="myButton" onclick="redirectToPayment()">Click me</button>
 
-          <script>
-            function redirectToPayment() {
-              window.location.href = "./views/pages/paiement.html";
-            }
-          </script>
+
     </h3>
 
 
