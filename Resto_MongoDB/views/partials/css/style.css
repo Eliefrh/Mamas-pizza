@@ -1127,12 +1127,54 @@ body {
 
 /* Le page employer dashboard */
 
+.section-recent-commande {
+    height: auto;
+    margin-left: 3pc;
+    margin-right: 3pc;
+    padding-left: 1pc;
+    padding-top: 1pc;
+    padding-bottom: 3pc;
+    padding-right: 1pc;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.recent-commande-header {
+    background-color:rgba(0, 0, 0, 0.2);
+    height: 3pc;
+    display: flex;
+    margin-bottom: 2pc;
+    padding-top: 1pc;
+    text-align: center;
+    font-family: cursive;
+    color: gray;
+}
+
+.recent-commande-titre {
+    width: 100%;
+    font-size: 20px;
+    margin-bottom: 2pc;
+    font-family: cursive;
+    color: gray;
+    font-weight: bold;
+}
+
+
+.recent-commande-line {
+    height: 3pc;
+    display: flex;
+    margin-bottom: 1pc;
+    padding-top: 1pc;
+    text-align: center;
+}
+
 .section-recent-reservation {
     height: auto;
     margin-left: 3pc;
     margin-right: 3pc;
     padding-left: 1pc;
     padding-top: 1pc;
+    padding-bottom: 3pc;
     padding-right: 1pc;
     border-radius: 10px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
@@ -1142,6 +1184,9 @@ body {
     width: 100%;
     font-size: 20px;
     margin-bottom: 2pc;
+    font-family: cursive;
+    color: gray;
+    font-weight: bold;
 }
 
 .recent-reservation-header {
@@ -1149,6 +1194,43 @@ body {
     height: 3pc;
     display: flex;
     margin-bottom: 2pc;
-    padding-top: 0.6pc;
+    padding-top: 1pc;
     text-align: center;
+    font-family: cursive;
+    color: gray;
+}
+
+.recent-reservation-line-name {
+    width: 30%;
+    height: auto;
+}
+
+.recent-reservation-line-siege {
+    width: 30%;
+    height: auto;
+}
+
+.recent-reservation-line-date {
+    width: 30%;
+    height: auto;
+}
+
+.recent-reservation-line-true {
+    height: 3pc;
+    display: flex;
+    margin-bottom: 0.8pc;
+    padding-top: 1pc;
+    text-align: center;
+    background-color: rgba(0, 128, 0);
+    color: white;
+}
+
+.recent-reservation-line-false {
+    height: 3pc;
+    display: flex;
+    margin-bottom: 0.8pc;
+    padding-top: 1pc;
+    text-align: center;
+    background-color: rgba(255, 0, 0);
+    color: white;
 }

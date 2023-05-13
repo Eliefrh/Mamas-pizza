@@ -826,7 +826,21 @@ app.post('/admin/ajoutproduit', async (req, res) => {
 // Employer section dans le admin 
 
 app.get('/employe/dashboard', async (req, res) => {
-    res.render('./pages/admin/pages/employer-dashboard', { titrePage: "Dashboard", Authentification: isLoggedIn, adminPrivilege:adminPrivilege, employeePrivilege:employeePrivilege });
+    try {
+        const mongo = await operation.ConnectionDeMongodb();
+        const db = mongo.db("Resto_awt");
+
+        const reservation = db.collection("Reservation");
+        const client = db.collection("Client");
+
+        listReservation = await reservation.find().limit(5).toArray();
+        listClient = await client.find().toArray();
+
+        res.render('./pages/admin/pages/employer-dashboard', { titrePage: "Dashboard", Authentification: isLoggedIn, adminPrivilege:adminPrivilege, employeePrivilege:employeePrivilege, listReservation:listReservation, listClient:listClient });
+    } catch(err){
+        console.log(err);
+        res.status(500).send('Server Error');
+    }
 });
 
 // Section du paiement

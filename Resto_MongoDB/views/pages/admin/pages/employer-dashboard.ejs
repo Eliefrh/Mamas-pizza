@@ -11,13 +11,16 @@
         <div class="line-dashboard">
             <span id="titre-dashboard">Tableau de bord<hr></span>
         </div>
-<!-- 
+
         <section class="section-recent-commande">
             <span class="recent-commande-titre">Commande plus récente<br></span>
-            <div class="recent-commande-line">
+            <div class="recent-commande-header">
 
             </div>
-        </section> -->
+            <div class="recent-commande-line">
+                
+            </div>
+        </section>
 
         <section class="section-recent-reservation">
             <span class="recent-reservation-titre">Reservation plus récente<hr></span>
@@ -26,11 +29,29 @@
                 <div class="recent-reservation-line-siege">Siège</div>
                 <div class="recent-reservation-line-date">Date</div>
             </div>
-            <div class="recent-reservation-line">
-                <div class="recent-reservation-line-name"></div>
-                <div class="recent-reservation-line-siege"></div>
-                <div class="recent-reservation-line-date"></div>
-            </div>
+            <% for( let i = 0; i < listReservation.length; i++ ) { %>
+                <% if (listReservation[i].status_reservation == "false") { %>
+                <div class="recent-reservation-line-false">
+                    <% for( let c = 0; c < listClient.length; c++ ) { %>
+                        <% if (listClient[c]._id.toString() == listReservation[i].cl_id) { %>
+                            <div class="recent-reservation-line-name"><%= listClient[c].cl_prenom %> <%= listClient[c].cl_nom %></div>
+                        <% } %>
+                    <% } %>
+                    <div class="recent-reservation-line-siege"><%= listReservation[i].num_siege %></div>
+                    <div class="recent-reservation-line-date"><%= listReservation[i].date_reservation %></div>
+                </div>
+                <% } else if (listReservation[i].status_reservation == "true") { %>
+                <div class="recent-reservation-line-true">
+                    <% for( let c = 0; c < listClient.length; c++ ) { %>
+                        <% if (listClient[c]._id.toString() == listReservation[i].cl_id) { %>
+                            <div class="recent-reservation-line-name"><%= listClient[c].cl_prenom %> <%= listClient[c].cl_nom %></div>
+                        <% } %>
+                    <% } %>
+                    <div class="recent-reservation-line-siege"><%= listReservation[i].num_siege %></div>
+                    <div class="recent-reservation-line-date"><%= listReservation[i].date_reservation %></div>
+                </div>
+                <% } %>
+            <% } %>
         </section>
     </main>
     <%- include('../partials/bootstrap.ejs')%>
