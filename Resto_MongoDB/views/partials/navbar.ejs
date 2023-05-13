@@ -14,10 +14,10 @@
             <li class="nav-item">
                 <a class="nav-link" href="/menu">Menu<span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/reservation">Reservation<span class="sr-only">(current)</span></a>
-            </li>
             <% if (Authentification) { %>
+                <li class="nav-item">
+                    <a class="nav-link" href="/reservation">Reservation<span class="sr-only">(current)</span></a>
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Rétroaction
@@ -41,7 +41,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="/panier">Panier<span class="sr-only">(current)</span></a>
             </li>
-            <% if (Privilege == "admin") { %>
+            <% if (adminPrivilege) { %>
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/dashboard">Tableau de bord<span class="sr-only">(current)</span></a>
                 </li>

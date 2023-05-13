@@ -17,17 +17,21 @@
             <div class="utilisateur-header">
                 <div class="utilisateur-line-name">Nom</div>
                 <div class="utilisateur-line-email">Courriel</div>
-                <div class="utilisateur-line-number">Numéro de téléphone</div>
+                <div class="utilisateur-line-number">Téléphone</div>
                 <div class="utilisateur-line-address">Adresse</div>
                 <div class="utilisateur-line-zip">Code postal</div>
+                <div class="utilisateur-line-btn"></div>
             </div>
+            <% for (let i = 0; i < listClient.length; i++) { %>
             <div class="utilisateur-line">
-                <div class="utilisateur-line-name">dwada</div>
-                <div class="utilisateur-line-email"></div>
-                <div class="utilisateur-line-number"></div>
-                <div class="utilisateur-line-address"></div>
-                <div class="utilisateur-line-zip"></div>
+                <div class="utilisateur-line-name"><%= listClient[i].cl_prenom %> <%= listClient[i].cl_nom %></div>
+                <div class="utilisateur-line-email"><%= listClient[i].cl_courriel%></div>
+                <div class="utilisateur-line-number"><%= listClient[i].cl_telephone %></div>
+                <div class="utilisateur-line-address"><%= listClient[i].cl_address %></div>
+                <div class="utilisateur-line-zip"><%= listClient[i].cl_code_postal %></div>
+                <div class="utilisateur-line-btn"><button class="utilisateur-btn btn-danger">Delete</button></div>
             </div>
+            <% } %>
         </section>
     </main>
 

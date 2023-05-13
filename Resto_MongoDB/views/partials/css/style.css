@@ -1065,7 +1065,10 @@ body {
     height: 3pc;
     width: 100%;
     display: flex;
-    margin: 0 0 0 0.5pc;
+    padding-left: 0.5pc;
+    padding-right: 0.5pc;
+    margin-bottom: 0.5pc;
+    padding-top: 0.8pc;
     font-family: cursive;
     text-align: center;
     color: white;
@@ -1076,9 +1079,13 @@ body {
     height: 3pc;
     width: 100%;
     display: flex;
-    margin: 0 0 0 0.5pc;
+    padding-left: 0.5pc;
+    padding-right: 0.5pc;
+    margin-bottom: 0.6pc;
+    padding-top: 0.8pc;
     text-align: left;
     font-family: cursive;
+    font-size: 14px;
     color: gray;
     text-align: center;
 }
@@ -1094,7 +1101,7 @@ body {
 }
 
 .utilisateur-line-number {
-    width: 25%;
+    width: 10%;
     height: auto;
 }   
 
@@ -1106,4 +1113,42 @@ body {
 .utilisateur-line-zip {
     width: 10%;
     height: auto;
+}
+
+.utilisateur-line-btn {
+    width: 5%;
+    height: auto;
+}
+
+.utilisateur-btn {
+    margin-top: -0.5pc;
+    border-radius: 10px;
+}
+
+/* Le page employer dashboard */
+
+.section-recent-reservation {
+    height: auto;
+    margin-left: 3pc;
+    margin-right: 3pc;
+    padding-left: 1pc;
+    padding-top: 1pc;
+    padding-right: 1pc;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.recent-reservation-titre {
+    width: 100%;
+    font-size: 20px;
+    margin-bottom: 2pc;
+}
+
+.recent-reservation-header {
+    background-color:rgba(0, 0, 0, 0.2);
+    height: 3pc;
+    display: flex;
+    margin-bottom: 2pc;
+    padding-top: 0.6pc;
+    text-align: center;
 }

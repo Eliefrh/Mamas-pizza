@@ -57,7 +57,7 @@ function setArrivedReservation(reservationID) {
     const reservationForm = document.getElementById('setArrived-form');
     const reservationId = document.getElementById('setArrived-id');
     reservationId.value = reservationID;
-    reservationForm.action = 'http://localhost:29017/admin/dashboard/reservations';
+    reservationForm.action = 'http://localhost:29017/admin/reservations';
     reservationForm.submit();
 }
 
@@ -67,12 +67,12 @@ function deleteProduit(produitID) {
     const produitForm = document.getElementById('produit-form');
     const produitId = document.getElementById('produit-id');
     produitId.value = produitID;
-    produitForm.action = 'http://localhost:29017/admin/dashboard/nosproduits';
+    produitForm.action = 'http://localhost:29017/admin/nosproduits';
     produitForm.submit();
 }
 
 function editProduit(prd) {
-    window.location.href = `/admin/dashboard/editproduit/${prd}`;
+    window.location.href = `/admin/editproduit/${prd}`;
 }
 
 function paiement() {

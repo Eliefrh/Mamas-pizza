@@ -39,7 +39,9 @@ let failedMessage = false;
 let statusMessage;
 let loggedInForm;
 let panierForm;
-let privilege;
+
+let adminPrivilege;
+let employeePrivilege;
 
 app.set('views', './views');
 app.set('view engine', 'ejs');
@@ -77,8 +79,7 @@ function requireAuth(req, res, next) {
     }
 }
 function requireAdmin(req, res, next) {
-    if (req.session && req.session.email == "Admin@Mammas.ca" && req.session.userId) {
-        privilege = "admin";
+    if (adminPrivilege) {
         return next();
     } else {
         res.writeHead(301, { Location: "http://localhost:29017/login" });
@@ -86,8 +87,7 @@ function requireAdmin(req, res, next) {
     }
 }
 function requireEmploye(req, res, next) {
-    if (req.session && req.session.email == "Employe@Mammas.ca" && req.session.userId) {
-        privilege = "employé";
+    if (employeePrivilege) {
         return next();
     } else {
         res.writeHead(301, { Location: "http://localhost:29017/login" });
@@ -110,7 +110,7 @@ app.get('/', async (req, res) => {
         const db = client.db("Resto_awt");
         const produits = db.collection("Produit");
         const NosSpecial = await produits.find().limit(3).toArray();
-        res.render('pages/index', { titrePage: "Mamma's Pizza's", Authentification: isLoggedIn, LoggedInForm: loggedInForm, NosSpecial: NosSpecial, Privilege: privilege });
+        res.render('pages/index', { titrePage: "Mamma's Pizza's", Authentification: isLoggedIn, LoggedInForm: loggedInForm, NosSpecial: NosSpecial,  adminPrivilege:adminPrivilege, employeePrivilege:employeePrivilege });
     }
     catch (err) {
         console.error(err);
@@ -119,23 +119,23 @@ app.get('/', async (req, res) => {
 });
 
 app.get('/login', async (req, res) => {
-    res.render('pages/login', { titrePage: "Login", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Privilege: privilege  });
+    res.render('pages/login', { titrePage: "Login", Authentification: isLoggedIn, LoggedInForm: loggedInForm, adminPrivilege:adminPrivilege, employeePrivilege:employeePrivilege  });
 });
 
 app.get('/signup', async (req, res) => {
-    res.render('pages/signup', { titrePage: "signup", Authentification: isLoggedIn, successMessage: successMessage, failedMessage: failedMessage, StatusMessage: statusMessage, LoggedInForm: loggedInForm, Privilege: privilege  });
+    res.render('pages/signup', { titrePage: "signup", Authentification: isLoggedIn, successMessage: successMessage, failedMessage: failedMessage, StatusMessage: statusMessage, LoggedInForm: loggedInForm, adminPrivilege:adminPrivilege, employeePrivilege:employeePrivilege  });
 });
 
 app.get('/reservation', async (req, res) => {
-    res.render("pages/reservation", { titrePage: "Reservation", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Privilege: privilege  });
+    res.render("pages/reservation", { titrePage: "Reservation", Authentification: isLoggedIn, LoggedInForm: loggedInForm, adminPrivilege:adminPrivilege, employeePrivilege:employeePrivilege  });
 });
 
 app.get('/review', async (req, res) => {
-    res.render("pages/review", { titrePage: "Review", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Privilege: privilege  });
+    res.render("pages/review", { titrePage: "Review", Authentification: isLoggedIn, LoggedInForm: loggedInForm, adminPrivilege:adminPrivilege, employeePrivilege:employeePrivilege  });
 });
 
 app.get('/account', async (req, res) => {
-    res.render('pages/account', { titrePage: "Account", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Privilege: privilege  });
+    res.render('pages/account', { titrePage: "Account", Authentification: isLoggedIn, LoggedInForm: loggedInForm, adminPrivilege:adminPrivilege, employeePrivilege:employeePrivilege  });
 });
 // app.get('/paiement', async (req, res) => {
 //     res.render('pages/paiement.html', { titrePage: "Paiement" });
@@ -145,6 +145,12 @@ app.get('/logout', async (req, res) => {
     isLoggedIn = false;
     req.session.userId = null;
     req.session.email = null;
+    if (adminPrivilege) {
+        adminPrivilege = false;
+    }
+    if (employeePrivilege) {
+        employeePrivilege = false;
+    }
     res.redirect('/');
 });
 
@@ -160,7 +166,7 @@ app.get('/menu', async (req, res) => {
             categorie.add(produit.cat_nom);
         })
 
-        res.render('pages/menu', { titrePage: "Menu", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Produits: produitList, Categories: categorie, Privilege: privilege  });
+        res.render('pages/menu', { titrePage: "Menu", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Produits: produitList, Categories: categorie, adminPrivilege:adminPrivilege, employeePrivilege:employeePrivilege  });
     } catch (err) {
         console.error(err);
         res.status(500).send('Erreur get menu');
@@ -182,7 +188,7 @@ app.get('/menu/:item', async (req, res) => {
             }
         })
 
-        res.render('pages/item', { titrePage: item, Authentification: isLoggedIn, LoggedInForm: loggedInForm, Item: produitSelectionne, Privilege: privilege  });
+        res.render('pages/item', { titrePage: item, Authentification: isLoggedIn, LoggedInForm: loggedInForm, Item: produitSelectionne, adminPrivilege:adminPrivilege, employeePrivilege:employeePrivilege  });
     } catch (err) {
         console.error(err);
         res.status(500).send('Erreur get item');
@@ -197,7 +203,7 @@ app.get('/reviewList', async (req, res) => {
     reviews.forEach(element => {
         //  console.log(element);
     });
-    res.render('pages/reviewList', { titrePage: "Reviews", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Reviews: reviews, Privilege: privilege  });
+    res.render('pages/reviewList', { titrePage: "Reviews", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Reviews: reviews, adminPrivilege:adminPrivilege, employeePrivilege:employeePrivilege  });
 });
 
 app.get('/panier', async (req, res) => {
@@ -233,13 +239,13 @@ app.get('/panier', async (req, res) => {
             total: total.toFixed(2)
         }
 
-        res.render("pages/panier", { titrePage: "Panier", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Items: itemList, PanierForm: panierForm, Images: imageList, stripePublicKey: stripePublicKey, Privilege: privilege  });
+        res.render("pages/panier", { titrePage: "Panier", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Items: itemList, PanierForm: panierForm, Images: imageList, stripePublicKey: stripePublicKey, adminPrivilege:adminPrivilege, employeePrivilege:employeePrivilege  });
     } catch (err) {
         res.status(500).send('Erreur get panier');
     }
 });
 app.get('/checkout', async (req, res) => {
-    res.render("pages/checkout", { titrePage: "Chekout", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Privilege: privilege  });
+    res.render("pages/checkout", { titrePage: "Chekout", Authentification: isLoggedIn, LoggedInForm: loggedInForm, adminPrivilege:adminPrivilege, employeePrivilege:employeePrivilege});
 });
 
 // app.get('/paiement.html', (req, res) => {
@@ -347,11 +353,13 @@ app.post('/login', async (req, res) => {
 
         isLoggedIn = true;
         if (req.session.email == "Admin@Mammas.ca") {
-            privilege = "admin";
+            adminPrivilege = true;
+            employeePrivilege = false;
             res.redirect('/admin/dashboard');
         } else if (req.session.email == "Employe@Mammas.ca") {
-            privilege = "employé";
-            res.redirect('/admin/dashboard');
+            employeePrivilege = true;
+            adminPrivilege = false;
+            res.redirect('/employe/dashboard');
         }
         else {
             res.redirect('/');
@@ -608,14 +616,14 @@ app.get('/admin/dashboard', async (req, res) => {
 
         const mostCommande = await commande.find().sort({ date: -1 }).limit(4).toArray();
 
-        res.render('pages/admin/pages/dashboard', { titrePage: "Dashboard", numProduit: numProduit, numClient: numClient, numCommande: numCommande, numReservation: numReservation, mostCommande: mostCommande, Privilege: privilege });
+        res.render('pages/admin/pages/dashboard', { titrePage: "Dashboard", numProduit: numProduit, numClient: numClient, numCommande: numCommande, numReservation: numReservation, mostCommande: mostCommande, adminPrivilege:adminPrivilege, employeePrivilege:employeePrivilege});
     } catch (err) {
         console.error(err);
         res.status(500).send('Server Error');
     }
 });
 
-app.get('/admin/dashboard/nosproduits', async (req, res) => {
+app.get('/admin/nosproduits', async (req, res) => {
     try {
         const mongo = await operation.ConnectionDeMongodb();
         const db = mongo.db("Resto_awt");
@@ -626,18 +634,18 @@ app.get('/admin/dashboard/nosproduits', async (req, res) => {
         const categories = new Set();
         listProduit.forEach(function (produit) {
             categories.add(produit.cat_nom);
-        });
+        })
 
-        res.render('./pages/admin/pages/produit', { titrePage: "Nos Produit", Authentification: isLoggedIn, listProduit: listProduit, categories: categories, Privilege: privilege });
+        res.render('./pages/admin/pages/produit', { titrePage: "Nos Produit", Authentification: isLoggedIn, listProduit: listProduit, categories: categories, adminPrivilege:adminPrivilege, employeePrivilege:employeePrivilege });
     } catch (err) {
         console.log(err);
         res.status(500).send('Server Error');
     }
 });
 
-app.get('/admin/dashboard/nosproduits/editer', async (req, res) => { });
+app.get('/admin/nosproduits/editer', async (req, res) => { });
 
-app.get('/admin/dashboard/editproduit/:prd', async (req, res) => {
+app.get('/admin/editproduit/:prd', async (req, res) => {
     try {
         const id = req.params.prd;
         const mongo = await operation.ConnectionDeMongodb();
@@ -645,26 +653,26 @@ app.get('/admin/dashboard/editproduit/:prd', async (req, res) => {
 
         const produit = db.collection("Produit");
         const OneProduit = await produit.findOne({ _id: new ObjectId(id) });
-        res.render('pages/admin/pages/edit-produit', { titrePage: "Éditer ProduitS", OneProduit: OneProduit, Privilege: privilege });
+        res.render('pages/admin/pages/edit-produit', { titrePage: "Éditer ProduitS", OneProduit: OneProduit, adminPrivilege:adminPrivilege, employeePrivilege:employeePrivilege });
     } catch (err) {
         console.log(err);
         res.status(500).send('Server Error');
     }
 });
 
-app.get('/admin/dashboard/ajoutproduit', async (req, res) => {
-    res.render('pages/admin/pages/add-produit', { titrePage: "Ajout Produit", Privilege: privilege });
+app.get('/admin/ajoutproduit', async (req, res) => {
+    res.render('pages/admin/pages/add-produit', { titrePage: "Ajout Produit", adminPrivilege:adminPrivilege, employeePrivilege:employeePrivilege });
 });
 
-app.get('/admin/dashboard/livraison', async (req, res) => {
-    res.render('pages/admin/pages/livraison', { titrePage: "Livraison", Privilege: privilege });
+app.get('/admin/livraison', async (req, res) => {
+    res.render('pages/admin/pages/livraison', { titrePage: "Livraison", adminPrivilege:adminPrivilege, employeePrivilege:employeePrivilege });
 });
 
-app.get('/admin/dashboard/emporter', async (req, res) => {
-    res.render('pages/admin/pages/emporter', { titrePage: "Emportement", Privilege: privilege });
+app.get('/admin/emporter', async (req, res) => {
+    res.render('pages/admin/pages/emporter', { titrePage: "Emportement", adminPrivilege:adminPrivilege, employeePrivilege:employeePrivilege });
 });
 
-app.get('/admin/dashboard/reservations', async (req, res) => {
+app.get('/admin/reservations', async (req, res) => {
     try {
         const mongo = await operation.ConnectionDeMongodb();
         const db = mongo.db("Resto_awt");
@@ -674,26 +682,42 @@ app.get('/admin/dashboard/reservations', async (req, res) => {
 
         const listReservation = await reservation.find().toArray();
         const listClient = await client.find().toArray();
-        res.render('./pages/admin/pages/reservation', { titrePage: "Reservation", Authentification: isLoggedIn, listReservation: listReservation, listClient: listClient, Privilege: privilege });
+        res.render('./pages/admin/pages/reservation', { titrePage: "Reservation", Authentification: isLoggedIn, listReservation: listReservation, listClient: listClient, adminPrivilege:adminPrivilege, employeePrivilege:employeePrivilege });
     } catch (err) {
         console.error(err);
         res.status(500).send('Server Error');
     }
 });
 
-app.get('/admin/dashboard/logout', async (req, res) => {
+app.get('/admin/logout', async (req, res) => {
     isLoggedIn = false;
     req.session.userId = null;
     req.session.email = null;
+    if (adminPrivilege) {
+        adminPrivilege = false;
+    }
+    if (employeePrivilege) {
+        employeePrivilege = false;
+    }
     res.redirect('/');
 });
 
-app.get('/admin/dashboard/utilisateurs', async (req, res) => {
+app.get('/admin/utilisateurs', async (req, res) => {
+    try {
+        const mongo = await operation.ConnectionDeMongodb();
+        const db = mongo.db("Resto_awt");
 
-    res.render('pages/admin/pages/user-list', { titrePage: "Ajout Produit", Privilege: privilege });
+        const client = db.collection("Client");
+        
+        const listClient = await client.find().toArray();
+        res.render('pages/admin/pages/user-list', { titrePage: "Ajout Produit", adminPrivilege:adminPrivilege, employeePrivilege:employeePrivilege, listClient:listClient });
+    } catch(err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
 });
 
-app.post('/admin/dashboard/reservations', async (req, res) => {
+app.post('/admin/reservations', async (req, res) => {
     const reservationId = req.body.id;
     try {
         const client = await operation.ConnectionDeMongodb();
@@ -705,14 +729,14 @@ app.post('/admin/dashboard/reservations', async (req, res) => {
 
         const reservationUpdate = await reservation.updateOne({ _id: new ObjectId(reservationId) }, { $set: reservationObject });
 
-        res.redirect("/admin/dashboard/reservations");
+        res.redirect("/admin/reservations");
     } catch (err) {
         console.log(err);
         res.status(500).send('Server Error');
     }
 });
 
-app.post('/admin/dashboard/nosproduits', async (req, res) => {
+app.post('/admin/nosproduits', async (req, res) => {
     const produitId = req.body.id;
     try {
         const client = await operation.ConnectionDeMongodb();
@@ -720,14 +744,14 @@ app.post('/admin/dashboard/nosproduits', async (req, res) => {
         const produit = db.collection("Produit");
 
         await produit.deleteOne({ _id: new ObjectId(produitId) });
-        res.redirect("/admin/dashboard/nosproduits");
+        res.redirect("/admin/nosproduits");
     } catch (err) {
         console.log(err);
         res.status(500).send('Server Error');
     }
 });
 
-app.post('/admin/dashboard/editproduit/:prd', async (req, res) => {
+app.post('/admin/editproduit/:prd', async (req, res) => {
     const produitId = req.params.prd;
     const nom = req.body['admin-edit-nom'];
     const prix = req.body['admin-edit-prix'];
@@ -748,7 +772,7 @@ app.post('/admin/dashboard/editproduit/:prd', async (req, res) => {
             }
 
             await produit.updateOne({ _id: new ObjectId(produitId) }, { $set: productForm });
-            res.redirect("/admin/dashboard/nosproduits");
+            res.redirect("/admin/nosproduits");
         } else {
 
             new_image = "img/" + image;
@@ -762,7 +786,7 @@ app.post('/admin/dashboard/editproduit/:prd', async (req, res) => {
             }
 
             await produit.updateOne({ _id: new ObjectId(produitId) }, { $set: productForm });
-            res.redirect("/admin/dashboard/nosproduits");
+            res.redirect("/admin/nosproduits");
         }
     } catch (err) {
         console.log(err);
@@ -770,7 +794,7 @@ app.post('/admin/dashboard/editproduit/:prd', async (req, res) => {
     }
 });
 
-app.post('/admin/dashboard/ajoutproduit', async (req, res) => {
+app.post('/admin/ajoutproduit', async (req, res) => {
     const nom = req.body['ajout-nom'];
     const prix = req.body['ajout-prix'];
     const categorie = req.body['ajout-categorie'];
@@ -792,13 +816,20 @@ app.post('/admin/dashboard/ajoutproduit', async (req, res) => {
         }
 
         await produit.insertOne(productForm);
-        res.redirect('/admin/dashboard/nosproduits');
+        res.redirect('/admin/nosproduits');
     } catch (err) {
         console.log(err);
         res.status(500).send('Server Error');
     }
 });
 
+// Employer section dans le admin 
+
+app.get('/employe/dashboard', async (req, res) => {
+    res.render('./pages/admin/pages/employer-dashboard', { titrePage: "Dashboard", Authentification: isLoggedIn, adminPrivilege:adminPrivilege, employeePrivilege:employeePrivilege });
+});
+
+// Section du paiement
 let fetch;
 import('node-fetch')
     .then(nodeFetch => {
@@ -870,9 +901,3 @@ async function handleResponse(response) {
     const errorMessage = await response.text();
     throw new Error(errorMessage);
 }
-
-// Employer section dans le admin 
-
-app.get('/employe/dashboard', async (req, res) => {
-
-});
