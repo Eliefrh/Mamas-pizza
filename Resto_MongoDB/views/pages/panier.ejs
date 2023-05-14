@@ -80,8 +80,6 @@
           <div class="panier-payment-one">
             <span id="panier-payment-text">Sous-total : </span>
             <hr>
-            <span id="panier-payment-text">Livraison : </span>
-            <hr>
             <span id="panier-payment-text">GST : </span>
             <hr>
             <span id="panier-payment-text">QST : </span>
@@ -93,10 +91,6 @@
           <div class="panier-payment-two">
             <span id="panier-payment-amount">
               <%= PanierForm.sousTotal %>$
-            </span>
-            <hr>
-            <span id="panier-payment-amount">
-              0.00$
             </span>
             <hr>
             <span id="panier-payment-amount">
@@ -113,11 +107,22 @@
             <hr>
           </div>
 
+          <form id="method-form" method="post">
+            
+          </form>
           <div class="panier-payment-three">
             <div class="panier-payment-methode-commande">
               <p>Choisir votre methode de commande :</p>
-              <button id="panier-payment-emporter" onclick="emporter()">Pour emporter</button>
-              <button id="panier-payment-livraison" onclick="livraison()">Livraison</button>
+              <% if (CommandeLivraison) { %>
+                <button id="panier-payment-emporter" onclick="emporter()">Pour emporter</button>
+                <button id="panier-payment-livraison-selected" onclick="livraison()">Livraison</button>  
+              <% } else if (CommandeEmportement) { %>
+                <button id="panier-payment-emporter-selected" onclick="emporter()">Pour emporter</button>
+                <button id="panier-payment-livraison" onclick="livraison()">Livraison</button>
+              <% } else { %>
+                <button id="panier-payment-emporter" onclick="emporter()">Pour emporter</button>
+                <button id="panier-payment-livraison" onclick="livraison()">Livraison</button>
+              <% } %>
             </div>
             <button id="myButton" onclick="redirectToPayment()">Proccedez au paiement</button>
           </div>

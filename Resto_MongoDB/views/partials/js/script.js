@@ -39,11 +39,11 @@ function deleteItem(itemId) {
 }
 
 function emporter() {
-    
+    window.location.href = `/panier/emporter`;
 }
 
 function livraison() {
-
+    window.location.href = `/panier/livraison`;
 }
 
 

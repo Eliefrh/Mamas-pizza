@@ -39,6 +39,8 @@ let failedMessage = false;
 let statusMessage;
 let loggedInForm;
 let panierForm;
+let CommandeLivraison;
+let CommandeEmportement;
 
 let adminPrivilege;
 let employeePrivilege;
@@ -239,11 +241,24 @@ app.get('/panier', async (req, res) => {
             total: total.toFixed(2)
         }
 
-        res.render("pages/panier", { titrePage: "Panier", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Items: itemList, PanierForm: panierForm, Images: imageList, stripePublicKey: stripePublicKey, adminPrivilege:adminPrivilege, employeePrivilege:employeePrivilege  });
+        res.render("pages/panier", { titrePage: "Panier", Authentification: isLoggedIn, LoggedInForm: loggedInForm, Items: itemList, PanierForm: panierForm, Images: imageList, stripePublicKey: stripePublicKey, adminPrivilege:adminPrivilege, employeePrivilege:employeePrivilege, CommandeLivraison:CommandeLivraison, CommandeEmportement:CommandeEmportement});
     } catch (err) {
         res.status(500).send('Erreur get panier');
     }
 });
+
+app.get('/panier/emporter', async (req, res) => {
+    CommandeEmportement = true;
+    CommandeLivraison = false;
+    res.redirect("/panier");
+});
+
+app.get('/panier/livraison', async (req, res) => {
+    CommandeEmportement = false;
+    CommandeLivraison = true;
+    res.redirect("/panier");
+});
+
 app.get('/checkout', async (req, res) => {
     res.render("pages/checkout", { titrePage: "Chekout", Authentification: isLoggedIn, LoggedInForm: loggedInForm, adminPrivilege:adminPrivilege, employeePrivilege:employeePrivilege});
 });
@@ -915,3 +930,4 @@ async function handleResponse(response) {
     const errorMessage = await response.text();
     throw new Error(errorMessage);
 }
+

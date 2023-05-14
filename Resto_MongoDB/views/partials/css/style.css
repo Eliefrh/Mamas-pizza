@@ -582,6 +582,17 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     border-color: rgb(194, 105, 105);
 }
 
+#panier-payment-emporter-selected {
+    border-radius: 10px;
+    padding: 0.6pc;
+    margin-right: 0.5pc;
+    background-color: rgba(61, 46, 46, 0.795);
+    color: white;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    border-color: rgba(61, 46, 46, 0.795);
+}
+
+
 #panier-payment-livraison {
     margin-right: 3.5pc;
     border-radius: 10px;
@@ -590,6 +601,16 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     color: white;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     border-color: rgb(194, 105, 105);
+}
+
+#panier-payment-livraison-selected {
+    border-radius: 10px;
+    padding: 0.6pc;
+    margin-right: 0.5pc;
+    background-color: rgba(61, 46, 46, 0.795);
+    color: white;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    border-color: rgba(61, 46, 46, 0.795);
 }
 
 #myButton {
