@@ -42,22 +42,21 @@
 
 .nos-special-section {
     margin: 5pc;
-    height: 30%;
+    height: 50pc;
     background-color: rgb(185, 181, 181, 0.8);
     border-radius: 10px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .nos-special-div {
-    margin: 0 0 0 5%;
+    margin: 4pc 0 0 5pc;
     width: 90%;
-    float: none;
+    display: flex;
 }
 
 .nos-special-item {
     height: 20pc;
     width: 33.33%;
-    float: left;
     margin: 0 0 3pc 0;
     text-align: center;
 }
@@ -81,7 +80,8 @@
 }
 
 #nos-special-txt {
-    padding: 20px 0 0 20px;
+    margin-top: 5pc;
+    margin-left: 3pc;
 }
 
 #nos-special-title {
@@ -527,8 +527,9 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 
 /* Panier Page */
 
-#panier-title {
+.panier-title {
     margin: 3% 5pc 0 5pc;
+    font-size: 30px;
 }
 
 .panier-item-div {
@@ -552,18 +553,54 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 }
 
 .panier-payment-two {
-    width: 40%;
+    width: 30%;
     text-align: right;
 }
 
 .panier-payment-three {
-    width: 20%;
-    text-align: center;
+    width: 30%;
+    text-align: right;
+}
+
+.panier-payment-methode-commande {
+    margin-top: 2pc;
+    margin-right: 2pc;
 }
 
 #panier-payment-text {
     font-size: 18px;
     font-weight: lighter;
+}
+
+#panier-payment-emporter {
+    border-radius: 10px;
+    padding: 0.6pc;
+    margin-right: 0.5pc;
+    background-color: rgb(194, 105, 105);
+    color: white;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    border-color: rgb(194, 105, 105);
+}
+
+#panier-payment-livraison {
+    margin-right: 3.5pc;
+    border-radius: 10px;
+    padding: 0.6pc;
+    background-color: rgb(194, 105, 105);
+    color: white;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    border-color: rgb(194, 105, 105);
+}
+
+#myButton {
+    margin-top: 6.5pc;
+    margin-right: 7.6pc;
+    padding: 0.6pc;
+    border-radius: 10px;
+    background-color: rgb(194, 105, 105);
+    color: white;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    border-color: rgb(194, 105, 105);
 }
 
 #panier-payment-amount {
@@ -606,6 +643,11 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 #panier-item-input-image {
     width: 30%;
     height: 30%;
+}
+
+#panier-item-input-button {
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 /* Section admin */
@@ -657,17 +699,6 @@ body {
 .disabled {
     pointer-events: none;
     cursor: default;
-}
-
-#panier-item-input-button {
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-#panier-item-input-button:hover {
-    border: solid 2px rgb(194, 105, 105);
-    color: black;
-    background-color: white;
-    transition: 0.3s;
 }
 
 /* Dashboard */

@@ -39,14 +39,10 @@ function deleteItem(itemId) {
 }
 
 function emporter() {
-
+    
 }
 
-function calculerPrixLivraison(codePostal) {
-
-}
-
-function commander() {
+function livraison() {
 
 }
 

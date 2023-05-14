@@ -34,11 +34,9 @@
 
 <body>
   <%- include('../partials/navbar.ejs')%>
-    <h3 id="panier-title">
-      Panier de la commande
-      <hr>
-      </h1>
+      <span class="panier-title">Panier de la commande</span>
       <section class="panier-item-section">
+        
         <div class="panier-item-div">
           <div class="panier-item-content">
             <table class="panier-item-table">
@@ -67,7 +65,7 @@
                     <td id="panier-item-input-prix">
                       <%= Items[i].item_prix %>$
                     </td>
-                    <td><button id="panier-item-input-button"
+                    <td><button id="panier-item-input-button" class="btn-danger"
                         onclick="deleteItem('<%= Items[i]._id %>')">Supprimer</button></td>
                   </tr>
                   <% } %>
@@ -75,7 +73,10 @@
             </table>
           </div>
         </div>
+
+
         <div class="panier-payment-div">
+
           <div class="panier-payment-one">
             <span id="panier-payment-text">Sous-total : </span>
             <hr>
@@ -88,6 +89,7 @@
             <span id="panier-payment-text">Total : </span>
             <hr>
           </div>
+
           <div class="panier-payment-two">
             <span id="panier-payment-amount">
               <%= PanierForm.sousTotal %>$
@@ -110,82 +112,19 @@
             </span>
             <hr>
           </div>
+
           <div class="panier-payment-three">
-            <button id="panier-payment-emporter" onclick="emporter()">Pour emporter</button>
-            <button id="panier-payment-livraison"
-              onclick="calculerPrixLivraison('<%= LoggedInForm.cl_code_postal %>')">Livraison</button>
-            <button id="panier-payment-commander" onclick="commander()">Commande</button>
-            <!-- Commander les items (Cheatcode) -->
+            <div class="panier-payment-methode-commande">
+              <p>Choisir votre methode de commande :</p>
+              <button id="panier-payment-emporter" onclick="emporter()">Pour emporter</button>
+              <button id="panier-payment-livraison" onclick="livraison()">Livraison</button>
+            </div>
+            <button id="myButton" onclick="redirectToPayment()">Proccedez au paiement</button>
           </div>
-
-          <!-- paiement paypal
-          <div class="panier-payment-three">
-            <form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
-               Identify your business so that you can collect the payments. 
-              <input type="hidden" name="business" value="2067396@bdeb.qc.ca">
-
-               Specify a PayPal Shopping Cart Add to Cart button. 
-              <input type="hidden" name="cmd" value="_cart">
-              <input type="hidden" name="add" value="1">
-
-               Specify details about the item that buyers will purchase. 
-
-              <% for(let i=0; i < Items.length; i++) { %>
-                 <tr id="panier-item-table-content">
-                  <td><img src="<%= Images[i] %>" id="panier-item-input-image"></td>
-                  <td id="panier-item-input-nom">
-                    <%= Items[i].item_nom %>
-                  </td>
-                  <td id="panier-item-input-quantite">
-                    <%= Items[i].item_quantite %>
-                  </td>
-                  <td id="panier-item-input-prix">
-                    <%= Items[i].item_prix %>$
-                  </td>
-                </tr> 
-
-                <input type="hidden" name="item_name" value=<%=Items[i].item_nom %>>
-                <input type="hidden" name="amount" value=<%=Items[i].item_prix %>$>
-                <input type="hidden" name="currency_code" value="CAD">
-                <% } %>
-                   Display the payment button. 
-                  <button type="submit" class="btn btn-secondary">Paypal</button>
-                  <img alt="" width="1" height="1" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif">
-            </form>
-            <br>
-            <div>
-              <br>
-              <form action="https://localhost:29017/panier" method="post">
-                <button type="submit" class="btn btn-secondary">MasterCard or Visa</button>
-              </form>
-
-
-              <% for(let i=0; i < Items.length; i++) { %>
-                <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-                   Bouton PayPal 
-                  <input type="hidden" name="cmd" value="_xclick">
-                  <input type="hidden" name="business" value="2067396@bdeb.qc.ca">
-                  <input type="hidden" name="item_name" value="<%= Items[i].item_nom %>">
-                  <input type="hidden" name="amount" value="<%= Items[i].item_prix %>$">
-                  <input type="hidden" name="currency_code" value="CAD">
-                  <%if (i==1){%>
-                    <input type="image" src="https://www.paypalobjects.com/webstatic/en_US/btn/btn_buynow_pp_142x27.png"
-                      name="submit" alt="Buy now with PayPal">
-                    <%}%>
-                </form>
-                <% } %> -->
-
-          <!-- <button id="myButton">Ouvrir la page HTML</button> -->
-
-          <button id="myButton" onclick="redirectToPayment()">Click me</button>
-
-
-    </h3>
-
-
+        </section>
 
     <%- include('../partials/bootstrap.ejs')%>
-      <%- include('../partials/footer.ejs')%>
+    <%- include('../partials/footer.ejs')%>
 </body>
 
 </html>

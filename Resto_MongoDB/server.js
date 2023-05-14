@@ -869,7 +869,7 @@ async function createOrder() {
                 {
                     amount: {
                         currency_code: "USD",
-                        value: "100.00",
+                        value: "50.00",
                     },
                 },
             ],
