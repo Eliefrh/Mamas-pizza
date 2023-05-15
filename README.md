@@ -54,14 +54,12 @@ ADD DATA
 Insert document
 ```
 
-9.ADD DATA Insert document
-
-10. Ouvrir le terminal de Visual Studio Code et saisir:
+9. Ouvrir le terminal de Visual Studio Code et saisir:
 ```bash
 npx nodemon server.js
 ```
 
-11. Cliquer le lien
+10. Cliquer le lien
 ```bash
 http://localhost:29017/
 ```
