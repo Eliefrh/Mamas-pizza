@@ -16,49 +16,52 @@
             </li>
             <% if (Authentification) { %>
                 <li class="nav-item">
-                    <a class="nav-link" href="/reservation">Reservation<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/reservation">Réservation<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Rétroaction
+                        Critique
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/reviewList">Rétroactions<span class="sr-only">(current)</span></a>
-                        <a class="dropdown-item" href="/review">Faire une rétroaction<span class="sr-only">(current)</span></a>
+                        <a class="dropdown-item" href="/reviewList">Critiques<span class="sr-only">(current)</span></a>
+                        <a class="dropdown-item" href="/review">Faire une critique<span class="sr-only">(current)</span></a>
                     </div>
                 </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Votre Info
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/account">Account<span class="sr-only">(current)</span></a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item"><%= LoggedInForm.cl_prenom %> <%= LoggedInForm.cl_nom %></a>
-                    <a class="dropdown-item" href="/logout">Logout<span class="sr-only">(current)</span></a>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/panier">Panier<span class="sr-only">(current)</span></a>
-            </li>
-            <% if (adminPrivilege) { %>
-                <li class="nav-item">
-                    <a class="nav-link" href="/admin/dashboard">Tableau de bord<span class="sr-only">(current)</span></a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/account">Compte<span class="sr-only">(current)</span></a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item">
+                            <%= LoggedInForm.cl_prenom %>
+                                <%= LoggedInForm.cl_nom %>
+                        </a>
+                        <a class="dropdown-item" href="/logout">Déconnexion<span class="sr-only">(current)</span></a>
+                    </div>
                 </li>
-            <% } %>
+                <li class="nav-item">
+                    <a class="nav-link" href="/panier">Panier<span class="sr-only">(current)</span></a>
+                </li>
+                <% if (adminPrivilege) { %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/dashboard">Tableau de bord<span class="sr-only">(current)</span></a>
+                    </li>
+                    <% } %>
         </ul>
     </div>
     <% } else { %>
         <li class="nav-item">
-            <a class="nav-link" href="/reviewList">Rétroactions<span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="/reviewList">Critiques<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/login">Login<span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="/login">Se connecter<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/signup">Sign Up<span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="/signup">S'inscrire<span class="sr-only">(current)</span></a>
         </li>
         </ul>
-    </div>
-    <% } %>
+        </div>
+        <% } %>
 </nav>
