@@ -214,13 +214,16 @@ app.get('/panier', async (req, res) => {
         const db = client.db("Resto_awt");
         const items = db.collection("Items");
         const produits = db.collection("Produit");
+
         const itemList = await items.find({ cl_id: req.session.userId }).toArray();
         const produitList = await produits.find().toArray();
+
         const taxeGST = 0.05; // Taxe 5%
         const taxeQST = 0.09975; // Taxe 9.975%
 
         let imageList = new Array();
         let sousTotal = 0;
+        
         itemList.forEach(function (item) {
             produitList.forEach(function (produit) {
                 if (item.prod_id == produit._id) {
